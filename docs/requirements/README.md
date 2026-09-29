@@ -22,4 +22,6 @@ Each feature is one file: `REQ-NNN-short-name.md`. The template is [`_template.m
 
 ## Index
 
-No requirements yet. Draft the first one with `/req`.
+| ID | Title | Status |
+| --- | --- | --- |
+| [REQ-001](REQ-001-storefront-shell.md) | Storefront shell | draft |

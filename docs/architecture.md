@@ -63,7 +63,9 @@ Brand files live in [`assets/brand/`](../assets/brand/README.md). They are not w
 
 ## Runtime and tests
 
-- Package manager and framework versions are chosen when the first accepted requirement adds the app.
+- The storefront is Next.js 16 on the App Router, at the latest stable patch when the app is added. On 2026-09-29 that patch is 16.3.6. A later 16.3 stable patch replaces it. Canary and the 15 line do not.
+- Styling is Tailwind CSS 4, at the latest stable 4.3 patch when the app is added. On 2026-09-29 that patch is 4.3.3. Component layout and color live in utility classes. The only handwritten CSS file is the Tailwind entry. CSS modules, a second styling library, and per-component stylesheets do not.
+- The package manager is chosen when the first accepted requirement adds the app, and recorded on that requirement.
 - Jest is the test runner. A test name or description includes the requirement id it proves, for example `REQ-003`.
 - Tests cover storefront rules (intro session, empty states, API mapping). They do not re-test Shopify Checkout.
 - Secrets: the Storefront API public token may ship to the browser. Any Admin API token stays on the server and is out of v1 unless a requirement needs it. Tokens never go in git.

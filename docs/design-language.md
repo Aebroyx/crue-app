@@ -8,7 +8,14 @@ Minimal, heavy, and quiet. A hype sportswear store, not a fitness landing page. 
 
 The black hole is the brand's gravity: the intro, the mark, and rare full-bleed moments. After the intro, pages do not repeat stars, nebulae, or glow effects. The clothing sits on a void that is simply black or paper.
 
-References for restraint: Nike, Supreme, Yeezy. Use them as a standard of editing. Do not imitate a specific campaign, logo, or layout.
+References for restraint: Nike, Supreme, and Yeezy, as a standard of editing. Do not imitate a specific campaign, logo, or layout.
+
+Two catalog files are editing references only. They are not Crue's tokens.
+
+- The intro, and this prototype's shell, follows the SpaceX file's austerity: one black viewport, one mark, no chrome. [design-md/spacex/DESIGN.md](https://github.com/voltagent/awesome-design-md/blob/main/design-md/spacex/DESIGN.md).
+- The shop, when a later requirement specifies it, follows the Nike file's rule that photography carries the page and the interface stays quiet. [design-md/nike/DESIGN.md](https://github.com/voltagent/awesome-design-md/blob/main/design-md/nike/DESIGN.md).
+
+Do not copy either file's type, colors, logos, buttons, or layout. This document wins when they disagree.
 
 ## Mark
 
@@ -25,6 +32,7 @@ Working direction, not tokens:
 
 - Grounds are near-black and off-white. A single accent is allowed only if design names it.
 - UI type is a neutral grotesque. The wordmark may differ if design specifies it.
+- The final type family is not chosen. Until it is, use the Next.js 16 default font. Do not record that default as the brand type family.
 - No gradients used as decoration, no neon, no sporty italic headlines, no stock "athlete in golden hour" treatment as the default.
 
 ## Motion

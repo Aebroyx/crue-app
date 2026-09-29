@@ -10,7 +10,9 @@ The mark is a black hole. The wider identity is spatial: gravity, pull, depth. T
 
 People who buy running clothes as both equipment and culture. They expect a fast, sparse site on a phone and on a desktop, and they expect the object to feel considered.
 
-The merchant operates from Indonesia. Who the first customers are (domestic, international, or both), and which languages the store speaks, is still open. See [open-questions.md](open-questions.md).
+The merchant operates from Indonesia. Who the first customers are (domestic, international, or both) is still open. See [open-questions.md](open-questions.md).
+
+The storefront ships in English first. Indonesian is a later requirement. This brief does not specify that requirement.
 
 ## What v1 has to do
 
