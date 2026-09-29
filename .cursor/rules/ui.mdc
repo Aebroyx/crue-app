@@ -1,0 +1,33 @@
+---
+description: Storefront UI follows the Crue design language on mobile, desktop, and reduced motion.
+globs: "**/*.{tsx,css}"
+alwaysApply: false
+---
+
+# UI
+
+Read `docs/design-language.md` before changing a screen. That file holds the tokens. A mock loses if it conflicts with the file.
+
+- Use only colors, type, and motion named there. If a value is missing, add it to the doc after the user chooses it. Do not ship an invented palette as the brand.
+- Near-black and off-white are a direction, not a license to pick final hex values.
+- Black mark on light grounds. White mark on black grounds. Do not recolor the logo.
+- After the intro, pages stay quiet: no stars, nebulae, glow, decorative gradients, or neon.
+- Mobile and desktop are both real layouts. Same tasks. Stacked on a phone, more air and a stricter grid on a wide screen.
+- `prefers-reduced-motion: reduce` disables autoplay and non-essential motion. The intro uses its still frame.
+- Checkout is Shopify's page. Do not rebuild it.
+
+```tsx
+// Wrong: an unnamed palette treated as final
+<button className="bg-[#111111] font-[Neue Haas Grotesk]">Add</button>
+
+// Right: a token that already exists in docs/design-language.md
+<button className="bg-ground text-paper">Add</button>
+```
+
+```css
+@media (prefers-reduced-motion: reduce) {
+  .intro-video {
+    display: none;
+  }
+}
+```

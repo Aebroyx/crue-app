@@ -1,0 +1,21 @@
+---
+description: Jest tests must trace to an accepted requirement.
+globs: "**/*.{test,spec}.{ts,tsx,js,jsx}"
+alwaysApply: false
+---
+
+# Jest and requirements
+
+Jest is the runner. A test proves an acceptance criterion. It does not invent one.
+
+- Put the requirement id in the test name: `REQ-003 shows a still frame when reduced motion is set`.
+- Test storefront behavior and mappers. Do not call live Shopify, and do not assert on hosted checkout internals.
+- If a criterion cannot be tested, say so in the requirement under Tests. Do not skip silently.
+- A failing test means the code or the requirement is wrong. Do not delete the test to go green. Ask before weakening a criterion.
+
+```ts
+// Good
+it("REQ-003 does not replay the intro in the same session", () => {
+  // ...
+});
+```

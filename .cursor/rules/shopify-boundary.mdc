@@ -1,0 +1,23 @@
+---
+description: Shopify owns commerce, content, checkout, and admin. This repo is the storefront.
+alwaysApply: true
+---
+
+# Shopify boundary
+
+Decided in `docs/adr/0001-shopify-as-system-of-record.md`.
+
+- Catalog, inventory, cart, checkout, orders, customers, discounts, pages, and metaobjects live in Shopify.
+- This repo renders the storefront and calls the Storefront API. It redirects to the checkout URL Shopify returns.
+- Do not add payment SDKs, card fields, an order database, or admin screens.
+- Do not send shipment or order mail from this app. Shopify notifications do that.
+- The Storefront public token may be used by the client. An Admin API token stays server-only and out of the repo. No token is committed.
+- Content layout is code. Content values are metaobjects or pages. Do not hard-code merchant-editable copy that a metaobject is meant to hold once that requirement exists.
+
+```ts
+// Wrong: charging the card in the storefront
+await midtrans.charge(card);
+
+// Right: hand off to Shopify
+window.location.assign(cart.checkoutUrl);
+```
