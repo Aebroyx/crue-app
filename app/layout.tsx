@@ -36,7 +36,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${archivo.variable} ${plex.variable}`}>
-      <body className={`${geist.className} bg-black text-white antialiased`}>
+      <body className={`${geist.className} bg-bg text-text antialiased`}>
         {children}
       </body>
     </html>

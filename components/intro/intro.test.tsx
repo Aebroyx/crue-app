@@ -1,8 +1,8 @@
 import fs from "node:fs";
 import path from "node:path";
-import { act, cleanup, fireEvent, render, screen } from "@testing-library/react";
-import HomePage, { Storefront } from "./page";
-import { hasSeenIntro, introCookieName } from "./intro-cookie";
+import { act, cleanup, fireEvent, render, screen, within } from "@testing-library/react";
+import HomePage, { Storefront } from "@/app/page";
+import { hasSeenIntro, introCookieName } from "@/lib/intro-cookie";
 
 jest.mock("next/font/google", () => ({
   Geist: () => ({ className: "font-geist" }),
@@ -18,6 +18,14 @@ jest.mock("next/headers", () => ({
   }),
 }));
 
+function intro() {
+  const root = document.querySelector("[data-intro]");
+  if (!root) {
+    throw new Error("Intro is missing");
+  }
+  return within(root as HTMLElement);
+}
+
 describe("REQ-002 intro sequence", () => {
   beforeEach(() => {
     document.cookie = `${introCookieName}=; Path=/; Max-Age=0`;
@@ -28,11 +36,11 @@ describe("REQ-002 intro sequence", () => {
     cookieGet.mockReturnValue(undefined);
     render(await HomePage());
 
-    expect(screen.getByRole("img", { name: "CRUE mark" })).toHaveAttribute(
+    expect(intro().getByRole("img", { name: "CRUE mark" })).toHaveAttribute(
       "src",
       "/brand/crue-mark-white.png",
     );
-    expect(screen.getByRole("img", { name: "CRUE" })).toHaveAttribute(
+    expect(intro().getByRole("img", { name: "CRUE" })).toHaveAttribute(
       "src",
       "/brand/crue-wordmark-white.png",
     );
@@ -54,11 +62,11 @@ describe("REQ-002 intro sequence", () => {
     expect(screen.getByRole("button", { name: "Skip intro" })).toHaveClass(
       "md:hidden",
     );
-    expect(screen.getByText("Drop 001 / Event Horizon")).toHaveClass(
+    expect(intro().getByText("Drop 001 / Event Horizon")).toHaveClass(
       "hidden",
       "md:inline",
     );
-    expect(screen.getByText("Drop 001")).toHaveClass("md:hidden");
+    expect(intro().getByText("Drop 001")).toHaveClass("md:hidden");
   });
 
   it("REQ-002 does not render a video", () => {
@@ -75,17 +83,14 @@ describe("REQ-002 intro sequence", () => {
 
     expect(document.cookie).toContain(`${introCookieName}=1`);
     expect(screen.queryByRole("img", { name: "CRUE mark" })).not.toBeInTheDocument();
-    expect(screen.getByRole("img", { name: "Crue" })).toHaveAttribute(
-      "src",
-      expect.stringContaining("cruebh-white.svg"),
-    );
+    expect(screen.getByRole("heading", { name: /Event\s+Horizon/ })).toBeInTheDocument();
 
     cleanup();
     cookieGet.mockReturnValue({ value: "1" });
     expect(hasSeenIntro("1")).toBe(true);
     render(await HomePage());
     expect(screen.queryByRole("img", { name: "CRUE mark" })).not.toBeInTheDocument();
-    expect(screen.getByRole("img", { name: "Crue" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /Event\s+Horizon/ })).toBeInTheDocument();
   });
 
   it("REQ-002 shows the final still state when motion is reduced", () => {
@@ -100,20 +105,21 @@ describe("REQ-002 intro sequence", () => {
     expect(reduced).toMatch(/\.intro-bar\s*\{[^}]*width:\s*100%/);
 
     render(<Storefront showIntro />);
-    expect(screen.getByRole("img", { name: "CRUE mark" })).toBeInTheDocument();
-    expect(screen.getByRole("img", { name: "CRUE" })).toBeInTheDocument();
+    expect(intro().getByRole("img", { name: "CRUE mark" })).toBeInTheDocument();
+    expect(intro().getByRole("img", { name: "CRUE" })).toBeInTheDocument();
     expect(screen.getByText("Get pulled in")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Enter" })).toBeInTheDocument();
     expect(document.querySelector(".intro-bh")).toBeInTheDocument();
   });
 
   it("REQ-002 does not render the home, a product, or a sound control", () => {
-    const { container } = render(<Storefront showIntro />);
+    render(<Storefront showIntro />);
+    const overlay = intro();
 
-    expect(container.querySelector("nav")).toBeNull();
-    expect(screen.queryByRole("button", { name: /sound/i })).not.toBeInTheDocument();
-    expect(screen.queryByText("Shop Drop 001")).not.toBeInTheDocument();
-    expect(screen.queryByText("Horizon Shell Jacket")).not.toBeInTheDocument();
+    expect(overlay.queryByRole("navigation")).not.toBeInTheDocument();
+    expect(overlay.queryByRole("button", { name: /sound/i })).not.toBeInTheDocument();
+    expect(overlay.queryByText("Shop Drop 001")).not.toBeInTheDocument();
+    expect(overlay.queryByText("Horizon Shell Jacket")).not.toBeInTheDocument();
   });
 
   it("REQ-002 does not dismiss the intro when the sequence ends", () => {

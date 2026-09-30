@@ -4,8 +4,27 @@
   --color-bg-intro: #050506;
   --color-hole: #030304;
   --color-disk: #f4e9da;
+  --color-bg: #0b0b0c;
+  --color-surface: #141416;
+  --color-surface-2: #1c1c1f;
+  --color-line: #1f1f22;
   --color-text: #edece8;
+  --color-text-2: #c4c3c0;
   --color-muted: #a1a1a6;
+  --color-dim: #8a8a8f;
+}
+
+@custom-variant light (&:where([data-theme="light"], [data-theme="light"] *));
+
+[data-theme="light"] {
+  --color-bg: #f3f3f1;
+  --color-surface: #e8e8e5;
+  --color-surface-2: #dcdcd8;
+  --color-line: #d2d2ce;
+  --color-text: #0b0b0c;
+  --color-text-2: #3a3a3e;
+  --color-muted: #55555a;
+  --color-dim: #6b6b70;
 }
 
 @keyframes intro-fade {

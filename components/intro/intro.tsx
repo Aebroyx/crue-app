@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { introCookie } from "./intro-cookie";
+import { introCookie } from "@/lib/intro-cookie";
 
 export function Intro() {
   const [open, setOpen] = useState(true);
@@ -16,7 +16,10 @@ export function Intro() {
   }
 
   return (
-    <div className="fixed inset-0 z-10 overflow-hidden bg-bg-intro font-[family-name:var(--font-archivo)] text-text">
+    <div
+      data-intro
+      className="fixed inset-0 z-10 overflow-hidden bg-bg-intro font-[family-name:var(--font-archivo)] text-text"
+    >
       <div className="intro-stars-3 pointer-events-none absolute -inset-[20%] opacity-70" />
       <div className="intro-stars-2 pointer-events-none absolute -inset-[20%]" />
       <div className="intro-stars pointer-events-none absolute -inset-[10%] origin-center" />

@@ -5,7 +5,7 @@ These files are the source of truth for what Crue is and why it is built this wa
 ## Read in this order
 
 1. [product-brief.md](product-brief.md) — business context, audience, and v1 boundary.
-2. [architecture.md](architecture.md) — what this repo owns and what Shopify owns.
+2. [architecture.md](architecture.md) — what this repo owns, what Shopify owns, and how the code is laid out.
 3. [design-language.md](design-language.md) — locked tokens, type, and motion. Screen layouts live in [design/](design/DESIGN.md).
 4. [open-questions.md](open-questions.md) — facts we do not have. Do not invent answers.
 5. [adr/](adr/) — architecture decision records. Few, and only for hard-to-reverse choices.

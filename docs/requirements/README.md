@@ -27,3 +27,4 @@ Each feature is one file: `REQ-NNN-short-name.md`. The template is [`_template.m
 | [REQ-001](REQ-001-storefront-shell.md) | Storefront shell | done |
 | [REQ-002](REQ-002-intro-sequence.md) | Intro sequence | done |
 | [REQ-003](REQ-003-favicon.md) | Favicon | done |
+| [REQ-004](REQ-004-home.md) | Home | done |

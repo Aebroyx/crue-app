@@ -60,6 +60,15 @@ Brand files for screens live in [`design/brand/`](design/brand/). The earlier SV
 - Shipment and order mail: Shopify notifications, triggered when the order or fulfillment changes in Shopify.
 - Newsletter: Shopify Email, with the signup captured into Shopify customers. A tool such as Klaviyo is out of scope until a requirement replaces this.
 
+## Code layout
+
+`app/` is the route map and nothing else. A `page.tsx` is a URL. A folder under `app/` is a URL segment, so `app/products/[handle]/page.tsx` is `/products/...` when that route exists. Screens and helpers do not go in `app/`, or a folder there becomes a public path.
+
+- `components/<screen>/` holds that screen and the Jest file that proves it.
+- `lib/` holds storefront helpers that are not UI.
+- Tests for `app/page.tsx` and `app/layout.tsx` stay beside those files.
+- Import from those folders with `@/`.
+
 ## Runtime and tests
 
 - The storefront is Next.js 16 on the App Router, at the latest stable patch when the app is added. On 2026-09-29 that patch is 16.3.6. A later 16.3 stable patch replaces it. Canary and the 15 line do not.
