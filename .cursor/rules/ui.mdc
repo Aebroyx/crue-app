@@ -6,14 +6,13 @@ alwaysApply: false
 
 # UI
 
-Read `docs/design-language.md` before changing a screen. That file holds the tokens. A mock loses if it conflicts with the file.
+Read `docs/design-language.md` before changing a screen. That file holds the tokens. Screen files in `docs/design/screens/` win for layout. `docs/design-language.md` wins for tokens.
 
 - Use only colors, type, and motion named there. If a value is missing, add it to the doc after the user chooses it. Do not ship an invented palette as the brand.
-- Near-black and off-white are a direction, not a license to pick final hex values.
-- Black mark on light grounds. White mark on black grounds. Do not recolor the logo.
-- After the intro, pages stay quiet: no stars, nebulae, glow, decorative gradients, or neon.
-- Mobile and desktop are both real layouts. Same tasks. Stacked on a phone, more air and a stricter grid on a wide screen.
-- `prefers-reduced-motion: reduce` disables autoplay and non-essential motion. The intro uses its still frame. Write that with Tailwind's `motion-reduce:` variant.
+- Black mark on light grounds. White mark on black grounds. Do not recolor, stretch, or add effects to the logo.
+- Glow is only the named files `glow-dark.jpg` and `glow-light.jpg`, and only where a screen places them. After the intro, do not add stars, nebulae, decorative gradients, or neon.
+- Mobile and desktop are both real layouts. Reference widths are 390px and 1440px. Same tasks. Build them fluid.
+- `prefers-reduced-motion: reduce` skips the intro to its final state: mark, wordmark, and Enter. Write that with Tailwind's `motion-reduce:` variant.
 - Checkout is Shopify's page. Do not rebuild it.
 - Style with Tailwind utility classes, as decided in `docs/architecture.md`. The Tailwind entry file is the only handwritten CSS. Do not add a CSS module or a per-component stylesheet.
 - `docs/design-language.md` and the accepted requirement win over `design-taste-frontend` and over any third-party `DESIGN.md`.
@@ -23,5 +22,5 @@ Read `docs/design-language.md` before changing a screen. That file holds the tok
 <button className="bg-[#111111] font-[Neue Haas Grotesk]">Add</button>
 
 // Right: a token that already exists in docs/design-language.md
-<button className="bg-ground text-paper motion-reduce:transition-none">Add</button>
+<button className="bg-text text-bg motion-reduce:transition-none">Add</button>
 ```

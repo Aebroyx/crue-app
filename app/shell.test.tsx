@@ -2,11 +2,13 @@ import fs from "node:fs";
 import path from "node:path";
 import { renderToStaticMarkup } from "react-dom/server";
 import { render, screen } from "@testing-library/react";
-import HomePage from "./page";
+import { Storefront } from "./page";
 import RootLayout, { metadata } from "./layout";
 
 jest.mock("next/font/google", () => ({
   Geist: () => ({ className: "font-geist" }),
+  Archivo: () => ({ variable: "font-archivo" }),
+  IBM_Plex_Mono: () => ({ variable: "font-plex" }),
 }));
 
 const packageJson = JSON.parse(
@@ -30,7 +32,7 @@ function versionOf(spec: string) {
 
 describe("REQ-001 storefront shell", () => {
   it("REQ-001 renders the white black-hole symbol on the only route", () => {
-    render(<HomePage />);
+    render(<Storefront showIntro={false} />);
     const symbol = screen.getByRole("img", { name: "Crue" });
     expect(symbol.getAttribute("src")).toContain("cruebh-white.svg");
 
@@ -43,18 +45,18 @@ describe("REQ-001 storefront shell", () => {
   it("REQ-001 names the document and the image Crue in English", () => {
     const html = renderToStaticMarkup(
       <RootLayout>
-        <HomePage />
+        <Storefront showIntro={false} />
       </RootLayout>,
     );
 
     expect(metadata.title).toBe("Crue");
-    expect(html).toContain('<html lang="en">');
-    render(<HomePage />);
+    expect(html).toContain('lang="en"');
+    render(<Storefront showIntro={false} />);
     expect(screen.getByRole("img", { name: "Crue" })).toBeInTheDocument();
   });
 
   it("REQ-001 does not render the other brand files, a video, a link, or a button", () => {
-    const { container } = render(<HomePage />);
+    const { container } = render(<Storefront showIntro={false} />);
     const html = container.innerHTML;
 
     expect(html).not.toContain("crue-black.svg");

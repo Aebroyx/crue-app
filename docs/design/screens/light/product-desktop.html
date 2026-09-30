@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>CRUE Light Horizon Shell Jacket</title>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#F3F3F1;font-family:'Archivo',Helvetica,sans-serif;color:#0B0B0C}
+a{color:inherit}a:hover{opacity:.75}
+.add{transition:transform .2s cubic-bezier(.16,1,.3,1),background .2s}
+.add:hover{background:#2A2A2D}
+.add:active{transform:scale(.98)}
+.size:hover{border-color:#0B0B0C}
+</style>
+</helmet>
+<div style="width: 1440px; height: 1420px; background: #F3F3F1; overflow: hidden">
+
+<div style="height: 36px; background: #E8E8E5; display: flex; align-items: center; justify-content: center; gap: 32px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase">
+<span>Drop 001: Event Horizon, out now</span>
+<span style="color: #55555A">Free shipping over [THRESHOLD]</span>
+</div>
+
+<header style="height: 72px; border-bottom: 1px solid #D2D2CE; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: center; padding: 0 48px">
+<nav aria-label="Main" style="display: flex; gap: 28px; font-size: 12px; font-weight: 600; font-stretch: 112%; letter-spacing: 0.12em; text-transform: uppercase">
+<a href="home-desktop.html" style="text-decoration: none">Shop</a>
+<a href="home-desktop.html" style="text-decoration: none">Run</a>
+<a href="home-desktop.html" style="text-decoration: none">Train</a>
+<a href="home-desktop.html" style="text-decoration: none">Drops</a>
+<a href="home-desktop.html" style="text-decoration: none">Journal</a>
+</nav>
+<a href="home-desktop.html" aria-label="CRUE home" style="justify-self: center; display: flex"><img src="/brand/crue-wordmark-black.png" alt="CRUE" style="width: 104px; height: 22px; display: block"></a>
+<div style="justify-self: end; display: flex; align-items: center; gap: 8px">
+<button type="button" aria-label="Search" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: none; border: 0; color: #0B0B0C; cursor: pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="6.5"></circle><path d="M16 16l4.5 4.5"></path></svg></button>
+<button type="button" aria-label="Account" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: none; border: 0; color: #0B0B0C; cursor: pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"></path></svg></button>
+<button type="button" style="height: 44px; display: flex; align-items: center; gap: 8px; padding: 0 4px; background: none; border: 0; color: #0B0B0C; cursor: pointer; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.1em"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 8h14l-1 13H6L5 8z"></path><path d="M9 8V6a3 3 0 016 0v2"></path></svg><span>BAG ({{bagCount}})</span></button>
+</div>
+</header>
+
+<main style="display: flex; gap: 64px; padding: 32px 48px 0">
+<!-- TODO: product shots on dark seamless: front, back, detail, on body -->
+<div style="width: 840px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+<sc-for list="{{shots}}" as="s" hint-placeholder-count="4">
+<div style="height: 560px; background: {{swatchBg}}; display: flex; align-items: center; justify-content: center">
+<img src="/brand/crue-mark-black.png" alt="{{s.alt}}" style="width: 140px; height: 47px; opacity: 0.08">
+</div>
+</sc-for>
+</div>
+
+<div style="width: 440px; display: flex; flex-direction: column; gap: 32px; padding-top: 24px">
+<nav aria-label="Breadcrumb" style="display: flex; gap: 10px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #55555A">
+<a href="home-desktop.html" style="text-decoration: none">Run</a><span>/</span><a href="home-desktop.html" style="text-decoration: none">Layers</a>
+</nav>
+<div style="display: flex; flex-direction: column; gap: 14px">
+<h1 style="margin: 0; font-size: 36px; line-height: 1; font-weight: 800; font-stretch: 125%; text-transform: uppercase">Horizon Shell Jacket</h1>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 16px">[PRICE]</span>
+</div>
+<p style="margin: 0; font-size: 15px; line-height: 1.6; color: #3A3A3E; text-wrap: pretty">[Short product story: the one reason this jacket exists, in two lines.]</p>
+
+<fieldset style="border: 0; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px">
+<legend style="padding: 0; margin-bottom: 14px; font-size: 13px; color: #3A3A3E">Colour: <span style="color: #0B0B0C; font-weight: 600">{{colorName}}</span></legend>
+<div style="display: flex; gap: 12px">
+<sc-for list="{{colors}}" as="c" hint-placeholder-count="3">
+<button type="button" aria-label="{{c.name}}" aria-pressed="{{c.on}}" onClick="{{c.pick}}" style="width: 44px; height: 44px; padding: 3px; background: transparent; border: 1px solid {{c.ring}}; cursor: pointer"><span style="display: block; width: 36px; height: 36px; background: {{c.hex}}; border: 1px solid #B5B5B0"></span></button>
+</sc-for>
+</div>
+</fieldset>
+
+<fieldset aria-label="Size" style="border: 0; margin: 0; padding: 0">
+<div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px">
+<span style="font-size: 13px; color: #3A3A3E">Size</span>
+<a href="#guide" style="font-size: 13px; text-underline-offset: 4px">Size guide</a>
+</div>
+<div style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px">
+<sc-for list="{{sizes}}" as="z" hint-placeholder-count="6">
+<button class="size" type="button" aria-pressed="{{z.on}}" onClick="{{z.pick}}" style="height: 48px; border: 1px solid {{z.border}}; background: {{z.bg}}; color: {{z.fg}}; font-family: 'IBM Plex Mono', monospace; font-size: 13px; cursor: pointer">{{z.label}}</button>
+</sc-for>
+</div>
+</fieldset>
+
+<button class="add" type="button" onClick="{{add}}" style="height: 60px; border: 0; background: #0B0B0C; color: #F3F3F1; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; font-family: 'Archivo', sans-serif; font-size: 13px; font-weight: 700; font-stretch: 125%; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer">
+<span>{{addLabel}}</span>
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12h16M14 6l6 6-6 6"></path></svg>
+</button>
+
+<div style="border-top: 1px solid #CFCFCB">
+<sc-for list="{{acc}}" as="a" hint-placeholder-count="3">
+<div style="border-bottom: 1px solid #CFCFCB">
+<button type="button" aria-expanded="{{a.on}}" onClick="{{a.toggle}}" style="width: 100%; height: 56px; display: flex; align-items: center; justify-content: space-between; background: none; border: 0; padding: 0; color: #0B0B0C; font-family: 'Archivo', sans-serif; font-size: 13px; font-weight: 700; font-stretch: 112%; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer"><span>{{a.title}}</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 16px; font-weight: 400">{{a.sign}}</span></button>
+<sc-if value="{{a.on}}" hint-placeholder-val="{{false}}">
+<p style="margin: 0 0 20px; font-size: 14px; line-height: 1.6; color: #3A3A3E">{{a.body}}</p>
+</sc-if>
+</div>
+</sc-for>
+</div>
+</div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1420}}'>
+class Component extends DCLogic {
+constructor(p) { super(p); this.state = { color: 0, size: 2, open: 0, bag: 0 }; }
+renderVals() {
+const s = this.state;
+const colors = [
+{ name: 'Void Black', hex: '#0B0B0C', bg: '#E8E8E5' },
+{ name: 'Photon White', hex: '#F3F3F1', bg: '#DCDCD8' },
+{ name: 'Nebula Grey', hex: '#7C7C81', bg: '#E0E0DC' }
+];
+const sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
+const acc = [
+{ title: 'Details', body: '[Fabric, weight and key features, from your tech pack.]' },
+{ title: 'Fit', body: '[Fit notes, e.g. model height and size worn.]' },
+{ title: 'Shipping & returns', body: '[Shipping regions, delivery times and return window.]' }
+];
+return {
+bagCount: s.bag,
+colorName: colors[s.color].name,
+swatchBg: colors[s.color].bg,
+shots: [{ alt: 'Front' }, { alt: 'Back' }, { alt: 'Detail' }, { alt: 'On body' }],
+colors: colors.map((c, i) => ({ ...c, on: i === s.color, ring: i === s.color ? '#0B0B0C' : 'transparent', pick: () => this.setState({ color: i }) })),
+sizes: sizes.map((l, i) => ({ label: l, on: i === s.size, bg: i === s.size ? '#0B0B0C' : 'transparent', fg: i === s.size ? '#F3F3F1' : '#0B0B0C', border: i === s.size ? '#0B0B0C' : '#B5B5B0', pick: () => this.setState({ size: i }) })),
+acc: acc.map((a, i) => ({ ...a, on: i === s.open, sign: i === s.open ? '−' : '+', toggle: () => this.setState({ open: i === s.open ? -1 : i }) })),
+addLabel: s.bag > 0 ? 'Added: ' + sizes[s.size] + ', ' + colors[s.color].name : 'Add to bag, ' + sizes[s.size],
+add: () => this.setState({ bag: s.bag + 1 })
+};
+}
+}
+</script>
+</body>
+</html>

@@ -27,7 +27,7 @@ The storefront ships in English first. Indonesian is a later requirement. This b
 - A custom admin dashboard.
 - A custom backend for catalog, cart, checkout, or payments.
 - A second CMS.
-- A live 3D black hole. The intro is a video. A 3D scene can be specified later if the video is not enough.
+- A live 3D black hole, and a video intro. The intro is the CSS sequence in the design. A 3D scene can be specified later if that sequence is not enough.
 - Accounts, raffles, drops, loyalty, or custom courier logic, unless a later requirement adds them.
 
 ## Success for the first build

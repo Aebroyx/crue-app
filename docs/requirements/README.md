@@ -25,3 +25,4 @@ Each feature is one file: `REQ-NNN-short-name.md`. The template is [`_template.m
 | ID | Title | Status |
 | --- | --- | --- |
 | [REQ-001](REQ-001-storefront-shell.md) | Storefront shell | done |
+| [REQ-002](REQ-002-intro-sequence.md) | Intro sequence | done |

@@ -1,1 +1,221 @@
 @import "tailwindcss";
+
+@theme {
+  --color-bg-intro: #050506;
+  --color-hole: #030304;
+  --color-disk: #f4e9da;
+  --color-text: #edece8;
+  --color-muted: #a1a1a6;
+}
+
+@keyframes intro-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes intro-pull {
+  0% {
+    transform: scale(1.4);
+    opacity: 0.2;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.6);
+    opacity: 0.9;
+  }
+}
+
+@keyframes intro-twinkle {
+  from {
+    filter: brightness(0.6);
+  }
+  to {
+    filter: brightness(1.4);
+  }
+}
+
+@keyframes intro-appear {
+  from {
+    opacity: 0;
+    transform: scale(1.15);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes intro-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes intro-collapse {
+  to {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+}
+
+@keyframes intro-mark {
+  from {
+    opacity: 0;
+    transform: scale(2.2);
+    filter: blur(18px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes intro-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes intro-load {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+.intro-stars {
+  background-image:
+    radial-gradient(1px 1px at 12% 18%, #fff 50%, transparent 51%),
+    radial-gradient(1px 1px at 27% 72%, #ddd 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 41% 33%, #fff 50%, transparent 51%),
+    radial-gradient(1px 1px at 58% 86%, #bbb 50%, transparent 51%),
+    radial-gradient(1px 1px at 66% 12%, #fff 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 79% 61%, #eee 50%, transparent 51%),
+    radial-gradient(1px 1px at 88% 24%, #ccc 50%, transparent 51%),
+    radial-gradient(1px 1px at 7% 54%, #fff 50%, transparent 51%),
+    radial-gradient(1px 1px at 34% 8%, #aaa 50%, transparent 51%),
+    radial-gradient(1px 1px at 93% 83%, #fff 50%, transparent 51%),
+    radial-gradient(1px 1px at 18% 91%, #ddd 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 72% 40%, #fff 50%, transparent 51%);
+  animation:
+    intro-fade 1.2s ease-out both,
+    intro-pull 18s linear infinite;
+}
+
+.intro-stars-2 {
+  background-image:
+    radial-gradient(1px 1px at 10% 20%, #fff 50%, transparent 51%),
+    radial-gradient(1px 1px at 35% 65%, #ccc 50%, transparent 51%),
+    radial-gradient(1px 1px at 55% 15%, #eee 50%, transparent 51%),
+    radial-gradient(1px 1px at 80% 45%, #bbb 50%, transparent 51%),
+    radial-gradient(1px 1px at 65% 85%, #fff 50%, transparent 51%),
+    radial-gradient(1px 1px at 20% 90%, #ddd 50%, transparent 51%),
+    radial-gradient(1px 1px at 92% 75%, #aaa 50%, transparent 51%);
+  background-size: 190px 170px;
+  animation:
+    intro-fade 1.6s 0.2s ease-out both,
+    intro-pull 26s linear infinite,
+    intro-twinkle 3.2s ease-in-out infinite alternate;
+}
+
+.intro-stars-3 {
+  background-image:
+    radial-gradient(0.8px 0.8px at 15% 30%, #999 50%, transparent 51%),
+    radial-gradient(0.8px 0.8px at 45% 80%, #bbb 50%, transparent 51%),
+    radial-gradient(0.8px 0.8px at 70% 10%, #999 50%, transparent 51%),
+    radial-gradient(0.8px 0.8px at 85% 55%, #aaa 50%, transparent 51%),
+    radial-gradient(0.8px 0.8px at 30% 50%, #888 50%, transparent 51%);
+  background-size: 97px 83px;
+  animation:
+    intro-fade 2s 0.4s ease-out both,
+    intro-pull 40s linear infinite;
+}
+
+.intro-halo {
+  animation: intro-appear 1.6s 0.3s ease-out both;
+}
+
+.intro-bh {
+  animation:
+    intro-appear 1.4s 0.3s ease-out both,
+    intro-collapse 1.3s 2.4s cubic-bezier(0.7, 0, 0.2, 1) forwards;
+}
+
+.intro-disk {
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    var(--color-disk) 40deg,
+    transparent 110deg,
+    var(--color-disk) 180deg,
+    transparent 250deg,
+    var(--color-disk) 310deg,
+    transparent 360deg
+  );
+  mask: radial-gradient(
+    circle,
+    transparent 22%,
+    #000 24%,
+    #000 42%,
+    transparent 70%
+  );
+  animation: intro-spin 14s linear infinite;
+}
+
+.intro-mark {
+  animation: intro-mark 1.6s 2.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.intro-rise-1 {
+  animation: intro-rise 1s 3.6s ease-out both;
+}
+
+.intro-rise-2 {
+  animation: intro-rise 1s 3.9s ease-out both;
+}
+
+.intro-rise-3 {
+  animation: intro-rise 1s 4.3s ease-out both;
+}
+
+.intro-bar {
+  width: 0;
+  animation: intro-load 4.3s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-stars,
+  .intro-stars-2,
+  .intro-stars-3,
+  .intro-halo,
+  .intro-disk,
+  .intro-mark,
+  .intro-rise-1,
+  .intro-rise-2,
+  .intro-rise-3,
+  .intro-bar {
+    animation: none;
+  }
+
+  .intro-bh {
+    display: none;
+  }
+
+  .intro-bar {
+    width: 100%;
+  }
+}

@@ -46,15 +46,14 @@ V1 content is Shopify pages plus metaobjects exposed to the Storefront API. A se
 
 ## Intro sequence
 
-On the first view of a session, the site shows a fullscreen black-hole video before home.
+On the first visit, the site shows a fullscreen CSS sequence before the page underneath. It is not a video and not a WebGL scene. The timeline is in [design/DESIGN.md](design/DESIGN.md). The screens are [design/screens/dark/intro-desktop.html](design/screens/dark/intro-desktop.html) and [design/screens/dark/intro-mobile.html](design/screens/dark/intro-mobile.html).
 
-- The video is an asset, not a WebGL scene.
-- A control skips it.
-- `prefers-reduced-motion` shows a still frame instead of the video.
-- Refreshing inside the same session does not play it again.
-- The asset, poster frame, and exact timing are specified in the intro requirement once the files exist.
+- A control skips it. It does not dismiss itself. It waits for Enter.
+- `prefers-reduced-motion` shows the final still state: the mark, the wordmark, and Enter.
+- A cookie remembers that the visitor has seen it. A refresh does not play it again.
+- There is no separate intro video or poster file.
 
-Brand files live in [`assets/brand/`](../assets/brand/README.md). They are not wired into a page until a requirement says so.
+Brand files for screens live in [`design/brand/`](design/brand/). The earlier SVGs live in [`assets/brand/`](../assets/brand/README.md). They are not wired into a page until a requirement says so.
 
 ## Email
 

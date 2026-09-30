@@ -15,7 +15,7 @@ Building a backend would mean owning catalog, inventory, orders, payments, and a
 2. Shopify remains the CMS (pages and metaobjects), the cart and checkout host, the order system, and the only admin in v1.
 3. Payment gateways are installed in Shopify Admin. This codebase does not integrate them.
 4. Transactional email stays on Shopify notifications. Newsletter v1 is Shopify Email.
-5. The intro is a one-shot fullscreen video with a skip control and a still frame when the visitor prefers reduced motion. A live 3D black hole is not part of v1.
+5. The intro is a one-shot fullscreen CSS sequence, specified in [design/DESIGN.md](../design/DESIGN.md). It is not a video and not a live 3D scene. A control skips it. `prefers-reduced-motion` shows the final still state.
 
 ## Consequences
 
@@ -31,4 +31,5 @@ Building a backend would mean owning catalog, inventory, orders, payments, and a
 - A Liquid theme. Rejected because the landing sequence and visual system need a freer frontend.
 - A custom API plus a custom admin. Rejected for v1 as duplicate operations software.
 - Sanity (or similar) beside Shopify. Rejected for v1. Metaobjects are enough while editing stays occasional.
-- A real-time 3D black hole as the first intro. Rejected for v1 in favor of a video that holds up on phones. 3D can be a later requirement.
+- A real-time 3D black hole as the first intro. Rejected. The designed CSS sequence holds up on phones. 3D can be a later requirement.
+- A fullscreen video. The earlier choice, replaced on 2026-09-30 by the CSS sequence in the design screens.
