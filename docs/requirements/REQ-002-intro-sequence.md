@@ -25,7 +25,7 @@ Visitor.
 - `prefers-reduced-motion: reduce` skips to the final still state: mark, wordmark, "Get pulled in", the progress line full, and Enter and Skip. The black hole is not shown. Nothing in the intro autoplays.
 - Archivo and IBM Plex Mono for this screen, loaded with `next/font/google` as in [design-language.md](../design-language.md). Square corners. Tailwind utilities for layout. Keyframes live in the Tailwind entry, not in a CSS module.
 - The page under the intro stays the REQ-001 shell.
-- A favicon for the whole app. It is the white black-hole mark file [`crue-mark-white.png`](../design/brand/crue-mark-white.png), with that file's transparent background. No added tile or border. The document title stays `Crue`.
+- The on-page intro mark stays [`crue-mark-white.png`](../design/brand/crue-mark-white.png). The document icon is [REQ-003](REQ-003-favicon.md). The document title stays `Crue`.
 
 ## Out of scope
 
@@ -48,7 +48,7 @@ A visitor opens `/` with no intro cookie.
 - A visitor who prefers reduced motion sees the final still state immediately, including Enter and Skip, and does not see the black hole animation.
 - Phone and desktop show the same sequence. The words differ as in **In scope**. A wide screen has more air. A phone still fits without a horizontal scrollbar.
 - The document language stays English. There is no Indonesian string.
-- The browser tab shows the white black-hole mark PNG on its transparent background. Phone and desktop use that same icon. The document title stays `Crue`.
+- The document title stays `Crue`. The tab icon is [REQ-003](REQ-003-favicon.md).
 
 ## Acceptance criteria
 
@@ -58,7 +58,6 @@ A visitor opens `/` with no intro cookie.
 4. `REQ-002` removes the intro when Skip or Enter is activated, sets a cookie, and does not show the intro on the next load. The page underneath is the REQ-001 shell.
 5. `REQ-002` under `prefers-reduced-motion: reduce` shows the mark, the wordmark, "Get pulled in", and Enter without the black-hole animation.
 6. `REQ-002` does not render the home, a product, a nav, or a sound control.
-7. `REQ-002` sets the favicon to the white black-hole mark PNG with its transparent background, and keeps the document title `Crue`.
 
 ## Edge cases
 
@@ -66,7 +65,6 @@ A visitor opens `/` with no intro cookie.
 - A visitor who has the cookie never sees the sequence, including when they prefer reduced motion.
 - The intro does not auto-dismiss when the progress line finishes.
 - Keyboard users can reach Skip and Enter and activate them.
-- The favicon is the mark PNG itself. Do not place it on a black square, and do not add a border.
 
 ## Shopify boundary
 
@@ -82,7 +80,6 @@ Jest, with the requirement id in the name:
 - `REQ-002 dismisses the intro and keeps it dismissed`
 - `REQ-002 shows the final still state when motion is reduced`
 - `REQ-002 does not render the home, a product, or a sound control`
-- `REQ-002 sets the favicon to the white black-hole mark`
 
 The keyframe timeline (star layers, collapse at 2.4s, mark at 2.8s, hold after 4.3s) is a browser check at a phone width and a desktop width. Jest in this requirement does not prove frame timing.
 

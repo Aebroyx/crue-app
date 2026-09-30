@@ -1,7 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
 import { act, cleanup, fireEvent, render, screen } from "@testing-library/react";
-import { metadata } from "./layout";
 import HomePage, { Storefront } from "./page";
 import { hasSeenIntro, introCookieName } from "./intro-cookie";
 
@@ -115,28 +114,6 @@ describe("REQ-002 intro sequence", () => {
     expect(screen.queryByRole("button", { name: /sound/i })).not.toBeInTheDocument();
     expect(screen.queryByText("Shop Drop 001")).not.toBeInTheDocument();
     expect(screen.queryByText("Horizon Shell Jacket")).not.toBeInTheDocument();
-  });
-
-  it("REQ-002 sets the favicon to the white black-hole mark", async () => {
-    const sharp = require("sharp") as typeof import("sharp");
-    const icons = metadata.icons as { icon: string };
-    const file = path.join(process.cwd(), "public", icons.icon);
-    const { data, info } = await sharp(file).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
-
-    expect(icons.icon).toBe("/brand/crue-mark-white.png");
-    expect(metadata.title).toBe("Crue");
-    expect(fs.existsSync(path.join(process.cwd(), "app/icon.png"))).toBe(false);
-
-    let transparent = 0;
-    let white = 0;
-    for (let i = 0; i < data.length; i += info.channels) {
-      if (data[i + 3] === 0) transparent += 1;
-      if (data[i] > 240 && data[i + 1] > 240 && data[i + 2] > 240 && data[i + 3] > 240) {
-        white += 1;
-      }
-    }
-    expect(transparent).toBeGreaterThan(0);
-    expect(white).toBeGreaterThan(100);
   });
 
   it("REQ-002 does not dismiss the intro when the sequence ends", () => {
