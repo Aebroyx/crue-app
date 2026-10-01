@@ -1,0 +1,1456 @@
+{
+  "products": [
+    {
+      "id": "horizon-shell-jacket",
+      "handle": "horizon-shell-jacket",
+      "title": "Horizon Shell Jacket",
+      "description": "[Short product story: the one reason this jacket exists, in two lines.]",
+      "options": [
+        {
+          "name": "Colour",
+          "values": [
+            "Void Black",
+            "Photon White",
+            "Nebula Grey"
+          ]
+        },
+        {
+          "name": "Size",
+          "values": [
+            "XS",
+            "S",
+            "M",
+            "L",
+            "XL",
+            "XXL"
+          ]
+        }
+      ],
+      "variants": [
+        {
+          "id": "horizon-shell-jacket-void-black-xs",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Void Black"
+            },
+            {
+              "name": "Size",
+              "value": "XS"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "horizon-shell-jacket-void-black-s",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Void Black"
+            },
+            {
+              "name": "Size",
+              "value": "S"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "horizon-shell-jacket-void-black-m",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Void Black"
+            },
+            {
+              "name": "Size",
+              "value": "M"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "horizon-shell-jacket-void-black-l",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Void Black"
+            },
+            {
+              "name": "Size",
+              "value": "L"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "horizon-shell-jacket-void-black-xl",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Void Black"
+            },
+            {
+              "name": "Size",
+              "value": "XL"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "horizon-shell-jacket-void-black-xxl",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Void Black"
+            },
+            {
+              "name": "Size",
+              "value": "XXL"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "horizon-shell-jacket-photon-white-xs",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Photon White"
+            },
+            {
+              "name": "Size",
+              "value": "XS"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "horizon-shell-jacket-photon-white-s",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Photon White"
+            },
+            {
+              "name": "Size",
+              "value": "S"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "horizon-shell-jacket-photon-white-m",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Photon White"
+            },
+            {
+              "name": "Size",
+              "value": "M"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "horizon-shell-jacket-photon-white-l",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Photon White"
+            },
+            {
+              "name": "Size",
+              "value": "L"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "horizon-shell-jacket-photon-white-xl",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Photon White"
+            },
+            {
+              "name": "Size",
+              "value": "XL"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "horizon-shell-jacket-photon-white-xxl",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Photon White"
+            },
+            {
+              "name": "Size",
+              "value": "XXL"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "horizon-shell-jacket-nebula-grey-xs",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Nebula Grey"
+            },
+            {
+              "name": "Size",
+              "value": "XS"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "horizon-shell-jacket-nebula-grey-s",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Nebula Grey"
+            },
+            {
+              "name": "Size",
+              "value": "S"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "horizon-shell-jacket-nebula-grey-m",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Nebula Grey"
+            },
+            {
+              "name": "Size",
+              "value": "M"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "horizon-shell-jacket-nebula-grey-l",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Nebula Grey"
+            },
+            {
+              "name": "Size",
+              "value": "L"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "horizon-shell-jacket-nebula-grey-xl",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Nebula Grey"
+            },
+            {
+              "name": "Size",
+              "value": "XL"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "horizon-shell-jacket-nebula-grey-xxl",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Nebula Grey"
+            },
+            {
+              "name": "Size",
+              "value": "XXL"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        }
+      ],
+      "images": [
+        {
+          "alt": "Front"
+        },
+        {
+          "alt": "Back"
+        },
+        {
+          "alt": "Detail"
+        },
+        {
+          "alt": "On body"
+        }
+      ],
+      "accordions": [
+        {
+          "title": "Details",
+          "body": "[Fabric, weight and key features, from your tech pack.]"
+        },
+        {
+          "title": "Fit",
+          "body": "[Fit notes, e.g. model height and size worn.]"
+        },
+        {
+          "title": "Shipping & returns",
+          "body": "[Shipping regions, delivery times and return window.]"
+        }
+      ]
+    },
+    {
+      "id": "singularity-run-tee",
+      "handle": "singularity-run-tee",
+      "title": "Singularity Run Tee",
+      "description": "[Short product story: the one reason this jacket exists, in two lines.]",
+      "options": [
+        {
+          "name": "Colour",
+          "values": [
+            "Void Black",
+            "Photon White",
+            "Nebula Grey"
+          ]
+        },
+        {
+          "name": "Size",
+          "values": [
+            "XS",
+            "S",
+            "M",
+            "L",
+            "XL",
+            "XXL"
+          ]
+        }
+      ],
+      "variants": [
+        {
+          "id": "singularity-run-tee-void-black-xs",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Void Black"
+            },
+            {
+              "name": "Size",
+              "value": "XS"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "singularity-run-tee-void-black-s",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Void Black"
+            },
+            {
+              "name": "Size",
+              "value": "S"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "singularity-run-tee-void-black-m",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Void Black"
+            },
+            {
+              "name": "Size",
+              "value": "M"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "singularity-run-tee-void-black-l",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Void Black"
+            },
+            {
+              "name": "Size",
+              "value": "L"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "singularity-run-tee-void-black-xl",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Void Black"
+            },
+            {
+              "name": "Size",
+              "value": "XL"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "singularity-run-tee-void-black-xxl",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Void Black"
+            },
+            {
+              "name": "Size",
+              "value": "XXL"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "singularity-run-tee-photon-white-xs",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Photon White"
+            },
+            {
+              "name": "Size",
+              "value": "XS"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "singularity-run-tee-photon-white-s",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Photon White"
+            },
+            {
+              "name": "Size",
+              "value": "S"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "singularity-run-tee-photon-white-m",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Photon White"
+            },
+            {
+              "name": "Size",
+              "value": "M"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "singularity-run-tee-photon-white-l",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Photon White"
+            },
+            {
+              "name": "Size",
+              "value": "L"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "singularity-run-tee-photon-white-xl",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Photon White"
+            },
+            {
+              "name": "Size",
+              "value": "XL"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "singularity-run-tee-photon-white-xxl",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Photon White"
+            },
+            {
+              "name": "Size",
+              "value": "XXL"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "singularity-run-tee-nebula-grey-xs",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Nebula Grey"
+            },
+            {
+              "name": "Size",
+              "value": "XS"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "singularity-run-tee-nebula-grey-s",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Nebula Grey"
+            },
+            {
+              "name": "Size",
+              "value": "S"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "singularity-run-tee-nebula-grey-m",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Nebula Grey"
+            },
+            {
+              "name": "Size",
+              "value": "M"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "singularity-run-tee-nebula-grey-l",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Nebula Grey"
+            },
+            {
+              "name": "Size",
+              "value": "L"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "singularity-run-tee-nebula-grey-xl",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Nebula Grey"
+            },
+            {
+              "name": "Size",
+              "value": "XL"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "singularity-run-tee-nebula-grey-xxl",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Nebula Grey"
+            },
+            {
+              "name": "Size",
+              "value": "XXL"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        }
+      ],
+      "images": [
+        {
+          "alt": "Front"
+        },
+        {
+          "alt": "Back"
+        },
+        {
+          "alt": "Detail"
+        },
+        {
+          "alt": "On body"
+        }
+      ],
+      "accordions": [
+        {
+          "title": "Details",
+          "body": "[Fabric, weight and key features, from your tech pack.]"
+        },
+        {
+          "title": "Fit",
+          "body": "[Fit notes, e.g. model height and size worn.]"
+        },
+        {
+          "title": "Shipping & returns",
+          "body": "[Shipping regions, delivery times and return window.]"
+        }
+      ]
+    },
+    {
+      "id": "orbit-half-tight",
+      "handle": "orbit-half-tight",
+      "title": "Orbit Half Tight",
+      "description": "[Short product story: the one reason this jacket exists, in two lines.]",
+      "options": [
+        {
+          "name": "Colour",
+          "values": [
+            "Void Black",
+            "Photon White",
+            "Nebula Grey"
+          ]
+        },
+        {
+          "name": "Size",
+          "values": [
+            "XS",
+            "S",
+            "M",
+            "L",
+            "XL",
+            "XXL"
+          ]
+        }
+      ],
+      "variants": [
+        {
+          "id": "orbit-half-tight-void-black-xs",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Void Black"
+            },
+            {
+              "name": "Size",
+              "value": "XS"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "orbit-half-tight-void-black-s",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Void Black"
+            },
+            {
+              "name": "Size",
+              "value": "S"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "orbit-half-tight-void-black-m",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Void Black"
+            },
+            {
+              "name": "Size",
+              "value": "M"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "orbit-half-tight-void-black-l",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Void Black"
+            },
+            {
+              "name": "Size",
+              "value": "L"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "orbit-half-tight-void-black-xl",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Void Black"
+            },
+            {
+              "name": "Size",
+              "value": "XL"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "orbit-half-tight-void-black-xxl",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Void Black"
+            },
+            {
+              "name": "Size",
+              "value": "XXL"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "orbit-half-tight-photon-white-xs",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Photon White"
+            },
+            {
+              "name": "Size",
+              "value": "XS"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "orbit-half-tight-photon-white-s",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Photon White"
+            },
+            {
+              "name": "Size",
+              "value": "S"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "orbit-half-tight-photon-white-m",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Photon White"
+            },
+            {
+              "name": "Size",
+              "value": "M"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "orbit-half-tight-photon-white-l",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Photon White"
+            },
+            {
+              "name": "Size",
+              "value": "L"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "orbit-half-tight-photon-white-xl",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Photon White"
+            },
+            {
+              "name": "Size",
+              "value": "XL"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "orbit-half-tight-photon-white-xxl",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Photon White"
+            },
+            {
+              "name": "Size",
+              "value": "XXL"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "orbit-half-tight-nebula-grey-xs",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Nebula Grey"
+            },
+            {
+              "name": "Size",
+              "value": "XS"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "orbit-half-tight-nebula-grey-s",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Nebula Grey"
+            },
+            {
+              "name": "Size",
+              "value": "S"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "orbit-half-tight-nebula-grey-m",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Nebula Grey"
+            },
+            {
+              "name": "Size",
+              "value": "M"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "orbit-half-tight-nebula-grey-l",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Nebula Grey"
+            },
+            {
+              "name": "Size",
+              "value": "L"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "orbit-half-tight-nebula-grey-xl",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Nebula Grey"
+            },
+            {
+              "name": "Size",
+              "value": "XL"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "orbit-half-tight-nebula-grey-xxl",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Nebula Grey"
+            },
+            {
+              "name": "Size",
+              "value": "XXL"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        }
+      ],
+      "images": [
+        {
+          "alt": "Front"
+        },
+        {
+          "alt": "Back"
+        },
+        {
+          "alt": "Detail"
+        },
+        {
+          "alt": "On body"
+        }
+      ],
+      "accordions": [
+        {
+          "title": "Details",
+          "body": "[Fabric, weight and key features, from your tech pack.]"
+        },
+        {
+          "title": "Fit",
+          "body": "[Fit notes, e.g. model height and size worn.]"
+        },
+        {
+          "title": "Shipping & returns",
+          "body": "[Shipping regions, delivery times and return window.]"
+        }
+      ]
+    },
+    {
+      "id": "accretion-split-short",
+      "handle": "accretion-split-short",
+      "title": "Accretion Split Short",
+      "description": "[Short product story: the one reason this jacket exists, in two lines.]",
+      "options": [
+        {
+          "name": "Colour",
+          "values": [
+            "Void Black",
+            "Photon White",
+            "Nebula Grey"
+          ]
+        },
+        {
+          "name": "Size",
+          "values": [
+            "XS",
+            "S",
+            "M",
+            "L",
+            "XL",
+            "XXL"
+          ]
+        }
+      ],
+      "variants": [
+        {
+          "id": "accretion-split-short-void-black-xs",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Void Black"
+            },
+            {
+              "name": "Size",
+              "value": "XS"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "accretion-split-short-void-black-s",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Void Black"
+            },
+            {
+              "name": "Size",
+              "value": "S"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "accretion-split-short-void-black-m",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Void Black"
+            },
+            {
+              "name": "Size",
+              "value": "M"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "accretion-split-short-void-black-l",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Void Black"
+            },
+            {
+              "name": "Size",
+              "value": "L"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "accretion-split-short-void-black-xl",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Void Black"
+            },
+            {
+              "name": "Size",
+              "value": "XL"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "accretion-split-short-void-black-xxl",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Void Black"
+            },
+            {
+              "name": "Size",
+              "value": "XXL"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "accretion-split-short-photon-white-xs",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Photon White"
+            },
+            {
+              "name": "Size",
+              "value": "XS"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "accretion-split-short-photon-white-s",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Photon White"
+            },
+            {
+              "name": "Size",
+              "value": "S"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "accretion-split-short-photon-white-m",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Photon White"
+            },
+            {
+              "name": "Size",
+              "value": "M"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "accretion-split-short-photon-white-l",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Photon White"
+            },
+            {
+              "name": "Size",
+              "value": "L"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "accretion-split-short-photon-white-xl",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Photon White"
+            },
+            {
+              "name": "Size",
+              "value": "XL"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "accretion-split-short-photon-white-xxl",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Photon White"
+            },
+            {
+              "name": "Size",
+              "value": "XXL"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "accretion-split-short-nebula-grey-xs",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Nebula Grey"
+            },
+            {
+              "name": "Size",
+              "value": "XS"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "accretion-split-short-nebula-grey-s",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Nebula Grey"
+            },
+            {
+              "name": "Size",
+              "value": "S"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "accretion-split-short-nebula-grey-m",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Nebula Grey"
+            },
+            {
+              "name": "Size",
+              "value": "M"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "accretion-split-short-nebula-grey-l",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Nebula Grey"
+            },
+            {
+              "name": "Size",
+              "value": "L"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "accretion-split-short-nebula-grey-xl",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Nebula Grey"
+            },
+            {
+              "name": "Size",
+              "value": "XL"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "accretion-split-short-nebula-grey-xxl",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Nebula Grey"
+            },
+            {
+              "name": "Size",
+              "value": "XXL"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        }
+      ],
+      "images": [
+        {
+          "alt": "Front"
+        },
+        {
+          "alt": "Back"
+        },
+        {
+          "alt": "Detail"
+        },
+        {
+          "alt": "On body"
+        }
+      ],
+      "accordions": [
+        {
+          "title": "Details",
+          "body": "[Fabric, weight and key features, from your tech pack.]"
+        },
+        {
+          "title": "Fit",
+          "body": "[Fit notes, e.g. model height and size worn.]"
+        },
+        {
+          "title": "Shipping & returns",
+          "body": "[Shipping regions, delivery times and return window.]"
+        }
+      ]
+    }
+  ]
+}

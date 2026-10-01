@@ -24,7 +24,7 @@ export function Footer({ theme = "light" }: { theme?: Theme }) {
         </nav>
       </div>
       <div className="flex items-end justify-between gap-6">
-        <Wordmark className="h-[74px] w-full max-w-[350px] md:h-16 md:w-[300px]" />
+        <Wordmark className="h-10 w-[188px] shrink-0 md:h-16 md:w-[300px]" />
         <div className="flex flex-col items-end gap-4">
           <ThemeSwitch theme={theme} />
           <span className="font-[family-name:var(--font-plex)] text-[10px] tracking-[0.16em] text-dim md:text-[11px]">

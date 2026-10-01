@@ -8,6 +8,8 @@
   --color-surface: #e8e8e5;
   --color-surface-2: #dcdcd8;
   --color-line: #d2d2ce;
+  --color-line-strong: #cfcfcb;
+  --color-control-border: #b5b5b0;
   --color-text: #0b0b0c;
   --color-text-2: #3a3a3e;
   --color-muted: #55555a;
@@ -21,6 +23,8 @@
   --color-surface: #141416;
   --color-surface-2: #1c1c1f;
   --color-line: #1f1f22;
+  --color-line-strong: #2a2a2d;
+  --color-control-border: #3a3a3e;
   --color-text: #edece8;
   --color-text-2: #c4c3c0;
   --color-muted: #a1a1a6;

@@ -31,3 +31,5 @@ Each feature is one file: `REQ-NNN-short-name.md`. The template is [`_template.m
 | [REQ-005](REQ-005-theme.md) | Theme switch | done |
 | [REQ-006](REQ-006-benzin.md) | Benzin | done |
 | [REQ-007](REQ-007-navbar-footer.md) | Navbar and footer | done |
+| [REQ-008](REQ-008-product-page.md) | Product page | done |
+| [REQ-009](REQ-009-home-and-intro-links.md) | Home and intro links | done |

@@ -58,7 +58,7 @@ describe("REQ-004 home", () => {
       .readdirSync(path.join(process.cwd(), "src/app"), { recursive: true })
       .filter((entry) => String(entry).endsWith("page.tsx"));
 
-    expect(pages).toEqual(["page.tsx"]);
+    expect(pages.map(String).sort()).toEqual(["page.tsx", "products/[handle]/page.tsx"]);
     expect(container.querySelector("video")).toBeNull();
   });
 

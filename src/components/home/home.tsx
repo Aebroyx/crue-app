@@ -1,30 +1,21 @@
 import { ArrowRight } from "lucide-react";
 import { Footer } from "@/components/footer/footer";
 import { Navbar } from "@/components/navbar/navbar";
+import { catalogProducts } from "@/lib/catalog";
 import type { Theme } from "@/lib/theme-cookie";
 
-const products = [
-  {
-    name: "Horizon Shell Jacket",
-    meta: "Void Black, 3 colours",
-    metaShort: "Void Black",
-  },
-  {
-    name: "Singularity Run Tee",
-    meta: "Photon White, 3 colours",
-    metaShort: "Photon White",
-  },
-  {
-    name: "Orbit Half Tight",
-    meta: "Void Black, 2 colours",
-    metaShort: "Void Black",
-  },
-  {
-    name: "Accretion Split Short",
-    meta: "Nebula Grey, 3 colours",
-    metaShort: "Nebula Grey",
-  },
-];
+const colourLine: Record<string, { meta: string; metaShort: string }> = {
+  "Horizon Shell Jacket": { meta: "Void Black, 3 colours", metaShort: "Void Black" },
+  "Singularity Run Tee": { meta: "Photon White, 3 colours", metaShort: "Photon White" },
+  "Orbit Half Tight": { meta: "Void Black, 2 colours", metaShort: "Void Black" },
+  "Accretion Split Short": { meta: "Nebula Grey, 3 colours", metaShort: "Nebula Grey" },
+};
+
+const products = catalogProducts().map((product) => ({
+  name: product.title,
+  handle: product.handle,
+  ...colourLine[product.title],
+}));
 
 const display =
   "font-extrabold uppercase leading-[0.9] tracking-[-0.02em]";
@@ -85,9 +76,12 @@ export function Home({ theme = "light" }: { theme?: Theme }) {
               </div>
               <div className="flex flex-col gap-1 md:flex-row md:justify-between md:gap-3">
                 <div className="flex flex-col gap-1 md:gap-1.5">
-                  <span className="text-[12px] font-bold tracking-[0.03em] uppercase md:text-[14px] md:tracking-[0.04em]">
+                  <a
+                    href={`/products/${product.handle}`}
+                    className="text-[12px] font-bold tracking-[0.03em] uppercase md:text-[14px] md:tracking-[0.04em]"
+                  >
                     {product.name}
-                  </span>
+                  </a>
                   <span className="text-[12px] text-muted md:hidden">{product.metaShort}</span>
                   <span className="hidden text-[13px] text-muted md:inline">{product.meta}</span>
                 </div>
