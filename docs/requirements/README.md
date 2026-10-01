@@ -29,3 +29,4 @@ Each feature is one file: `REQ-NNN-short-name.md`. The template is [`_template.m
 | [REQ-003](REQ-003-favicon.md) | Favicon | done |
 | [REQ-004](REQ-004-home.md) | Home | done |
 | [REQ-005](REQ-005-theme.md) | Theme switch | done |
+| [REQ-006](REQ-006-benzin.md) | Benzin | done |

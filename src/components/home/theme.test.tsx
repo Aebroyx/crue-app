@@ -4,10 +4,10 @@ import RootLayout from "@/app/layout";
 import { Storefront } from "@/app/page";
 import { themeCookieName, themeFromCookie } from "@/lib/theme-cookie";
 
-jest.mock("next/font/google", () => ({
-  Geist: () => ({ className: "font-geist" }),
-  Archivo: () => ({ variable: "font-archivo" }),
-  IBM_Plex_Mono: () => ({ variable: "font-plex" }),
+jest.mock("@/lib/fonts", () => ({
+  geist: { className: "font-geist" },
+  benzin: { variable: "font-benzin" },
+  plex: { variable: "font-plex" },
 }));
 
 const cookieGet = jest.fn();

@@ -5,7 +5,6 @@ import { Storefront } from "@/app/page";
 
 jest.mock("next/font/google", () => ({
   Geist: () => ({ className: "font-geist" }),
-  Archivo: () => ({ variable: "font-archivo" }),
   IBM_Plex_Mono: () => ({ variable: "font-plex" }),
 }));
 

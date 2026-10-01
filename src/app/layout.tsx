@@ -1,23 +1,8 @@
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
-import { Archivo, Geist, IBM_Plex_Mono } from "next/font/google";
+import { benzin, geist, plex } from "@/lib/fonts";
 import { themeCookieName, themeFromCookie } from "@/lib/theme-cookie";
 import "./globals.css";
-
-const geist = Geist({ subsets: ["latin"] });
-
-const archivo = Archivo({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-archivo",
-});
-
-const plex = IBM_Plex_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  display: "swap",
-  variable: "--font-plex",
-});
 
 export const metadata: Metadata = {
   title: "Crue",
@@ -43,7 +28,7 @@ export default async function RootLayout({
     <html
       lang="en"
       data-theme={theme === "dark" ? "dark" : undefined}
-      className={`${archivo.variable} ${plex.variable}`}
+      className={`${benzin.variable} ${plex.variable}`}
     >
       <body className={`${geist.className} bg-bg text-text antialiased`}>
         {children}

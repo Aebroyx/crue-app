@@ -5,10 +5,10 @@ import { render } from "@testing-library/react";
 import { Storefront } from "./page";
 import RootLayout, { metadata } from "./layout";
 
-jest.mock("next/font/google", () => ({
-  Geist: () => ({ className: "font-geist" }),
-  Archivo: () => ({ variable: "font-archivo" }),
-  IBM_Plex_Mono: () => ({ variable: "font-plex" }),
+jest.mock("@/lib/fonts", () => ({
+  geist: { className: "font-geist" },
+  benzin: { variable: "font-benzin" },
+  plex: { variable: "font-plex" },
 }));
 
 jest.mock("next/headers", () => ({

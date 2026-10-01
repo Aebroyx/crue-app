@@ -25,7 +25,7 @@ const products = [
 ];
 
 const display =
-  "font-extrabold font-stretch-[125%] uppercase leading-[0.9] tracking-[-0.02em]";
+  "font-extrabold uppercase leading-[0.9] tracking-[-0.02em]";
 
 function Arrow({ className }: { className: string }) {
   return (
@@ -88,7 +88,7 @@ function Wordmark({ className }: { className: string }) {
 
 export function Home({ theme = "light" }: { theme?: Theme }) {
   return (
-    <div className="bg-bg font-[family-name:var(--font-archivo)] text-text">
+    <div className="bg-bg font-[family-name:var(--font-benzin)] text-text">
       <div className="flex h-8 items-center justify-center bg-surface px-4 font-[family-name:var(--font-plex)] text-[10px] tracking-[0.16em] uppercase md:h-9 md:gap-8 md:text-[11px] md:tracking-[0.18em]">
         <span className="md:hidden">Drop 001, out now</span>
         <span className="hidden md:inline">Drop 001: Event Horizon, out now</span>
@@ -96,7 +96,7 @@ export function Home({ theme = "light" }: { theme?: Theme }) {
       </div>
 
       <header className="hidden h-[72px] grid-cols-3 items-center border-b border-line px-12 md:grid">
-        <nav aria-label="Main" className="flex gap-7 text-[12px] font-semibold font-stretch-[112%] tracking-[0.12em] uppercase">
+        <nav aria-label="Main" className="flex gap-7 text-[12px] font-semibold tracking-[0.12em] uppercase">
           <a href="#drop">Shop</a>
           <a href="#drop">Run</a>
           <a href="#drop">Train</a>
@@ -168,7 +168,7 @@ export function Home({ theme = "light" }: { theme?: Theme }) {
             </p>
             <a
               href="#drop"
-              className="flex h-14 items-center justify-between bg-text px-5 text-[13px] font-bold font-stretch-[125%] tracking-[0.12em] text-bg uppercase active:scale-[0.98] md:px-6"
+              className="flex h-14 items-center justify-between bg-text px-5 text-[13px] font-bold tracking-[0.12em] text-bg uppercase active:scale-[0.98] md:px-6"
             >
               <span>Shop Drop 001</span>
               <Arrow className="size-[18px]" />
@@ -188,7 +188,7 @@ export function Home({ theme = "light" }: { theme?: Theme }) {
               </div>
               <div className="flex flex-col gap-1 md:flex-row md:justify-between md:gap-3">
                 <div className="flex flex-col gap-1 md:gap-1.5">
-                  <span className="text-[12px] font-bold font-stretch-[112%] tracking-[0.03em] uppercase md:text-[14px] md:tracking-[0.04em]">
+                  <span className="text-[12px] font-bold tracking-[0.03em] uppercase md:text-[14px] md:tracking-[0.04em]">
                     {product.name}
                   </span>
                   <span className="text-[12px] text-muted md:hidden">{product.metaShort}</span>
@@ -251,14 +251,14 @@ export function Home({ theme = "light" }: { theme?: Theme }) {
           <img src="/brand/crue-mark-white.png" alt="" className="hidden w-24 dark:md:block" />
           <img src="/brand/crue-mark-black.png" alt="" className="hidden w-24 md:block dark:md:hidden" />
           <nav aria-label="Shop" className="flex flex-col gap-3 text-[14px] md:gap-3.5">
-            <span className="text-[12px] font-bold font-stretch-[112%] tracking-[0.1em] text-muted">SHOP</span>
+            <span className="text-[12px] font-bold tracking-[0.1em] text-muted">SHOP</span>
             <a href="#drop">New arrivals</a>
             <a href="#drop">Run</a>
             <a href="#drop">Train</a>
             <a href="#drop" className="hidden md:inline">Accessories</a>
           </nav>
           <nav aria-label="Help" className="flex flex-col gap-3 text-[14px] md:gap-3.5">
-            <span className="text-[12px] font-bold font-stretch-[112%] tracking-[0.1em] text-muted">HELP</span>
+            <span className="text-[12px] font-bold tracking-[0.1em] text-muted">HELP</span>
             <a href="#drop">Shipping</a>
             <a href="#drop">Returns</a>
             <a href="#drop">Size guide</a>

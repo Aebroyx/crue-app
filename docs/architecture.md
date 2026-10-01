@@ -62,7 +62,7 @@ Brand files for screens live in [`design/brand/`](design/brand/). The earlier SV
 
 ## Code layout
 
-Application code lives in `src/`. Docs stay in `docs/`. Config and `public/` stay at the repo root.
+Application code lives in `src/`. Docs stay in `docs/`. Font files the storefront loads live in `assets/fonts/`. Config and `public/` stay at the repo root.
 
 `src/app/` is the route map and nothing else. A `page.tsx` is a URL. A folder under `src/app/` is a URL segment, so `src/app/products/[handle]/page.tsx` is `/products/...` when that route exists. Screens and helpers do not go in `src/app/`, or a folder there becomes a public path.
 

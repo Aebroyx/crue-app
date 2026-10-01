@@ -76,25 +76,33 @@ Product colourway swatches: Void Black `#0B0B0C`, Photon White `#EDECE8`, Nebula
 
 ## 4. Typography
 
-Load with `next/font/google`, self-hosted, `display: 'swap'`.
+IBM Plex Mono loads with `next/font/google`, self-hosted, `display: 'swap'`. Benzin loads with `next/font/local` from `assets/fonts/`, `display: 'swap'`. Each file reports weight 400 and has no width axis, so the weight is assigned from the file name. `font-stretch` is not used.
 
-| Family | Weights / axes | Role |
+| File | Weight |
+|---|---|
+| `Benzin-Regular.ttf` | 400 |
+| `Benzin-Medium.ttf` | 500 |
+| `Benzin-Semibold.ttf` | 600 |
+| `Benzin-Bold.ttf` | 700 |
+| `Benzin-ExtraBold.ttf` | 800 |
+
+| Family | Weights | Role |
 |---|---|---|
-| **Archivo** | variable, `wght 100–900`, `wdth 62–125` | Display + all UI text |
+| **Benzin** | 400, 500, 600, 700, 800 | Display + all UI text. No current role uses 500. |
 | **IBM Plex Mono** | 400, 500 | Labels, prices, announcement bar |
 
 ### Type scale
 
 | Role | Desktop | Mobile | Settings |
 |---|---|---|---|
-| Hero H1 | 148px / 0.86 | 50px / 0.88 | Archivo 800, `font-stretch: 125%`, uppercase, `-0.02em` |
-| Manifesto H2 | 64px / 1.02 | 34px / 1.04 | Archivo 800, stretch 125%, uppercase, balanced wrap |
-| Section H2 | 44px / 1 | 30px / 1 | Archivo 800, stretch 125%, uppercase |
-| Category tile | 72px (big) / 44px | 48px / 24px | Archivo 800, stretch 125%, uppercase, line-height 0.9 |
-| Product title (PDP) | 36px / 1 | 26px / 1.02 | Archivo 800, stretch 125%, uppercase |
-| Nav / button label | 12–13px | 12–13px | Archivo 600–700, stretch 112–125%, uppercase, `0.12–0.14em` |
-| Body | 15–17px / 1.55–1.6 | 14–15px | Archivo 400, colour `text-2` |
-| Card name | 14px | 12px | Archivo 700, stretch 112%, uppercase, `0.04em` |
+| Hero H1 | 148px / 0.86 | 50px / 0.88 | Benzin 800, uppercase, `-0.02em` |
+| Manifesto H2 | 64px / 1.02 | 34px / 1.04 | Benzin 800, uppercase, balanced wrap |
+| Section H2 | 44px / 1 | 30px / 1 | Benzin 800, uppercase |
+| Category tile | 72px (big) / 44px | 48px / 24px | Benzin 800, uppercase, line-height 0.9 |
+| Product title (PDP) | 36px / 1 | 26px / 1.02 | Benzin 800, uppercase |
+| Nav / button label | 12–13px | 12–13px | Benzin 600–700, uppercase, `0.12–0.14em` |
+| Body | 15–17px / 1.55–1.6 | 14–15px | Benzin 400, colour `text-2` |
+| Card name | 14px | 12px | Benzin 700, uppercase, `0.04em` |
 | Mono label / price | 11–13px | 10–12px | IBM Plex Mono, uppercase, `0.16–0.2em` |
 
 ## 5. Shape, spacing, layout

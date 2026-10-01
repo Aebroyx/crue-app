@@ -18,7 +18,7 @@ export function Intro() {
   return (
     <div
       data-intro
-      className="fixed inset-0 z-10 overflow-hidden bg-bg-intro font-[family-name:var(--font-archivo)] text-text"
+      className="fixed inset-0 z-10 overflow-hidden bg-bg-intro font-[family-name:var(--font-benzin)] text-text"
     >
       <div className="intro-stars-3 pointer-events-none absolute -inset-[20%] opacity-70" />
       <div className="intro-stars-2 pointer-events-none absolute -inset-[20%]" />
@@ -80,7 +80,7 @@ export function Intro() {
           <button
             type="button"
             onClick={dismiss}
-            className="flex h-14 items-center justify-between gap-3.5 border border-text px-[22px] text-[13px] font-bold tracking-[0.14em] uppercase transition-[background,color] duration-300 stretch-[125%] hover:bg-text hover:text-bg-intro md:h-[52px] md:justify-center md:px-7"
+            className="flex h-14 items-center justify-between gap-3.5 border border-text px-[22px] text-[13px] font-bold tracking-[0.14em] uppercase transition-[background,color] duration-300 hover:bg-text hover:text-bg-intro md:h-[52px] md:justify-center md:px-7"
           >
             <span>Enter</span>
             <svg
