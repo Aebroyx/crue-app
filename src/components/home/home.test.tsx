@@ -62,11 +62,9 @@ describe("REQ-004 home", () => {
     expect(container.querySelector("video")).toBeNull();
   });
 
-  it("REQ-004 does not render the newsletter, a cart, or a product page", () => {
+  it("REQ-004 does not render a cart or a product page", () => {
     render(<Storefront showIntro={false} />);
 
-    expect(screen.queryByText("Enter the orbit")).not.toBeInTheDocument();
-    expect(screen.queryByRole("button", { name: "Join" })).not.toBeInTheDocument();
     expect(screen.queryByRole("button", { name: /sound/i })).not.toBeInTheDocument();
     expect(screen.getAllByRole("button", { name: "Search" })).toHaveLength(2);
     expect(screen.getByRole("button", { name: "BAG (0)" })).toBeInTheDocument();

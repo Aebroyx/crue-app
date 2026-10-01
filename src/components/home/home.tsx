@@ -1,5 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import { Footer } from "@/components/footer/footer";
+import { Newsletter } from "@/components/home/newsletter";
 import { Navbar } from "@/components/navbar/navbar";
 import { catalogProducts } from "@/lib/catalog";
 import type { Theme } from "@/lib/theme-cookie";
@@ -137,6 +138,7 @@ export function Home({ theme = "light" }: { theme?: Theme }) {
         </a>
       </section>
 
+      <Newsletter />
       <Footer theme={theme} />
     </div>
   );
