@@ -12,7 +12,7 @@ The black hole is the brand's gravity: the intro, the mark, and the named glow a
 
 ## Themes
 
-One design, two themes. Dark is the default. A header toggle switches to light. Remember the choice in a cookie so the server renders the right theme with no flash. Both themes use the same components and the same token names, swapped under `[data-theme="light"]` on `<html>`.
+One design, two themes. Light is the default. A header toggle switches to dark. Remember the choice in a cookie so the server renders the right theme with no flash. Both themes use the same components and the same token names. Dark is `[data-theme="dark"]` on `<html>`.
 
 The intro is dark in both themes. There is only a dark intro screen.
 
@@ -130,8 +130,8 @@ Prices, the shipping threshold, the year, product stories, details, fit, shippin
 
 | Folder | What it is |
 | --- | --- |
-| [`design/screens/dark/`](design/screens/dark/) | Intro, home, and product, desktop and mobile. Default theme |
-| [`design/screens/light/`](design/screens/light/) | Home and product, desktop and mobile. Same layouts, light tokens |
+| [`design/screens/light/`](design/screens/light/) | Home and product, desktop and mobile. Default theme |
+| [`design/screens/dark/`](design/screens/dark/) | Intro, home, and product, desktop and mobile. Chosen with the theme switch |
 
 Read a screen for sizes, gaps, and hover states in its inline styles and `<helmet><style>`. Recreate interaction with React state. Do not port the canvas component class. `<!-- TODO: ... -->` marks the photography crop.
 

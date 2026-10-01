@@ -12,12 +12,12 @@ One design in **two themes: dark and light**. Both ship, with a theme toggle in 
 
 | Folder | What it is |
 |---|---|
-| `screens/dark/` | Intro, Home, Product (desktop + mobile), dark theme. **Default theme.** |
-| `screens/light/` | Home, Product (desktop + mobile), light theme. Same layouts, swapped tokens. |
+| `screens/light/` | Home and Product (desktop + mobile), light theme. **Default theme.** |
+| `screens/dark/` | Intro, Home, and Product (desktop + mobile), dark theme. |
 
 The intro is dark in both themes (a black hole reads best on black), so there is only a dark intro screen.
 
-Theme behaviour: default to dark. A toggle in the header switches to light; remember the choice in a cookie so the server renders the right theme with no flash. Both themes use the same components and semantic tokens (section 3).
+Theme behaviour: default to light. A toggle in the header switches to dark; remember the choice in a cookie so the server renders the right theme with no flash. Both themes use the same components and semantic tokens (section 3).
 
 Desktop screens are drawn at **1440px** wide, mobile at **390px**. Build them fluid: the screens are the two reference widths, not fixed layouts.
 

@@ -11,6 +11,12 @@ jest.mock("next/font/google", () => ({
   IBM_Plex_Mono: () => ({ variable: "font-plex" }),
 }));
 
+jest.mock("next/headers", () => ({
+  cookies: async () => ({
+    get: () => undefined,
+  }),
+}));
+
 const packageJson = JSON.parse(
   fs.readFileSync(path.join(process.cwd(), "package.json"), "utf8"),
 ) as {
@@ -38,11 +44,9 @@ describe("REQ-001 storefront shell", () => {
     expect(pages).toEqual(["page.tsx"]);
   });
 
-  it("REQ-001 names the document and the image Crue in English", () => {
+  it("REQ-001 names the document and the image Crue in English", async () => {
     const html = renderToStaticMarkup(
-      <RootLayout>
-        <Storefront showIntro={false} />
-      </RootLayout>,
+      await RootLayout({ children: <Storefront showIntro={false} /> }),
     );
 
     expect(metadata.title).toBe("Crue");

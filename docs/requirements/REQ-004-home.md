@@ -17,7 +17,7 @@ Visitor.
 
 ## In scope
 
-- `/` shows the home from [home-desktop.html](../design/screens/dark/home-desktop.html) and [home-mobile.html](../design/screens/dark/home-mobile.html). Reference widths are 390 and 1440. Build it fluid. The same layout in the light screens applies when `data-theme="light"` is set on the document. Dark is the default.
+- `/` shows the home from [home-desktop.html](../design/screens/dark/home-desktop.html) and [home-mobile.html](../design/screens/dark/home-mobile.html). Reference widths are 390 and 1440. Build it fluid. The same layout in the light screens applies when the document theme is light. The default theme is [REQ-005](REQ-005-theme.md).
 - The first visit still plays the [REQ-002](REQ-002-intro-sequence.md) intro over this page. Skip and Enter reveal the home. They do not reveal the shell.
 - Sections, in order: announcement bar, header, hero, The Drop, manifesto, category bento, footer.
 - Copy from those screens, including the visible placeholders `[PRICE]`, `[THRESHOLD]`, and `[YEAR]`. Desktop announcement is "Drop 001: Event Horizon, out now" and "Free shipping over [THRESHOLD]". Mobile announcement is "Drop 001, out now". Hero eyebrow "Drop 001", heading "Event Horizon", the hybrid-athlete sentence, and "Shop Drop 001". Manifesto heading "Gravity is your training partner." and the link "Read the story". Bento labels "Run", "Train", and "Layers".
@@ -47,7 +47,7 @@ A visitor opens `/`.
 - A wide screen shows the desktop announcement, the word nav, and "BAG (0)". A phone shows "Drop 001, out now", the Menu button, and the icon bag. Neither width scrolls sideways.
 - "Shop Drop 001" brings The Drop into view. The four placeholder cards are there, each priced `[PRICE]`.
 - The document language stays English. The title stays `Crue`.
-- With `data-theme="light"`, the page uses the light home screens. The default document has no light theme.
+- The document theme follows [REQ-005](REQ-005-theme.md). Light is the default once that requirement is in place.
 
 ## Acceptance criteria
 

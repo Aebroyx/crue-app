@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import { cookies } from "next/headers";
 import { Archivo, Geist, IBM_Plex_Mono } from "next/font/google";
+import { themeCookieName, themeFromCookie } from "@/lib/theme-cookie";
 import "./globals.css";
 
 const geist = Geist({ subsets: ["latin"] });
@@ -29,13 +31,20 @@ export const metadata: Metadata = {
   manifest: "/site.webmanifest",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const jar = await cookies();
+  const theme = themeFromCookie(jar.get(themeCookieName)?.value);
+
   return (
-    <html lang="en" className={`${archivo.variable} ${plex.variable}`}>
+    <html
+      lang="en"
+      data-theme={theme === "dark" ? "dark" : undefined}
+      className={`${archivo.variable} ${plex.variable}`}
+    >
       <body className={`${geist.className} bg-bg text-text antialiased`}>
         {children}
       </body>
