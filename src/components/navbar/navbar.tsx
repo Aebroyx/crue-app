@@ -11,19 +11,21 @@ function replayIntro() {
 export function Navbar({
   bagCount = 0,
   shopCurrent = false,
+  aboutCurrent = false,
 }: {
   bagCount?: number;
   shopCurrent?: boolean;
+  aboutCurrent?: boolean;
 }) {
   return (
     <>
-      <div className="flex h-8 items-center justify-center bg-surface px-4 font-[family-name:var(--font-plex)] text-[10px] tracking-[0.16em] uppercase md:h-9 md:gap-8 md:text-[11px] md:tracking-[0.18em]">
+      <div className="relative z-20 flex h-8 items-center justify-center bg-surface px-4 font-[family-name:var(--font-plex)] text-[10px] tracking-[0.16em] uppercase md:h-9 md:gap-8 md:text-[11px] md:tracking-[0.18em]">
         <span className="md:hidden">Drop 001, out now</span>
         <span className="hidden md:inline">Drop 001: Event Horizon, out now</span>
         <span className="hidden text-muted md:inline">Free shipping over [THRESHOLD]</span>
       </div>
 
-      <header className="hidden h-[72px] grid-cols-3 items-center border-b border-line px-12 md:grid">
+      <header className="relative z-20 hidden h-[72px] grid-cols-3 items-center border-b border-line bg-bg px-12 md:grid">
         <nav aria-label="Main" className="flex gap-7 text-[12px] font-semibold tracking-[0.12em] uppercase">
           <a
             href="/catalog"
@@ -35,7 +37,13 @@ export function Navbar({
           <a href="#drop">Run</a>
           <a href="#drop">Train</a>
           <a href="#drop">Drops</a>
-          <a href="#manifesto">Journal</a>
+          <a
+            href="/about"
+            aria-current={aboutCurrent ? "page" : undefined}
+            className={aboutCurrent ? "underline decoration-1 underline-offset-8" : undefined}
+          >
+            About
+          </a>
         </nav>
         <a href="/" aria-label="CRUE home" className="justify-self-center" onClick={replayIntro}>
           <Wordmark className="h-[22px] w-[104px]" />
@@ -54,7 +62,7 @@ export function Navbar({
         </div>
       </header>
 
-      <header className="flex h-[60px] items-center justify-between border-b border-line px-2 md:hidden">
+      <header className="relative z-20 flex h-[60px] items-center justify-between border-b border-line bg-bg px-2 md:hidden">
         <button type="button" aria-label="Menu" className="flex size-11 items-center justify-center">
           <Menu className="size-[22px]" strokeWidth={1.5} aria-hidden />
         </button>

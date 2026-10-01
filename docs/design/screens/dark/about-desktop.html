@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>CRUE About</title>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#0B0B0C;font-family:'Archivo',Helvetica,sans-serif;color:#EDECE8}
+a{color:inherit}a:hover{opacity:.75}
+.obj{animation:ab-in 1.2s cubic-bezier(.16,1,.3,1) both}
+.o2{animation-delay:.1s}.o3{animation-delay:.2s}.o4{animation-delay:.3s}
+.copy{animation:ab-fade 1s .5s ease-out both}
+@keyframes ab-in{from{opacity:0;translate:0 24px}to{opacity:1;translate:0 0}}
+@keyframes ab-fade{from{opacity:0}to{opacity:1}}
+@media (prefers-reduced-motion: reduce){.obj,.copy{animation:none!important}}
+</style>
+</helmet>
+<div style="width: 1440px; height: 900px; position: relative; overflow: hidden; background: #0B0B0C">
+
+<!-- TODO: replace the four panels with cut-out product photos (transparent PNG), e.g. jacket, cap, tee, short -->
+<div class="obj" style="position: absolute; left: -80px; top: 110px; width: 520px; height: 360px; transform: rotate(-12deg); background: linear-gradient(135deg, #26262A 0%, #141416 55%, #1C1C1F 100%); border: 1px solid #2A2A2D; box-shadow: 0 40px 80px rgba(11,11,12,0.55); display: flex; align-items: flex-end; justify-content: flex-end; padding: 36px; box-sizing: border-box">
+<img src="/brand/crue-mark-white.png" alt="" style="width: 96px; height: 32px; opacity: 0.22">
+</div>
+<div class="obj o2" style="position: absolute; left: -60px; top: 590px; width: 480px; height: 440px; transform: rotate(8deg); background: linear-gradient(160deg, #1C1C1F 0%, #141416 60%, #26262A 100%); border: 1px solid #2A2A2D; box-shadow: 0 40px 80px rgba(11,11,12,0.55); display: flex; align-items: center; justify-content: center">
+<img src="/brand/crue-mark-white.png" alt="" style="width: 180px; height: 60px; opacity: 0.18">
+</div>
+<div class="obj o3" style="position: absolute; left: 1000px; top: 96px; width: 560px; height: 320px; transform: rotate(10deg); background: linear-gradient(200deg, #26262A 0%, #141416 50%, #1C1C1F 100%); border: 1px solid #2A2A2D; box-shadow: 0 40px 80px rgba(11,11,12,0.55); display: flex; align-items: flex-start; justify-content: flex-start; padding: 36px; box-sizing: border-box">
+<img src="/brand/crue-wordmark-white.png" alt="" style="width: 110px; height: 23px; opacity: 0.22">
+</div>
+<div class="obj o4" style="position: absolute; left: 1060px; top: 540px; width: 460px; height: 460px; transform: rotate(-8deg); background: linear-gradient(135deg, #1C1C1F 0%, #141416 55%, #26262A 100%); border: 1px solid #2A2A2D; box-shadow: 0 40px 80px rgba(11,11,12,0.55); display: flex; align-items: center; justify-content: center">
+<img src="/brand/crue-mark-white.png" alt="" style="width: 200px; height: 67px; opacity: 0.18">
+</div>
+
+<header style="position: absolute; left: 0; right: 0; top: 0; height: 72px; background: #0B0B0C; border-bottom: 1px solid #1F1F22; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: center; padding: 0 48px">
+<nav aria-label="Main" style="display: flex; gap: 28px; font-size: 12px; font-weight: 600; font-stretch: 112%; letter-spacing: 0.12em; text-transform: uppercase">
+<a href="catalog-desktop.html" style="text-decoration: none">Shop</a>
+<a href="catalog-desktop.html" style="text-decoration: none">Run</a>
+<a href="catalog-desktop.html" style="text-decoration: none">Train</a>
+<a href="home-desktop.html" style="text-decoration: none">Drops</a>
+<a href="about-desktop.html" aria-current="page" style="text-decoration: underline; text-underline-offset: 8px; text-decoration-thickness: 1px">About</a>
+</nav>
+<a href="home-desktop.html" aria-label="CRUE home" style="justify-self: center; display: flex"><img src="/brand/crue-wordmark-white.png" alt="CRUE" style="width: 104px; height: 22px; display: block"></a>
+<div style="justify-self: end; display: flex; align-items: center; gap: 8px">
+<button type="button" aria-label="Search" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: none; border: 0; color: #EDECE8; cursor: pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="6.5"></circle><path d="M16 16l4.5 4.5"></path></svg></button>
+<button type="button" aria-label="Account" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: none; border: 0; color: #EDECE8; cursor: pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"></path></svg></button>
+<button type="button" style="height: 44px; display: flex; align-items: center; gap: 8px; padding: 0 4px; background: none; border: 0; color: #EDECE8; cursor: pointer; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.1em"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 8h14l-1 13H6L5 8z"></path><path d="M9 8V6a3 3 0 016 0v2"></path></svg><span>BAG (0)</span></button>
+</div>
+</header>
+
+<main class="copy" style="position: absolute; left: 470px; top: 72px; width: 500px; height: 828px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 32px; text-align: center">
+<h1 style="margin: 0"><img src="/brand/crue-mark-white.png" alt="About CRUE" style="width: 84px; height: 28px; display: block"></h1>
+<p style="margin: 0; font-size: 15px; line-height: 1.75; color: #C4C3C0; text-wrap: pretty">CRUE is built for the hybrid athlete: the one who runs at first light and lifts after dark. We make technical running wear for both worlds, cut for the long run and the heavy set. Like the black hole in our mark, it pulls you in. Once you are in, there is no going back.</p>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

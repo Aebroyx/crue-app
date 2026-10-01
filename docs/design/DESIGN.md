@@ -132,6 +132,11 @@ IBM Plex Mono loads with `next/font/google`, self-hosted, `display: 'swap'`. Ben
   - Filtering is live: category, size and colour combine; counts and the title update. Map these to Shopify collection filters (`productFilters`) and keep them in the URL query.
   - Empty state: `surface` panel with faint mark, "Nothing in this orbit", "No pieces match these filters.", and a primary "Clear filters" button.
   - Mobile: Filter button (shows active count) + horizontally scrolling category chips (square, filled when active), 2-column grid; Filter opens a full-screen sheet with Size and Colour, and a sticky footer with "Clear" and "Show N results".
+  - **About**: `about-desktop.html` / `about-mobile.html`. A single full-viewport page with no scroll (`100dvh`, `overflow: hidden`).
+  - Same header as Home, with "About" as the active nav item (underlined).
+  - Centre: the black-hole mark (84px wide desktop, 72px mobile) as the `<h1>` (alt "About CRUE"), then one short paragraph, 15px / 1.75 (14px mobile), `text-2`, max width 500px, centred.
+  - Four tilted product objects bleed off the corners (rotated -12°, 8°, 10°, -8°), keeping the centre column clear. In the screens they are placeholder panels; replace them with cut-out product photos (transparent PNG) of the drop. Objects fade up in sequence on load (0, .1, .2, .3s), copy fades in at .5s; skipped under reduced motion.
+  - The paragraph is draft copy for the owner to confirm.
 
 
 ## 7. Brand assets

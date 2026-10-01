@@ -59,6 +59,7 @@ describe("REQ-004 home", () => {
       .filter((entry) => String(entry).endsWith("page.tsx"));
 
     expect(pages.map(String).sort()).toEqual([
+      "about/page.tsx",
       "catalog/page.tsx",
       "page.tsx",
       "products/[handle]/page.tsx",

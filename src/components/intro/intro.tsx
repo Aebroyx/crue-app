@@ -19,7 +19,7 @@ export function Intro() {
   return (
     <div
       data-intro
-      className="fixed inset-0 z-10 overflow-hidden bg-bg-intro font-[family-name:var(--font-benzin)] text-text"
+      className="fixed inset-0 z-30 overflow-hidden bg-bg-intro font-[family-name:var(--font-benzin)] text-text"
     >
       <div className="intro-stars-3 pointer-events-none absolute -inset-[20%] opacity-70" />
       <div className="intro-stars-2 pointer-events-none absolute -inset-[20%]" />

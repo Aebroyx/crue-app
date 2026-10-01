@@ -47,7 +47,8 @@ describe("REQ-009 home and intro links", () => {
     expect(within(nav).getByRole("link", { name: "Run" })).toHaveAttribute("href", "#drop");
     expect(within(nav).getByRole("link", { name: "Train" })).toHaveAttribute("href", "#drop");
     expect(within(nav).getByRole("link", { name: "Drops" })).toHaveAttribute("href", "#drop");
-    expect(within(nav).getByRole("link", { name: "Journal" })).toHaveAttribute("href", "#manifesto");
+    expect(within(nav).getByRole("link", { name: "About" })).toHaveAttribute("href", "/about");
+    expect(within(nav).queryByRole("link", { name: "Journal" })).toBeNull();
 
     const footer = screen.getByRole("contentinfo");
     expect(within(footer).queryByRole("link", { name: "CRUE home" })).toBeNull();

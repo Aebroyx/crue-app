@@ -42,6 +42,7 @@ describe("REQ-001 storefront shell", () => {
       .readdirSync(path.join(process.cwd(), "src/app"), { recursive: true })
       .filter((entry) => String(entry).endsWith("page.tsx"));
     expect(pages.map(String).sort()).toEqual([
+      "about/page.tsx",
       "catalog/page.tsx",
       "page.tsx",
       "products/[handle]/page.tsx",
