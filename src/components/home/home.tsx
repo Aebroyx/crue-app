@@ -1,4 +1,6 @@
-import { ThemeSwitch } from "./theme-switch";
+import { ArrowRight } from "lucide-react";
+import { Footer } from "@/components/footer/footer";
+import { Navbar } from "@/components/navbar/navbar";
 import type { Theme } from "@/lib/theme-cookie";
 
 const products = [
@@ -27,115 +29,10 @@ const products = [
 const display =
   "font-extrabold uppercase leading-[0.9] tracking-[-0.02em]";
 
-function Arrow({ className }: { className: string }) {
-  return (
-    <svg
-      className={className}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      aria-hidden="true"
-    >
-      <path d="M4 12h16M14 6l6 6-6 6" />
-    </svg>
-  );
-}
-
-function SearchIcon() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
-      <circle cx="11" cy="11" r="6.5" />
-      <path d="M16 16l4.5 4.5" />
-    </svg>
-  );
-}
-
-function AccountIcon() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
-      <circle cx="12" cy="8" r="4" />
-      <path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" />
-    </svg>
-  );
-}
-
-function BagIcon() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
-      <path d="M5 8h14l-1 13H6L5 8z" />
-      <path d="M9 8V6a3 3 0 016 0v2" />
-    </svg>
-  );
-}
-
-function MenuIcon() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
-      <path d="M3 8h18M3 16h18" />
-    </svg>
-  );
-}
-
-function Wordmark({ className }: { className: string }) {
-  return (
-    <span className={`relative block ${className}`}>
-      <img src="/brand/crue-wordmark-white.png" alt="CRUE" className="hidden h-full w-full dark:block" />
-      <img src="/brand/crue-wordmark-black.png" alt="" className="h-full w-full dark:hidden" />
-    </span>
-  );
-}
-
 export function Home({ theme = "light" }: { theme?: Theme }) {
   return (
     <div className="bg-bg font-[family-name:var(--font-benzin)] text-text">
-      <div className="flex h-8 items-center justify-center bg-surface px-4 font-[family-name:var(--font-plex)] text-[10px] tracking-[0.16em] uppercase md:h-9 md:gap-8 md:text-[11px] md:tracking-[0.18em]">
-        <span className="md:hidden">Drop 001, out now</span>
-        <span className="hidden md:inline">Drop 001: Event Horizon, out now</span>
-        <span className="hidden text-muted md:inline">Free shipping over [THRESHOLD]</span>
-      </div>
-
-      <header className="hidden h-[72px] grid-cols-3 items-center border-b border-line px-12 md:grid">
-        <nav aria-label="Main" className="flex gap-7 text-[12px] font-semibold tracking-[0.12em] uppercase">
-          <a href="#drop">Shop</a>
-          <a href="#drop">Run</a>
-          <a href="#drop">Train</a>
-          <a href="#drop">Drops</a>
-          <a href="#manifesto">Journal</a>
-        </nav>
-        <a href="#drop" aria-label="CRUE home" className="justify-self-center">
-          <Wordmark className="h-[22px] w-[104px]" />
-        </a>
-        <div className="flex items-center justify-end gap-2">
-          <button type="button" aria-label="Search" className="flex size-11 items-center justify-center">
-            <SearchIcon />
-          </button>
-          <button type="button" aria-label="Account" className="flex size-11 items-center justify-center">
-            <AccountIcon />
-          </button>
-          <button type="button" className="flex h-11 items-center gap-2 px-1 font-[family-name:var(--font-plex)] text-[12px] tracking-[0.1em]">
-            <BagIcon />
-            <span>BAG (0)</span>
-          </button>
-        </div>
-      </header>
-
-      <header className="flex h-[60px] items-center justify-between border-b border-line px-2 md:hidden">
-        <button type="button" aria-label="Menu" className="flex size-11 items-center justify-center">
-          <MenuIcon />
-        </button>
-        <a href="#drop" aria-label="CRUE home">
-          <Wordmark className="h-[18px] w-[86px]" />
-        </a>
-        <div className="flex">
-          <button type="button" aria-label="Search" className="flex size-11 items-center justify-center">
-            <SearchIcon />
-          </button>
-          <button type="button" aria-label="Bag, 0 items" className="flex size-11 items-center justify-center">
-            <BagIcon />
-          </button>
-        </div>
-      </header>
+      <Navbar />
 
       <section className="relative h-[700px] overflow-hidden md:h-[820px]">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_90%_60%_at_60%_32%,#26262A_0%,#121214_50%,#0B0B0C_80%)] md:bg-[radial-gradient(ellipse_60%_70%_at_72%_42%,#26262A_0%,#121214_45%,#0B0B0C_75%)] hidden dark:block" />
@@ -171,7 +68,7 @@ export function Home({ theme = "light" }: { theme?: Theme }) {
               className="flex h-14 items-center justify-between bg-text px-5 text-[13px] font-bold tracking-[0.12em] text-bg uppercase active:scale-[0.98] md:px-6"
             >
               <span>Shop Drop 001</span>
-              <Arrow className="size-[18px]" />
+              <ArrowRight className="size-[18px]" strokeWidth={1.5} aria-hidden />
             </a>
           </div>
         </div>
@@ -227,13 +124,13 @@ export function Home({ theme = "light" }: { theme?: Theme }) {
           <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(11,11,12,0.85),rgba(11,11,12,0.1)_55%)]" />
           <div className="absolute right-5 bottom-5 left-5 flex items-end justify-between md:right-8 md:bottom-8 md:left-8">
             <span className={`${display} text-[48px] md:text-[72px]`}>Run</span>
-            <Arrow className="size-[26px] md:size-8" />
+            <ArrowRight className="size-[26px] md:size-8" strokeWidth={1.5} aria-hidden />
           </div>
         </a>
         <a href="#drop" className="relative block h-[200px] bg-surface-2 md:h-auto">
           <div className="absolute right-4 bottom-4 left-4 flex items-end justify-between md:right-7 md:bottom-7 md:left-7">
             <span className={`${display} text-[24px] md:text-[44px]`}>Train</span>
-            <Arrow className="size-5 md:size-7" />
+            <ArrowRight className="size-5 md:size-7" strokeWidth={1.5} aria-hidden />
           </div>
         </a>
         <a href="#drop" className="relative block h-[200px] overflow-hidden bg-text text-bg md:h-auto">
@@ -241,40 +138,12 @@ export function Home({ theme = "light" }: { theme?: Theme }) {
           <img src="/brand/crue-mark-white.png" alt="" className="absolute top-6 -right-8 w-[180px] opacity-[0.08] md:top-10 md:-right-10 md:w-[360px] dark:hidden" />
           <div className="absolute right-4 bottom-4 left-4 flex items-end justify-between md:right-7 md:bottom-7 md:left-7">
             <span className={`${display} text-[24px] md:text-[44px]`}>Layers</span>
-            <Arrow className="size-5 md:size-7" />
+            <ArrowRight className="size-5 md:size-7" strokeWidth={1.5} aria-hidden />
           </div>
         </a>
       </section>
 
-      <footer className="flex flex-col justify-between gap-10 border-t border-line px-5 pt-14 pb-8 md:h-[404px] md:px-12 md:pt-[72px] md:pb-10">
-        <div className="grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-4 md:gap-6">
-          <img src="/brand/crue-mark-white.png" alt="" className="hidden w-24 dark:md:block" />
-          <img src="/brand/crue-mark-black.png" alt="" className="hidden w-24 md:block dark:md:hidden" />
-          <nav aria-label="Shop" className="flex flex-col gap-3 text-[14px] md:gap-3.5">
-            <span className="text-[12px] font-bold tracking-[0.1em] text-muted">SHOP</span>
-            <a href="#drop">New arrivals</a>
-            <a href="#drop">Run</a>
-            <a href="#drop">Train</a>
-            <a href="#drop" className="hidden md:inline">Accessories</a>
-          </nav>
-          <nav aria-label="Help" className="flex flex-col gap-3 text-[14px] md:gap-3.5">
-            <span className="text-[12px] font-bold tracking-[0.1em] text-muted">HELP</span>
-            <a href="#drop">Shipping</a>
-            <a href="#drop">Returns</a>
-            <a href="#drop">Size guide</a>
-            <a href="#drop" className="hidden md:inline">Contact</a>
-          </nav>
-        </div>
-        <div className="flex items-end justify-between gap-6">
-          <Wordmark className="h-[74px] w-full max-w-[350px] md:h-16 md:w-[300px]" />
-          <div className="flex flex-col items-end gap-4">
-            <ThemeSwitch theme={theme} />
-            <span className="font-[family-name:var(--font-plex)] text-[10px] tracking-[0.16em] text-dim md:text-[11px]">
-              © CRUE [YEAR]
-            </span>
-          </div>
-        </div>
-      </footer>
+      <Footer theme={theme} />
     </div>
   );
 }

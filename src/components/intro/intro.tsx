@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { ArrowRight } from "lucide-react";
 import { introCookie } from "@/lib/intro-cookie";
 
 export function Intro() {
@@ -83,17 +84,7 @@ export function Intro() {
             className="flex h-14 items-center justify-between gap-3.5 border border-text px-[22px] text-[13px] font-bold tracking-[0.14em] uppercase transition-[background,color] duration-300 hover:bg-text hover:text-bg-intro md:h-[52px] md:justify-center md:px-7"
           >
             <span>Enter</span>
-            <svg
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              aria-hidden="true"
-            >
-              <path d="M4 12h16M14 6l6 6-6 6" />
-            </svg>
+            <ArrowRight className="size-[18px]" strokeWidth={1.5} aria-hidden />
           </button>
           <button
             type="button"

@@ -67,6 +67,7 @@ Application code lives in `src/`. Docs stay in `docs/`. Font files the storefron
 `src/app/` is the route map and nothing else. A `page.tsx` is a URL. A folder under `src/app/` is a URL segment, so `src/app/products/[handle]/page.tsx` is `/products/...` when that route exists. Screens and helpers do not go in `src/app/`, or a folder there becomes a public path.
 
 - `src/components/<screen>/` holds that screen and the Jest file that proves it.
+- `src/components/navbar/` and `src/components/footer/` hold shared chrome. They are not screens and not routes.
 - `src/lib/` holds storefront helpers that are not UI.
 - Tests for `src/app/page.tsx` and `src/app/layout.tsx` stay beside those files.
 - Import from those folders with `@/`, which points at `src/`.
