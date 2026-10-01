@@ -95,7 +95,7 @@ describe("REQ-002 intro sequence", () => {
 
   it("REQ-002 shows the final still state when motion is reduced", () => {
     const css = fs.readFileSync(
-      path.join(process.cwd(), "app/globals.css"),
+      path.join(process.cwd(), "src/app/globals.css"),
       "utf8",
     );
     const reduced = css.slice(css.indexOf("prefers-reduced-motion"));

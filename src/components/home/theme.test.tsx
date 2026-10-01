@@ -57,7 +57,7 @@ describe("REQ-005 theme switch", () => {
     expect(namesIn(mobile as HTMLElement)).toEqual(["Menu", "Search", "Bag, 0 items"]);
 
     const css = require("node:fs").readFileSync(
-      require("node:path").join(process.cwd(), "app/globals.css"),
+      require("node:path").join(process.cwd(), "src/app/globals.css"),
       "utf8",
     );
     expect(css).toMatch(/\.theme-slice\s*\{[^}]*clip-path:\s*polygon\(100% 0, 100% 100%, 0 100%\)/);

@@ -62,12 +62,14 @@ Brand files for screens live in [`design/brand/`](design/brand/). The earlier SV
 
 ## Code layout
 
-`app/` is the route map and nothing else. A `page.tsx` is a URL. A folder under `app/` is a URL segment, so `app/products/[handle]/page.tsx` is `/products/...` when that route exists. Screens and helpers do not go in `app/`, or a folder there becomes a public path.
+Application code lives in `src/`. Docs stay in `docs/`. Config and `public/` stay at the repo root.
 
-- `components/<screen>/` holds that screen and the Jest file that proves it.
-- `lib/` holds storefront helpers that are not UI.
-- Tests for `app/page.tsx` and `app/layout.tsx` stay beside those files.
-- Import from those folders with `@/`.
+`src/app/` is the route map and nothing else. A `page.tsx` is a URL. A folder under `src/app/` is a URL segment, so `src/app/products/[handle]/page.tsx` is `/products/...` when that route exists. Screens and helpers do not go in `src/app/`, or a folder there becomes a public path.
+
+- `src/components/<screen>/` holds that screen and the Jest file that proves it.
+- `src/lib/` holds storefront helpers that are not UI.
+- Tests for `src/app/page.tsx` and `src/app/layout.tsx` stay beside those files.
+- Import from those folders with `@/`, which points at `src/`.
 
 ## Runtime and tests
 

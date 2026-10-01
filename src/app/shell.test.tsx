@@ -39,7 +39,7 @@ function versionOf(spec: string) {
 describe("REQ-001 storefront shell", () => {
   it("REQ-001 renders the white black-hole symbol on the only route", () => {
     const pages = fs
-      .readdirSync(path.join(process.cwd(), "app"), { recursive: true })
+      .readdirSync(path.join(process.cwd(), "src/app"), { recursive: true })
       .filter((entry) => String(entry).endsWith("page.tsx"));
     expect(pages).toEqual(["page.tsx"]);
   });
@@ -76,17 +76,17 @@ describe("REQ-001 storefront shell", () => {
 
   it("REQ-001 does not import a CSS module for the page", () => {
     const page = fs.readFileSync(
-      path.join(process.cwd(), "app/page.tsx"),
+      path.join(process.cwd(), "src/app/page.tsx"),
       "utf8",
     );
     const layout = fs.readFileSync(
-      path.join(process.cwd(), "app/layout.tsx"),
+      path.join(process.cwd(), "src/app/layout.tsx"),
       "utf8",
     );
 
     expect(page).not.toMatch(/\.module\.css/);
     expect(layout).not.toMatch(/\.module\.css/);
-    expect(fs.existsSync(path.join(process.cwd(), "app/globals.css"))).toBe(
+    expect(fs.existsSync(path.join(process.cwd(), "src/app/globals.css"))).toBe(
       true,
     );
   });

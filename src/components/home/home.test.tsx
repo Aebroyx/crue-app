@@ -56,7 +56,7 @@ describe("REQ-004 home", () => {
   it("REQ-004 does not add a route or a video", () => {
     const { container } = render(<Storefront showIntro={false} />);
     const pages = fs
-      .readdirSync(path.join(process.cwd(), "app"), { recursive: true })
+      .readdirSync(path.join(process.cwd(), "src/app"), { recursive: true })
       .filter((entry) => String(entry).endsWith("page.tsx"));
 
     expect(pages).toEqual(["page.tsx"]);
