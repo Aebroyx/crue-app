@@ -41,7 +41,11 @@ describe("REQ-001 storefront shell", () => {
     const pages = fs
       .readdirSync(path.join(process.cwd(), "src/app"), { recursive: true })
       .filter((entry) => String(entry).endsWith("page.tsx"));
-    expect(pages.map(String).sort()).toEqual(["page.tsx", "products/[handle]/page.tsx"]);
+    expect(pages.map(String).sort()).toEqual([
+      "catalog/page.tsx",
+      "page.tsx",
+      "products/[handle]/page.tsx",
+    ]);
   });
 
   it("REQ-001 names the document and the image Crue in English", async () => {

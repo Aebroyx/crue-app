@@ -18,6 +18,9 @@ export type CatalogProduct = {
   variants: CatalogVariant[];
   images: { alt: string }[];
   accordions: { title: string; body: string }[];
+  category: string;
+  listingColours: string[];
+  listingSizes: string[];
 };
 
 const products = catalog.products as CatalogProduct[];

@@ -12,7 +12,7 @@ const colourLine: Record<string, { meta: string; metaShort: string }> = {
   "Accretion Split Short": { meta: "Nebula Grey, 3 colours", metaShort: "Nebula Grey" },
 };
 
-const products = catalogProducts().map((product) => ({
+const products = catalogProducts().filter((product) => colourLine[product.title]).map((product) => ({
   name: product.title,
   handle: product.handle,
   ...colourLine[product.title],

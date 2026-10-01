@@ -361,6 +361,20 @@
           "title": "Shipping & returns",
           "body": "[Shipping regions, delivery times and return window.]"
         }
+      ],
+      "category": "Layers",
+      "listingColours": [
+        "Void Black",
+        "Photon White",
+        "Nebula Grey"
+      ],
+      "listingSizes": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
       ]
     },
     {
@@ -724,6 +738,20 @@
           "title": "Shipping & returns",
           "body": "[Shipping regions, delivery times and return window.]"
         }
+      ],
+      "category": "Tops",
+      "listingColours": [
+        "Photon White",
+        "Void Black",
+        "Nebula Grey"
+      ],
+      "listingSizes": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
       ]
     },
     {
@@ -1087,6 +1115,18 @@
           "title": "Shipping & returns",
           "body": "[Shipping regions, delivery times and return window.]"
         }
+      ],
+      "category": "Bottoms",
+      "listingColours": [
+        "Void Black",
+        "Nebula Grey"
+      ],
+      "listingSizes": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL"
       ]
     },
     {
@@ -1450,7 +1490,375 @@
           "title": "Shipping & returns",
           "body": "[Shipping regions, delivery times and return window.]"
         }
+      ],
+      "category": "Bottoms",
+      "listingColours": [
+        "Nebula Grey",
+        "Void Black",
+        "Photon White"
+      ],
+      "listingSizes": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
       ]
+    },
+    {
+      "id": "event-horizon-long-sleeve",
+      "handle": "event-horizon-long-sleeve",
+      "title": "Event Horizon Long Sleeve",
+      "description": "[Short product story: the one reason this jacket exists, in two lines.]",
+      "options": [
+        {
+          "name": "Colour",
+          "values": [
+            "Void Black",
+            "Photon White"
+          ]
+        },
+        {
+          "name": "Size",
+          "values": [
+            "XS",
+            "S",
+            "M",
+            "L",
+            "XL",
+            "XXL"
+          ]
+        }
+      ],
+      "variants": [
+        {
+          "id": "event-horizon-long-sleeve-void-black-xs",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Void Black"
+            },
+            {
+              "name": "Size",
+              "value": "XS"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "event-horizon-long-sleeve-void-black-s",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Void Black"
+            },
+            {
+              "name": "Size",
+              "value": "S"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "event-horizon-long-sleeve-void-black-m",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Void Black"
+            },
+            {
+              "name": "Size",
+              "value": "M"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "event-horizon-long-sleeve-void-black-l",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Void Black"
+            },
+            {
+              "name": "Size",
+              "value": "L"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "event-horizon-long-sleeve-void-black-xl",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Void Black"
+            },
+            {
+              "name": "Size",
+              "value": "XL"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "event-horizon-long-sleeve-void-black-xxl",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Void Black"
+            },
+            {
+              "name": "Size",
+              "value": "XXL"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "event-horizon-long-sleeve-photon-white-xs",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Photon White"
+            },
+            {
+              "name": "Size",
+              "value": "XS"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "event-horizon-long-sleeve-photon-white-s",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Photon White"
+            },
+            {
+              "name": "Size",
+              "value": "S"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "event-horizon-long-sleeve-photon-white-m",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Photon White"
+            },
+            {
+              "name": "Size",
+              "value": "M"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "event-horizon-long-sleeve-photon-white-l",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Photon White"
+            },
+            {
+              "name": "Size",
+              "value": "L"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "event-horizon-long-sleeve-photon-white-xl",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Photon White"
+            },
+            {
+              "name": "Size",
+              "value": "XL"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "event-horizon-long-sleeve-photon-white-xxl",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Photon White"
+            },
+            {
+              "name": "Size",
+              "value": "XXL"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        }
+      ],
+      "images": [
+        {
+          "alt": "Front"
+        },
+        {
+          "alt": "Back"
+        },
+        {
+          "alt": "Detail"
+        },
+        {
+          "alt": "On body"
+        }
+      ],
+      "accordions": [
+        {
+          "title": "Details",
+          "body": "[Fabric, weight and key features, from your tech pack.]"
+        },
+        {
+          "title": "Fit",
+          "body": "[Fit notes, e.g. model height and size worn.]"
+        },
+        {
+          "title": "Shipping & returns",
+          "body": "[Shipping regions, delivery times and return window.]"
+        }
+      ],
+      "category": "Tops",
+      "listingColours": [
+        "Void Black",
+        "Photon White"
+      ],
+      "listingSizes": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ]
+    },
+    {
+      "id": "photon-run-cap",
+      "handle": "photon-run-cap",
+      "title": "Photon Run Cap",
+      "description": "[Short product story: the one reason this jacket exists, in two lines.]",
+      "options": [
+        {
+          "name": "Colour",
+          "values": [
+            "Photon White",
+            "Void Black"
+          ]
+        },
+        {
+          "name": "Size",
+          "values": []
+        }
+      ],
+      "variants": [
+        {
+          "id": "photon-run-cap-photon-white",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Photon White"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        },
+        {
+          "id": "photon-run-cap-void-black",
+          "availableForSale": true,
+          "selectedOptions": [
+            {
+              "name": "Colour",
+              "value": "Void Black"
+            }
+          ],
+          "price": {
+            "amount": "[PRICE]"
+          }
+        }
+      ],
+      "images": [
+        {
+          "alt": "Front"
+        },
+        {
+          "alt": "Back"
+        },
+        {
+          "alt": "Detail"
+        },
+        {
+          "alt": "On body"
+        }
+      ],
+      "accordions": [
+        {
+          "title": "Details",
+          "body": "[Fabric, weight and key features, from your tech pack.]"
+        },
+        {
+          "title": "Fit",
+          "body": "[Fit notes, e.g. model height and size worn.]"
+        },
+        {
+          "title": "Shipping & returns",
+          "body": "[Shipping regions, delivery times and return window.]"
+        }
+      ],
+      "category": "Accessories",
+      "listingColours": [
+        "Photon White",
+        "Void Black"
+      ],
+      "listingSizes": []
     }
   ]
 }

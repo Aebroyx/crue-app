@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>CRUE Light Catalog (mobile)</title>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#F3F3F1;font-family:'Archivo',Helvetica,sans-serif;color:#0B0B0C}
+a{color:inherit}
+.rail{scrollbar-width:none}.rail::-webkit-scrollbar{display:none}
+.press:active{transform:scale(.98)}
+</style>
+</helmet>
+<div style="width: 390px; height: 1800px; position: relative; background: #F3F3F1; overflow: hidden">
+
+<div style="height: 32px; background: #E8E8E5; display: flex; align-items: center; justify-content: center; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase">Drop 001, out now</div>
+
+<header style="height: 60px; border-bottom: 1px solid #D2D2CE; display: flex; align-items: center; justify-content: space-between; padding: 0 8px">
+<button type="button" aria-label="Menu" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: none; border: 0; color: #0B0B0C"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h18M3 16h18"></path></svg></button>
+<a href="home-mobile.html" aria-label="CRUE home" style="display: flex"><img src="/brand/crue-wordmark-black.png" alt="CRUE" style="width: 86px; height: 18px; display: block"></a>
+<div style="display: flex">
+<button type="button" aria-label="Search" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: none; border: 0; color: #0B0B0C"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="6.5"></circle><path d="M16 16l4.5 4.5"></path></svg></button>
+<button type="button" aria-label="Bag, 0 items" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: none; border: 0; color: #0B0B0C"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 8h14l-1 13H6L5 8z"></path><path d="M9 8V6a3 3 0 016 0v2"></path></svg></button>
+</div>
+</header>
+
+<div style="padding: 32px 20px 20px; display: flex; flex-direction: column; gap: 14px">
+<nav aria-label="Breadcrumb" style="display: flex; gap: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #55555A">
+<a href="home-mobile.html" style="text-decoration: none">Home</a><span>/</span><span>Shop</span>
+</nav>
+<div style="display: flex; align-items: baseline; justify-content: space-between">
+<h1 style="margin: 0; font-size: 36px; line-height: 0.95; font-weight: 800; font-stretch: 125%; text-transform: uppercase">{{title}}</h1>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #55555A">{{countLabel}}</span>
+</div>
+</div>
+
+<div style="display: flex; gap: 8px; padding: 0 16px 16px; border-bottom: 1px solid #D2D2CE">
+<button type="button" class="press" onClick="{{openSheet}}" style="flex-shrink: 0; height: 44px; display: flex; align-items: center; gap: 8px; padding: 0 16px; border: 1px solid #B5B5B0; background: transparent; color: #0B0B0C; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"></path><rect x="14" y="5" width="4" height="4"></rect><rect x="8" y="15" width="4" height="4"></rect></svg><span>{{filterBtn}}</span></button>
+<div class="rail" style="display: flex; gap: 8px; overflow-x: auto">
+<sc-for list="{{cats}}" as="c" hint-placeholder-count="5">
+<button type="button" class="press" onClick="{{c.pick}}" aria-pressed="{{c.on}}" style="flex-shrink: 0; height: 44px; padding: 0 16px; border: 1px solid {{c.border}}; background: {{c.bg}}; color: {{c.fg}}; font-family: 'Archivo', sans-serif; font-size: 12px; font-weight: 700; font-stretch: 112%; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer">{{c.label}}</button>
+</sc-for>
+</div>
+</div>
+
+<main style="padding: 24px 16px 64px">
+<sc-if value="{{hasResults}}" hint-placeholder-val="{{true}}">
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 10px">
+<sc-for list="{{shown}}" as="p" hint-placeholder-count="6">
+<a href="product-mobile.html" style="display: flex; flex-direction: column; gap: 10px; text-decoration: none">
+<!-- TODO: product shot on dark seamless, 3:4 -->
+<div style="aspect-ratio: 3 / 4; background: #E8E8E5; display: flex; align-items: center; justify-content: center">
+<img src="/brand/crue-mark-black.png" alt="" style="width: 66px; height: 22px; opacity: 0.08">
+</div>
+<span style="font-size: 12px; font-weight: 700; font-stretch: 112%; text-transform: uppercase; letter-spacing: 0.03em">{{p.name}}</span>
+<div style="display: flex; gap: 4px">
+<sc-for list="{{p.dots}}" as="d" hint-placeholder-count="3">
+<span style="width: 9px; height: 9px; background: {{d}}; box-shadow: 0 0 0 1px #B5B5B0"></span>
+</sc-for>
+</div>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px">[PRICE]</span>
+</a>
+</sc-for>
+</div>
+</sc-if>
+<sc-if value="{{noResults}}" hint-placeholder-val="{{false}}">
+<div style="padding: 64px 20px; background: #E8E8E5; display: flex; flex-direction: column; align-items: center; gap: 18px; text-align: center">
+<p style="margin: 0; font-size: 22px; font-weight: 800; font-stretch: 125%; text-transform: uppercase">Nothing in this orbit</p>
+<p style="margin: 0; font-size: 14px; color: #3A3A3E">No pieces match these filters.</p>
+<button type="button" class="press" onClick="{{clearAll}}" style="height: 52px; padding: 0 24px; border: 0; background: #0B0B0C; color: #F3F3F1; font-family: 'Archivo', sans-serif; font-size: 12px; font-weight: 700; font-stretch: 125%; letter-spacing: 0.12em; text-transform: uppercase">Clear filters</button>
+</div>
+</sc-if>
+</main>
+
+<footer style="border-top: 1px solid #D2D2CE; padding: 40px 20px 32px; display: flex; flex-direction: column; gap: 24px">
+<div style="display: flex; flex-wrap: wrap; gap: 12px 24px; font-size: 14px">
+<a href="#help" style="text-decoration: none">Shipping</a><a href="#help" style="text-decoration: none">Returns</a><a href="#help" style="text-decoration: none">Size guide</a><a href="#help" style="text-decoration: none">Contact</a>
+</div>
+<img src="/brand/crue-wordmark-black.png" alt="CRUE" style="width: 350px; height: 74px">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.16em; color: #6B6B70">© CRUE [YEAR]</span>
+</footer>
+
+<sc-if value="{{sheetOpen}}" hint-placeholder-val="{{false}}">
+<div role="dialog" aria-label="Filters" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; background: #F3F3F1; display: flex; flex-direction: column">
+<div style="height: 60px; display: flex; align-items: center; justify-content: space-between; padding: 0 8px 0 20px; border-bottom: 1px solid #D2D2CE">
+<span style="font-size: 16px; font-weight: 800; font-stretch: 125%; text-transform: uppercase">Filters</span>
+<button type="button" onClick="{{closeSheet}}" aria-label="Close filters" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: none; border: 0; color: #0B0B0C"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+</div>
+<div style="flex-grow: 1; padding: 24px 20px; display: flex; flex-direction: column; gap: 28px">
+<fieldset style="border: 0; margin: 0; padding: 0">
+<legend style="padding: 0; margin-bottom: 14px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #55555A">Size</legend>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+<sc-for list="{{sizes}}" as="z" hint-placeholder-count="6">
+<button type="button" onClick="{{z.pick}}" aria-pressed="{{z.on}}" style="height: 48px; border: 1px solid {{z.border}}; background: {{z.bg}}; color: {{z.fg}}; font-family: 'IBM Plex Mono', monospace; font-size: 13px">{{z.label}}</button>
+</sc-for>
+</div>
+</fieldset>
+<fieldset style="border: 0; margin: 0; padding: 0">
+<legend style="padding: 0; margin-bottom: 14px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #55555A">Colour</legend>
+<div style="display: flex; gap: 10px">
+<sc-for list="{{swatches}}" as="w" hint-placeholder-count="3">
+<button type="button" onClick="{{w.pick}}" aria-pressed="{{w.on}}" aria-label="{{w.label}}" style="width: 48px; height: 48px; padding: 3px; box-sizing: border-box; background: transparent; border: 1px solid {{w.ring}}"><span style="display: block; width: 40px; height: 40px; box-sizing: border-box; background: {{w.hex}}; border: 1px solid #B5B5B0"></span></button>
+</sc-for>
+</div>
+</fieldset>
+</div>
+<div style="display: flex; gap: 8px; padding: 12px 16px 28px; border-top: 1px solid #D2D2CE">
+<button type="button" onClick="{{clearAll}}" style="height: 56px; padding: 0 20px; border: 1px solid #B5B5B0; background: transparent; color: #0B0B0C; font-family: 'Archivo', sans-serif; font-size: 12px; font-weight: 700; font-stretch: 125%; letter-spacing: 0.12em; text-transform: uppercase">Clear</button>
+<button type="button" class="press" onClick="{{closeSheet}}" style="flex-grow: 1; height: 56px; border: 0; background: #0B0B0C; color: #F3F3F1; font-family: 'Archivo', sans-serif; font-size: 12px; font-weight: 700; font-stretch: 125%; letter-spacing: 0.12em; text-transform: uppercase">{{showLabel}}</button>
+</div>
+</div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1800}}'>
+class Component extends DCLogic {
+constructor(p) { super(p); this.state = { sheet: false, cat: 'All', size: '', colour: '' }; }
+renderVals() {
+const s = this.state;
+const SW = { black: '#0B0B0C', white: '#F3F3F1', grey: '#7C7C81' };
+const ALL = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
+const products = [
+{ name: 'Horizon Shell Jacket', cat: 'Layers', colours: ['black', 'white', 'grey'], sizes: ALL },
+{ name: 'Singularity Run Tee', cat: 'Tops', colours: ['white', 'black', 'grey'], sizes: ALL },
+{ name: 'Orbit Half Tight', cat: 'Bottoms', colours: ['black', 'grey'], sizes: ['XS', 'S', 'M', 'L', 'XL'] },
+{ name: 'Accretion Split Short', cat: 'Bottoms', colours: ['grey', 'black', 'white'], sizes: ALL },
+{ name: 'Event Horizon Long Sleeve', cat: 'Tops', colours: ['black', 'white'], sizes: ALL },
+{ name: 'Photon Run Cap', cat: 'Accessories', colours: ['white', 'black'], sizes: [] }
+];
+const shown = products.filter((p) => (s.cat === 'All' || p.cat === s.cat) && (!s.size || p.sizes.includes(s.size)) && (!s.colour || p.colours.includes(s.colour))).map((p) => ({ ...p, dots: p.colours.map((c) => SW[c]) }));
+const extra = (s.size ? 1 : 0) + (s.colour ? 1 : 0);
+return {
+title: s.cat === 'All' ? 'Shop all' : s.cat,
+countLabel: '(' + shown.length + ')',
+shown,
+hasResults: shown.length > 0,
+noResults: shown.length === 0,
+sheetOpen: s.sheet,
+openSheet: () => this.setState({ sheet: true }),
+closeSheet: () => this.setState({ sheet: false }),
+filterBtn: extra ? 'Filter (' + extra + ')' : 'Filter',
+showLabel: 'Show ' + shown.length + ' results',
+clearAll: () => this.setState({ cat: 'All', size: '', colour: '' }),
+cats: ['All', 'Tops', 'Bottoms', 'Layers', 'Accessories'].map((c) => {
+const on = c === s.cat;
+return { label: c, on, bg: on ? '#0B0B0C' : 'transparent', fg: on ? '#F3F3F1' : '#0B0B0C', border: on ? '#0B0B0C' : '#B5B5B0', pick: () => this.setState({ cat: c }) };
+}),
+sizes: ALL.map((l) => {
+const on = l === s.size;
+return { label: l, on, bg: on ? '#0B0B0C' : 'transparent', fg: on ? '#F3F3F1' : '#0B0B0C', border: on ? '#0B0B0C' : '#B5B5B0', pick: () => this.setState({ size: on ? '' : l }) };
+}),
+swatches: [['black', 'Void Black'], ['white', 'Photon White'], ['grey', 'Nebula Grey']].map(([k, label]) => {
+const on = k === s.colour;
+return { label, hex: SW[k], on, ring: on ? '#0B0B0C' : 'transparent', pick: () => this.setState({ colour: on ? '' : k }) };
+})
+};
+}
+}
+</script>
+</body>
+</html>

@@ -8,7 +8,13 @@ function replayIntro() {
   document.cookie = clearIntroCookie();
 }
 
-export function Navbar({ bagCount = 0 }: { bagCount?: number }) {
+export function Navbar({
+  bagCount = 0,
+  shopCurrent = false,
+}: {
+  bagCount?: number;
+  shopCurrent?: boolean;
+}) {
   return (
     <>
       <div className="flex h-8 items-center justify-center bg-surface px-4 font-[family-name:var(--font-plex)] text-[10px] tracking-[0.16em] uppercase md:h-9 md:gap-8 md:text-[11px] md:tracking-[0.18em]">
@@ -19,7 +25,13 @@ export function Navbar({ bagCount = 0 }: { bagCount?: number }) {
 
       <header className="hidden h-[72px] grid-cols-3 items-center border-b border-line px-12 md:grid">
         <nav aria-label="Main" className="flex gap-7 text-[12px] font-semibold tracking-[0.12em] uppercase">
-          <a href="/">Shop</a>
+          <a
+            href="/catalog"
+            aria-current={shopCurrent ? "page" : undefined}
+            className={shopCurrent ? "underline decoration-1 underline-offset-8" : undefined}
+          >
+            Shop
+          </a>
           <a href="#drop">Run</a>
           <a href="#drop">Train</a>
           <a href="#drop">Drops</a>

@@ -125,6 +125,13 @@ IBM Plex Mono loads with `next/font/google`, self-hosted, `display: 'swap'`. Ben
 - **Category bento**: asymmetric grid `7fr 5fr`, one tall "Run" tile with image and gradient, "Train" and "Layers" stacked. Layers is the single inverted tile (light in the dark theme, dark in the light theme). Arrow nudges right on hover.
 - **Newsletter**: `surface` band with the glow image at low opacity, visible label, email input + "Join" button.
 - **PDP**: 2×2 image grid (840px) + 440px info column: breadcrumb, title, price, story, colour swatches (square, ring on select), size grid (6 columns desktop, 3 mobile), full-width add-to-bag button that confirms "Added: M, Void Black", accordion (Details, Fit, Shipping & returns). Mobile: swipeable image rail with bar indicators and a sticky bottom add-to-bag bar.
+- **Catalog (product listing)**: `catalog-desktop.html` / `catalog-mobile.html`.
+  - Header: same as Home, with the active nav item underlined (1px, offset 8px). Below it a title band: mono breadcrumb, H1 (64px desktop / 36px mobile, Benzin 800 uppercase) showing "Shop all" or the active category, and a mono result count "(6)". Right side: "Hide filters" toggle and "Sort: Featured", both mono caps text buttons.
+  - Desktop filter sidebar (240px, left): Category list (uppercase Benzin, square 8px marker and full text colour on the active item, muted otherwise, live count per category), Size grid (3 columns, square 44px buttons, filled when selected), Colour list (32px square swatch with ring on select + name), and a "Clear all" text link when any filter is set. Groups separated by 1px `line` dividers; group labels in mono caps `muted`.
+  - Grid: 3 columns with filters open, 4 with filters hidden, gap `40px 16px`. Cards match the Home product card (3:4 `surface` stage, uppercase name, mono price) plus a row of 10px square colour swatches.
+  - Filtering is live: category, size and colour combine; counts and the title update. Map these to Shopify collection filters (`productFilters`) and keep them in the URL query.
+  - Empty state: `surface` panel with faint mark, "Nothing in this orbit", "No pieces match these filters.", and a primary "Clear filters" button.
+  - Mobile: Filter button (shows active count) + horizontally scrolling category chips (square, filled when active), 2-column grid; Filter opens a full-screen sheet with Size and Colour, and a sticky footer with "Clear" and "Show N results".
 
 
 ## 7. Brand assets

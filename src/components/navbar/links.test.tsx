@@ -1,7 +1,5 @@
 import { fireEvent, render, screen, within } from "@testing-library/react";
 import { Storefront } from "@/app/page";
-import { Product } from "@/components/product/product";
-import { productByHandle } from "@/lib/catalog";
 import { introCookie, introCookieName } from "@/lib/intro-cookie";
 
 describe("REQ-009 home and intro links", () => {
@@ -9,13 +7,14 @@ describe("REQ-009 home and intro links", () => {
     document.cookie = `${introCookieName}=; Path=/; Max-Age=0`;
   });
 
-  it("REQ-009 sends Shop to the home page", () => {
-    const { unmount } = render(<Storefront showIntro={false} />);
-    expect(screen.getByRole("link", { name: "Shop" })).toHaveAttribute("href", "/");
-    unmount();
+  it("REQ-009 does not clear the intro when Shop is used", () => {
+    document.cookie = introCookie();
+    render(<Storefront showIntro={false} />);
 
-    render(<Product product={productByHandle("horizon-shell-jacket")!} />);
-    expect(screen.getByRole("link", { name: "Shop" })).toHaveAttribute("href", "/");
+    fireEvent.click(screen.getByRole("link", { name: "Shop" }));
+
+    expect(screen.getByRole("link", { name: "Shop" })).toHaveAttribute("href", "/catalog");
+    expect(document.cookie).toContain(`${introCookieName}=1`);
   });
 
   it("REQ-009 sends the wordmark to the intro", () => {
