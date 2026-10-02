@@ -164,9 +164,9 @@ Easing for UI: `cubic-bezier(.16, 1, .3, 1)`. Buttons press to `scale(.98)`. Ani
 | 0.3s | Black hole (spinning accretion disk, photon ring, black centre) scales in |
 | 2.4s | Black hole collapses (scale .3, fade out) |
 | 2.8s | Logo mark pulls in from scale 2.2 with blur to sharp |
-| 3.6–4.3s | Wordmark, "Get pulled in" and Enter / Skip rise in; progress line fills to 100% |
+| 3.6–4.3s | Wordmark, "Get pulled in" and Enter rise in; progress line fills to 100% |
 
-The disk is a `conic-gradient` masked into a ring, flattened with `scaleY(.13)`, rotating 14s linear. Show the intro on first visit only (cookie), always with a Skip link, and make it keyboard-accessible.
+The disk is a `conic-gradient` masked into a ring, flattened with `scaleY(.13)`, rotating 14s linear. Show the intro on first visit only (cookie). Enter is the only way off it, and it is keyboard-accessible.
 
 **Reduced motion is mandatory**: under `prefers-reduced-motion: reduce`, skip straight to the final state (logo, wordmark, Enter).
 

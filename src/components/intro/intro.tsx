@@ -24,9 +24,9 @@ export function Intro() {
       <div className="intro-stars-3 pointer-events-none absolute -inset-[20%] opacity-70" />
       <div className="intro-stars-2 pointer-events-none absolute -inset-[20%]" />
       <div className="intro-stars pointer-events-none absolute -inset-[10%] origin-center" />
-      <div className="intro-halo pointer-events-none absolute top-1/2 left-1/2 size-[min(140vw,800px)] -translate-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.10)_0%,rgba(255,255,255,0.03)_40%,transparent_70%)]" />
+      <div className="intro-halo pointer-events-none absolute top-1/2 left-1/2 hidden size-[min(140vw,800px)] -translate-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.10)_0%,rgba(255,255,255,0.03)_40%,transparent_70%)]" />
 
-      <div className="intro-bh pointer-events-none absolute inset-0">
+      <div className="intro-bh pointer-events-none absolute inset-0 hidden">
         <div className="absolute top-1/2 left-1/2 w-[min(142vw,1100px)] -translate-1/2 scale-y-[0.14] md:scale-y-[0.13]">
           <div className="intro-disk aspect-square w-full rounded-full opacity-85 blur-[2px] md:blur-[3px]" />
         </div>
@@ -74,24 +74,10 @@ export function Intro() {
           <button
             type="button"
             onClick={dismiss}
-            className="hidden bg-transparent px-0 py-3.5 font-[family-name:var(--font-plex)] text-[11px] tracking-[0.2em] text-muted uppercase md:inline"
-          >
-            Skip
-          </button>
-          <button
-            type="button"
-            onClick={dismiss}
             className="flex h-14 items-center justify-between gap-3.5 border border-text px-[22px] text-[13px] font-bold tracking-[0.14em] uppercase transition-[background,color] duration-300 hover:bg-text hover:text-bg-intro md:h-[52px] md:justify-center md:px-7"
           >
             <span>Enter</span>
             <ArrowRight className="size-[18px]" strokeWidth={1.5} aria-hidden />
-          </button>
-          <button
-            type="button"
-            onClick={dismiss}
-            className="self-center bg-transparent px-4 py-3.5 font-[family-name:var(--font-plex)] text-[10px] tracking-[0.2em] text-muted uppercase md:hidden"
-          >
-            Skip intro
           </button>
         </div>
       </div>

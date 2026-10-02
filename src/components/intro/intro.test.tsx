@@ -50,16 +50,9 @@ describe("REQ-002 intro sequence", () => {
 
     expect(screen.getByText("Get pulled in")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Enter" })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Skip", exact: true })).toHaveClass(
-      "hidden",
-      "md:inline",
-    );
     expect(screen.getByText("Crossing the event horizon").parentElement).toHaveClass(
       "hidden",
       "md:flex",
-    );
-    expect(screen.getByRole("button", { name: "Skip intro" })).toHaveClass(
-      "md:hidden",
     );
     expect(intro().getByText("Drop 001 / Event Horizon")).toHaveClass(
       "hidden",
@@ -78,7 +71,7 @@ describe("REQ-002 intro sequence", () => {
     cookieGet.mockReturnValue(undefined);
     render(await HomePage());
 
-    fireEvent.click(screen.getByRole("button", { name: "Skip", exact: true }));
+    fireEvent.click(screen.getByRole("button", { name: "Enter" }));
 
     expect(document.cookie).toContain(`${introCookieName}=1`);
     expect(screen.queryByRole("img", { name: "CRUE mark" })).not.toBeInTheDocument();

@@ -205,24 +205,24 @@
 }
 
 .intro-mark {
-  animation: intro-mark 1.6s 2.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: intro-mark 1.6s 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .intro-rise-1 {
-  animation: intro-rise 1s 3.6s ease-out both;
+  animation: intro-rise 1s 1s ease-out both;
 }
 
 .intro-rise-2 {
-  animation: intro-rise 1s 3.9s ease-out both;
+  animation: intro-rise 1s 1.3s ease-out both;
 }
 
 .intro-rise-3 {
-  animation: intro-rise 1s 4.3s ease-out both;
+  animation: intro-rise 1s 1.7s ease-out both;
 }
 
 .intro-bar {
   width: 0;
-  animation: intro-load 4.3s cubic-bezier(0.4, 0, 0.2, 1) both;
+  animation: intro-load 2.4s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
 .theme-slice {

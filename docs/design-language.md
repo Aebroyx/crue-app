@@ -117,7 +117,7 @@ The older SVGs in [`assets/brand/`](../assets/brand/README.md) are the same artw
 
 UI easing is `cubic-bezier(.16, 1, .3, 1)`. Buttons press to `scale(.98)`. Animate only `transform` and `opacity`.
 
-The intro is a sequence of about 4.3 seconds, then it waits for Enter. It plays on the first visit only, remembered with a cookie. It always has a Skip link and is keyboard-accessible. The full timeline, including the star layers and the spinning disk, is in [`design/DESIGN.md`](design/DESIGN.md).
+The intro is a sequence of about 4.3 seconds, then it waits for Enter. It plays on the first visit only, remembered with a cookie. Enter is the only way off it, and it is keyboard-accessible. The full timeline, including the star layers and the spinning disk, is in [`design/DESIGN.md`](design/DESIGN.md).
 
 Under `prefers-reduced-motion: reduce`, skip straight to the final state: the mark, the wordmark, and Enter.
 

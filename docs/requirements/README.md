@@ -36,3 +36,4 @@ Each feature is one file: `REQ-NNN-short-name.md`. The template is [`_template.m
 | [REQ-010](REQ-010-newsletter.md) | Newsletter band | done |
 | [REQ-011](REQ-011-catalog.md) | Catalog | done |
 | [REQ-012](REQ-012-about.md) | About | done |
+| [REQ-013](REQ-013-intro-logo.md) | Intro logo | done |
