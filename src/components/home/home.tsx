@@ -1,5 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import { Footer } from "@/components/footer/footer";
+import { ProductImage } from "@/components/product-image/product-image";
 import { Newsletter } from "@/components/home/newsletter";
 import { Navbar } from "@/components/navbar/navbar";
 import { catalogProducts } from "@/lib/catalog";
@@ -71,10 +72,7 @@ export function Home({ theme = "light" }: { theme?: Theme }) {
         <div className="grid grid-cols-2 gap-x-2.5 gap-y-6 md:grid-cols-4 md:gap-4">
           {products.map((product) => (
             <article key={product.name} className="flex flex-col gap-3 md:gap-4">
-              <div className="flex h-[228px] items-center justify-center bg-surface md:h-[432px]">
-                <img src="/brand/crue-mark-white.png" alt="" className="w-[72px] opacity-[0.08] md:w-[120px] hidden dark:block" />
-                <img src="/brand/crue-mark-black.png" alt="" className="w-[72px] opacity-[0.08] md:w-[120px] dark:hidden" />
-              </div>
+              <ProductImage className="h-[228px] md:h-[432px]" markClassName="w-[72px] opacity-[0.08] md:w-[120px]" />
               <div className="flex flex-col gap-1 md:flex-row md:justify-between md:gap-3">
                 <div className="flex flex-col gap-1 md:gap-1.5">
                   <a

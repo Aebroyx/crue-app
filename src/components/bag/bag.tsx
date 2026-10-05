@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, X } from "lucide-react";
+import { ProductImage } from "@/components/product-image/product-image";
 
 export type BagLine = {
   id: string;
@@ -209,10 +210,7 @@ export function Bag() {
             <ul className="min-h-0 flex-1 list-none overflow-y-auto px-5 md:px-7">
               {bag.lines.map((line) => (
                 <li key={line.id} className="flex gap-4 border-b border-line py-6">
-                  <div className="flex h-32 w-24 shrink-0 items-center justify-center bg-surface">
-                    <img src="/brand/crue-mark-white.png" alt="" className="hidden h-[15px] w-11 opacity-10 dark:block" />
-                    <img src="/brand/crue-mark-black.png" alt="" className="h-[15px] w-11 opacity-10 dark:hidden" />
-                  </div>
+                  <ProductImage className="h-32 w-24 shrink-0" markClassName="h-[15px] w-11 opacity-10" />
                   <div className="flex min-w-0 flex-1 flex-col gap-1.5">
                     <div className="flex items-start justify-between gap-3">
                       <span className="text-[13px] font-bold tracking-[0.04em] uppercase">{line.title}</span>

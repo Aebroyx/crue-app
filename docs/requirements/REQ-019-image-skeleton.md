@@ -1,6 +1,6 @@
 # REQ-019: Product image skeleton
 
-- Status: draft
+- Status: done
 - Date: 2026-10-05
 
 ## Problem

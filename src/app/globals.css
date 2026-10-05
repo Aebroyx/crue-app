@@ -434,6 +434,20 @@
   animation: search-scrim-out 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
+@keyframes product-image-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+
+.product-image-pulse {
+  animation: product-image-pulse 1.2s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .intro-stars,
   .intro-stars-2,
@@ -458,7 +472,8 @@
   .search-panel,
   .search-panel-out,
   .search-scrim,
-  .search-scrim-out {
+  .search-scrim-out,
+  .product-image-pulse {
     animation: none;
   }
 

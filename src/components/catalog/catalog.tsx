@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { ChevronDown, SlidersHorizontal } from "lucide-react";
 import { Footer } from "@/components/footer/footer";
+import { ProductImage } from "@/components/product-image/product-image";
 import { Navbar } from "@/components/navbar/navbar";
 import { catalogProducts, type CatalogProduct } from "@/lib/catalog";
 import type { Theme } from "@/lib/theme-cookie";
@@ -143,10 +144,7 @@ export function Catalog({
               <div className={`grid grid-cols-2 gap-x-2.5 gap-y-7 md:gap-x-4 md:gap-y-10 ${filtersOpen ? "md:grid-cols-3" : "md:grid-cols-4"}`}>
                 {shown.map((product) => (
                   <a key={product.handle} href={`/products/${product.handle}`} className="flex flex-col gap-2.5 md:gap-4">
-                    <div className="flex aspect-[3/4] items-center justify-center bg-surface">
-                      <img src="/brand/crue-mark-white.png" alt="" className="hidden w-[66px] opacity-[0.08] md:w-[110px] dark:block" />
-                      <img src="/brand/crue-mark-black.png" alt="" className="w-[66px] opacity-[0.08] md:w-[110px] dark:hidden" />
-                    </div>
+                    <ProductImage className="aspect-[3/4]" markClassName="w-[66px] opacity-[0.08] md:w-[110px]" />
                     <span className="text-[12px] font-bold tracking-[0.03em] uppercase md:text-[14px] md:tracking-[0.04em]">{product.title}</span>
                     <span className="flex items-center gap-2.5">
                       <span className="flex gap-1">

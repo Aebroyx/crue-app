@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { useBag } from "@/components/bag/bag";
+import { ProductImage } from "@/components/product-image/product-image";
 import { Footer } from "@/components/footer/footer";
 import { Navbar } from "@/components/navbar/navbar";
 import { SizeGuide } from "@/components/size-guide/size-guide";
@@ -180,9 +181,6 @@ export function Product({
 
 function Stage({ alt, className }: { alt: string; className: string }) {
   return (
-    <div className={`flex items-center justify-center bg-surface ${className}`}>
-      <img src="/brand/crue-mark-white.png" alt={alt} className="hidden h-8 w-24 opacity-[0.08] md:h-12 md:w-[140px] dark:block" />
-      <img src="/brand/crue-mark-black.png" alt="" className="h-8 w-24 opacity-[0.08] md:h-12 md:w-[140px] dark:hidden" />
-    </div>
+    <ProductImage alt={alt} className={className} markClassName="h-8 w-24 opacity-[0.08] md:h-12 md:w-[140px]" />
   );
 }
