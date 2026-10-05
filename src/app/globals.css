@@ -372,6 +372,68 @@
   animation: bag-scrim-out 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
+@keyframes search-in {
+  from {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes search-out {
+  to {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+}
+
+.search-panel {
+  animation: search-in 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.search-field::-webkit-search-cancel-button,
+.search-field::-webkit-search-decoration,
+.search-field::-webkit-search-results-button,
+.search-field::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+  display: none;
+  width: 0;
+  height: 0;
+  margin: 0;
+  pointer-events: none;
+}
+
+.search-panel-out {
+  animation: search-out 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes search-scrim-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes search-scrim-out {
+  to {
+    opacity: 0;
+  }
+}
+
+.search-scrim {
+  animation: search-scrim-in 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.search-scrim-out {
+  animation: search-scrim-out 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .intro-stars,
   .intro-stars-2,
@@ -392,7 +454,11 @@
   .bag-panel,
   .bag-panel-out,
   .bag-scrim,
-  .bag-scrim-out {
+  .bag-scrim-out,
+  .search-panel,
+  .search-panel-out,
+  .search-scrim,
+  .search-scrim-out {
     animation: none;
   }
 

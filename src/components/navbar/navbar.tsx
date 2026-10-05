@@ -1,7 +1,9 @@
 "use client";
 
 import { Menu, Search, ShoppingBag, User } from "lucide-react";
+import { useState } from "react";
 import { Bag, useBag } from "@/components/bag/bag";
+import { SearchOverlay } from "@/components/search/search";
 import { Wordmark } from "@/components/wordmark";
 import { clearIntroCookie } from "@/lib/intro-cookie";
 
@@ -17,6 +19,7 @@ export function Navbar({
   aboutCurrent?: boolean;
 }) {
   const bag = useBag();
+  const [searchOpen, setSearchOpen] = useState(false);
 
   return (
     <>
@@ -50,7 +53,7 @@ export function Navbar({
           <Wordmark className="h-[22px] w-[104px]" />
         </a>
         <div className="flex items-center justify-end gap-2">
-          <button type="button" aria-label="Search" className="flex size-11 items-center justify-center">
+          <button type="button" aria-label="Search" onClick={() => setSearchOpen(true)} className="flex size-11 items-center justify-center">
             <Search className="size-5" strokeWidth={1.5} aria-hidden />
           </button>
           <button type="button" aria-label="Account" className="flex size-11 items-center justify-center">
@@ -75,7 +78,7 @@ export function Navbar({
           <Wordmark className="h-[18px] w-[86px]" />
         </a>
         <div className="flex">
-          <button type="button" aria-label="Search" className="flex size-11 items-center justify-center">
+          <button type="button" aria-label="Search" onClick={() => setSearchOpen(true)} className="flex size-11 items-center justify-center">
             <Search className="size-5" strokeWidth={1.5} aria-hidden />
           </button>
           <button
@@ -94,6 +97,7 @@ export function Navbar({
         </div>
       </header>
       <Bag />
+      <SearchOverlay open={searchOpen} onClose={() => setSearchOpen(false)} />
     </>
   );
 }
