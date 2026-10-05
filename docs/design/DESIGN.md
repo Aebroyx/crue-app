@@ -12,8 +12,10 @@ One design in **two themes: dark and light**. Both ship, with a theme toggle in 
 
 | Folder | What it is |
 |---|---|
-| `screens/light/` | Home and Product (desktop + mobile), light theme. **Default theme.** |
-| `screens/dark/` | Intro, Home, and Product (desktop + mobile), dark theme. |
+| `screens/light/` | Every screen except the intro (desktop + mobile), light theme. **Default theme.** |
+| `screens/dark/` | Every screen including the intro (desktop + mobile), dark theme. |
+
+**Screens** (each has `-desktop` and `-mobile` unless noted): `intro` (dark only), `home`, `catalog`, `product`, `about`, `bag`, `search`, `size-guide`, `policy`, `404`, plus `menu-mobile` (mobile only). Links between screen files work, so you can click through them in a browser.
 
 The intro is dark in both themes (a black hole reads best on black), so there is only a dark intro screen.
 
@@ -69,6 +71,8 @@ Screen files are HTML exported from the design canvas. They are a **visual refer
 | `dim` | `#6B6B70` |
 
 Implement both as the same semantic tokens swapped under `[data-theme="light"]` on `<html>`, so every component works in both. The primary button is always the `text` colour filled, with `bg` coloured text. In light, the one inverted Layers tile becomes dark, and the hero and Run tile use `glow-dark.jpg` with a light fade (see `screens/light/`).
+
+Overlays (bag drawer, search, size guide) sit on a scrim: `rgba(5,5,6,0.72)` in dark, `rgba(28,28,26,0.38)` in light.
 
 Product colourway swatches: Void Black `#0B0B0C`, Photon White `#EDECE8`, Nebula Grey `#7C7C81`.
 
@@ -137,6 +141,34 @@ IBM Plex Mono loads with `next/font/google`, self-hosted, `display: 'swap'`. Ben
   - Centre: the black-hole mark (84px wide desktop, 72px mobile) as the `<h1>` (alt "About CRUE"), then one short paragraph, 15px / 1.75 (14px mobile), `text-2`, max width 500px, centred.
   - Four tilted product objects bleed off the corners (rotated -12°, 8°, 10°, -8°), keeping the centre column clear. In the screens they are placeholder panels; replace them with cut-out product photos (transparent PNG) of the drop. Objects fade up in sequence on load (0, .1, .2, .3s), copy fades in at .5s; skipped under reduced motion.
   - The paragraph is draft copy for the owner to confirm.
+- **Bag drawer**: `bag-desktop.html` / `bag-mobile.html`. Opens from the header bag and automatically after Add to bag.
+  - Desktop: a 460px panel from the right over the scrim. Mobile: full screen.
+  - Header "Bag (n)" (Benzin 800 uppercase) + close; a `surface` band with the free-shipping threshold in mono caps.
+  - Line items: 96×128 image on `surface`, uppercase name, colour / size in `muted`, mono price, square quantity stepper (40px − / + buttons, `control-border`), "Remove" mono text button.
+  - Footer: Subtotal (mono `[SUBTOTAL]`), "Shipping and taxes are calculated at checkout.", and a full-width primary **Checkout** button that goes to Shopify checkout (`cart.checkoutUrl`).
+  - Empty state: faint mark, "Your bag is empty", "Nothing pulled in yet.", primary "Shop all".
+  - Trap focus, close on Escape and scrim click.
+- **Menu drawer** (mobile only): `menu-mobile.html`. Full screen. Large uppercase links (Benzin 800, 32px, 64px rows with arrows), then Account, Shipping & returns, Size guide, Contact; at the bottom a Dark / Light segmented theme switch (square, active filled) and social links in mono caps.
+- **Search overlay**: `search-desktop.html` / `search-mobile.html`. A panel over the page (full screen on mobile) with a large uppercase input (40px desktop / 24px mobile, Benzin 800) and a close button.
+  - Empty: "Popular searches" as outline chips that fill the input.
+  - Typing: live results (6 columns desktop, 2 mobile; 3:4 `surface` image, uppercase name, mono price), a mono result count and a "View all in shop" link.
+  - No match: "No results for "x"", "Check the spelling or try one of these.", and the popular chips.
+  - Use Shopify `predictiveSearch`.
+- **Size guide**: `size-guide-desktop.html` / `size-guide-mobile.html`. Opens from "Size guide" on the PDP and in the footer and menu.
+  - Desktop: centred 760px modal with a 1px `line-strong` border over the scrim. Mobile: bottom sheet (780px tall).
+  - Square segmented controls: Tops / Bottoms tabs and a cm / in unit toggle.
+  - Table: Size + three columns (Tops: Chest, Waist, Length; Bottoms: Waist, Hip, Inseam), header in mono caps `muted`, rows divided by 1px `line`, values in mono. All values are `[cm]` / `[in]` placeholders until the real chart is supplied; store it as a Shopify metaobject.
+  - "How to measure" notes per measurement and a fit note placeholder.
+- **Product page states** (added to the PDP screens):
+  - Sold-out sizes: struck through and `dim`, still selectable. Choosing one turns the main button into an outline button **Notify me when XL is back**, which confirms "We will email you when XL is back". Wire to a back-in-stock app or a customer tag.
+  - "Size guide" opens the size guide.
+  - **You may also like** below the product: 4 Home-style product cards on desktop, a swipeable row of 160px cards on mobile. Use Shopify `productRecommendations`.
+- **Policy pages**: `policy-desktop.html` / `policy-mobile.html`. One template for Shipping, Returns, Privacy and Terms.
+  - Title band like the catalog: mono breadcrumb (Home / Help), H1, "Last updated [DATE]" in mono.
+  - Desktop: topic list on the left (240px, same style as the catalog categories) and content up to 680px wide. Mobile: square topic chips that scroll sideways.
+  - Short sections (H2 Benzin 800 uppercase, body `text-2`) and a `surface` "Still need help?" box with `[SUPPORT EMAIL]` and `[RESPONSE TIME]`.
+  - Content comes from Shopify's policy settings (`shop.shippingPolicy`, etc.); route `/policies/[handle]`.
+- **404**: `404-desktop.html` / `404-mobile.html`. The black-hole mark comes in with the intro mark entrance (scale 2.2 and blur, settling in 1.6s). White mark on dark, black mark on light. "Error 404" in mono, H1 "Lost past the event horizon", "This page was pulled in and never came back.", primary "Back to home" and outline "Shop all". Use as `app/not-found.tsx`; reduced motion shows the settled mark.
 
 
 ## 7. Brand assets
@@ -149,6 +181,8 @@ Transparent PNGs cut from the original logo files, in [`brand/`](brand/). Copy t
 | `crue-wordmark-white.png` / `crue-wordmark-black.png` | CRUE wordmark (830×176 ratio ≈ 4.7:1) |
 | `glow-dark.jpg` | Black mark on grey radial glow (Run tile, light hero) |
 | `glow-light.jpg` | White mark on grey glow (newsletter band) |
+| `favicon.ico`, `favicon-32.png`, `apple-touch-icon.png`, `icon-192.png`, `icon-512.png` | App icons: white mark on `#0B0B0C`. `favicon.ico` goes in `app/`; the PNGs in `public/` (or as `app/icon.png` / `app/apple-icon.png`) |
+| `og-image.png` | 1200×630 social share image (mark + wordmark on black). Use as `app/opengraph-image.png` or in `metadata.openGraph.images` |
 
 Never recolour, stretch or add effects to the logo.
 
@@ -170,6 +204,8 @@ The disk is a `conic-gradient` masked into a ring, flattened with `scaleY(.13)`,
 
 **Reduced motion is mandatory**: under `prefers-reduced-motion: reduce`, skip straight to the final state (logo, wordmark, Enter).
 
+Overlays (bag drawer, search, size guide, menu) open and close with the UI easing. The 404 mark uses the intro mark entrance and shows its settled state under reduced motion.
+
 
 ## 9. Copy and content rules
 
@@ -180,13 +216,23 @@ The disk is a `conic-gradient` masked into a ring, flattened with `scaleY(.13)`,
 - One CTA label per intent across a page.
 - No invented stats, specs, prices or reviews. Unknown facts stay as visible placeholders.
 
-**Placeholders still to fill**: `[PRICE]`, `[THRESHOLD]` (free shipping), `[YEAR]`, product stories, Details / Fit / Shipping copy, and all photography. Product names (Horizon Shell Jacket, Singularity Run Tee, Orbit Half Tight, Accretion Split Short) and colour names are draft names: pull real ones from Shopify.
+**Placeholders still to fill**: `[PRICE]`, `[SUBTOTAL]`, `[THRESHOLD]` (free shipping), `[YEAR]`, `[DATE]` (policy last updated), `[SUPPORT EMAIL]`, `[RESPONSE TIME]`, size chart values (`[cm]` / `[in]`) and the fit note, policy text, product stories, Details / Fit / Shipping copy, and all photography. Product names (Horizon Shell Jacket, Singularity Run Tee, Orbit Half Tight, Accretion Split Short, Event Horizon Long Sleeve, Photon Run Cap) and colour names are draft names: pull real ones from Shopify.
 
 ## 10. Next.js implementation notes
 
 - App Router, TypeScript, Tailwind v4 with the tokens above declared in `@theme` in `globals.css`.
 - Data from the **Shopify Storefront API** (products, collections, variants, cart). Never hardcode products; the screens' sample data only shows the shape.
-- Suggested routes: `/` (intro overlay on first visit, then home), `/collections/[handle]` (product grid), `/products/[handle]` (PDP), cart as a drawer.
+- Suggested routes: `/` (intro overlay on first visit, then home), `/collections/[handle]` (product grid), `/products/[handle]` (PDP), cart as a drawer. Also `/shop` (catalog), `/about`, `/policies/[handle]`, and `app/not-found.tsx` for the 404.
 - Use `next/image` for all photography with the crops noted in the TODO comments; mark the hero image `priority`.
 - Colour and size selection map to Shopify variants; disable sizes that are out of stock.
 - Icons: use one library (Phosphor recommended) at stroke weight 1.5, matching the outline icons in the screens.
+- Search uses Storefront `predictiveSearch`; "You may also like" uses `productRecommendations`; the size chart is a metaobject; policy pages read `shop.privacyPolicy`, `shop.refundPolicy`, `shop.shippingPolicy`, `shop.termsOfService`.
+
+## 11. Shopify settings (no screens needed)
+
+Checkout, customer accounts and order emails are hosted by Shopify. Match them to the site in the Shopify admin:
+
+- **Checkout and customer accounts** (Settings > Checkout > Customize): upload `crue-wordmark-black.png` as the logo, set the main background to `#F3F3F1`, buttons to `#0B0B0C` with `#F3F3F1` text, square corners where the editor allows, and the closest available typeface to Benzin. Custom fonts and deeper styling depend on your Shopify plan.
+- **Notification emails** (Settings > Notifications): add the black wordmark, set the accent colour to `#0B0B0C`, and keep the copy plain and free of em dashes.
+- **Policies** (Settings > Policies): fill in Shipping, Refund, Privacy and Terms; the policy pages read from there.
+- **Search and recommendations**: enable Search & Discovery so predictive search and "You may also like" return good results.

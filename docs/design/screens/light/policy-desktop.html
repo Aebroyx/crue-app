@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>CRUE Light Policy</title>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#F3F3F1;font-family:'Archivo',Helvetica,sans-serif;color:#0B0B0C}
+a{color:inherit}a:hover{opacity:.75}
+.press:active{transform:scale(.98)}
+
+</style>
+</helmet>
+<div style="width: 1440px; height: 1400px; background: #F3F3F1; overflow: hidden">
+<header style="height: 72px; background: #F3F3F1; border-bottom: 1px solid #D2D2CE; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: center; padding: 0 48px; box-sizing: border-box">
+<nav aria-label="Main" style="display: flex; gap: 28px; font-size: 12px; font-weight: 600; font-stretch: 112%; letter-spacing: 0.12em; text-transform: uppercase"><a href="catalog-desktop.html" style="text-decoration: none">Shop</a><a href="catalog-desktop.html" style="text-decoration: none">Run</a><a href="catalog-desktop.html" style="text-decoration: none">Train</a><a href="home-desktop.html#drop" style="text-decoration: none">Drops</a><a href="about-desktop.html" style="text-decoration: none">About</a></nav>
+<a href="home-desktop.html" aria-label="CRUE home" style="justify-self: center; display: flex"><img src="/brand/crue-wordmark-black.png" alt="CRUE" style="width: 104px; height: 22px; display: block"></a>
+<div style="justify-self: end; display: flex; align-items: center; gap: 8px">
+<a href="../dark/policy-desktop.html" aria-label="Switch to dark theme" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: none; border: 0; color: #0B0B0C; cursor: pointer; text-decoration: none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 14.5A8 8 0 019.5 4a8 8 0 1010.5 10.5z"></path></svg></a>
+<a href="search-desktop.html" aria-label="Search" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: none; border: 0; color: #0B0B0C; cursor: pointer; text-decoration: none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="6.5"></circle><path d="M16 16l4.5 4.5"></path></svg></a>
+<a href="#account" aria-label="Account" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: none; border: 0; color: #0B0B0C; cursor: pointer; text-decoration: none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"></path></svg></a>
+<a href="bag-desktop.html" aria-label="Bag, 2 items" style="height: 44px; display: flex; align-items: center; gap: 8px; padding: 0 4px; color: #0B0B0C; text-decoration: none; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.1em"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 8h14l-1 13H6L5 8z"></path><path d="M9 8V6a3 3 0 016 0v2"></path></svg><span>BAG (2)</span></a>
+</div>
+</header>
+<div style="padding: 56px 48px 32px; border-bottom: 1px solid #D2D2CE; display: flex; flex-direction: column; gap: 16px"><nav aria-label="Breadcrumb" style="display: flex; gap: 10px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #55555A"><a href="home-desktop.html" style="text-decoration: none">Home</a><span>/</span><span>Help</span></nav><h1 style="margin: 0; font-size: 64px; line-height: 0.95; font-weight: 800; font-stretch: 125%; text-transform: uppercase">{{title}}</h1><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #55555A">Last updated [DATE]</span></div>
+<main style="display: flex; gap: 96px; padding: 48px 48px 96px"><aside aria-label="Help topics" style="width: 240px; flex-shrink: 0; display: flex; flex-direction: column"><sc-for list="{{docs}}" as="d" hint-placeholder-count="4"><button type="button" onClick="{{d.pick}}" aria-pressed="{{d.on}}" style="display: flex; align-items: center; gap: 12px; height: 44px; background: none; border: 0; padding: 0; cursor: pointer; font-family: 'Archivo', sans-serif; font-size: 14px; font-weight: 700; font-stretch: 112%; letter-spacing: 0.06em; text-transform: uppercase; color: {{d.fg}}"><span style="width: 8px; height: 8px; background: {{d.mark}}"></span>{{d.label}}</button></sc-for></aside><article style="max-width: 680px; flex-grow: 1; display: flex; flex-direction: column; gap: 36px"><sc-for list="{{sections}}" as="sec" hint-placeholder-count="4"><section style="display: flex; flex-direction: column; gap: 12px"><h2 style="margin: 0; font-size: 16px; font-weight: 800; font-stretch: 125%; text-transform: uppercase; letter-spacing: 0.04em">{{sec.h}}</h2><p style="margin: 0; font-size: 15px; line-height: 1.7; color: #3A3A3E">{{sec.p}}</p></section></sc-for><div style="padding: 24px; background: #E8E8E5; display: flex; flex-direction: column; gap: 8px"><span style="font-size: 14px; font-weight: 700; font-stretch: 112%; text-transform: uppercase">Still need help?</span><span style="font-size: 14px; color: #3A3A3E">Email [SUPPORT EMAIL] and we will reply within [RESPONSE TIME].</span></div></article></main>
+<footer style="border-top: 1px solid #D2D2CE; padding: 40px 48px; display: flex; justify-content: space-between; align-items: center"><img src="/brand/crue-wordmark-black.png" alt="CRUE" style="width: 160px; height: 34px"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; color: #6B6B70">© CRUE [YEAR]</span></footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview": {"width": 1440, "height": 1400}}'>
+class Component extends DCLogic {
+constructor(p) { super(p); this.state = { doc: 'Shipping' }; }
+renderVals() {
+const s = this.state;
+const docs = {
+Shipping: ['Processing time', 'Delivery regions and times', 'Shipping costs', 'Tracking your order'],
+Returns: ['Return window', 'Condition of items', 'How to start a return', 'Refunds and exchanges'],
+Privacy: ['What we collect', 'How we use it', 'Cookies', 'Your rights'],
+Terms: ['Orders and payment', 'Pricing and availability', 'Intellectual property', 'Governing law']
+};
+const sections = docs[s.doc].map((h) => ({ h, p: '[Your ' + s.doc.toLowerCase() + ' policy text for “' + h.toLowerCase() + '” goes here. Keep it short and plain.]' }));
+return {
+title: s.doc === 'Terms' ? 'Terms of service' : s.doc === 'Privacy' ? 'Privacy policy' : s.doc + ' policy',
+sections,
+docs: Object.keys(docs).map((d) => { const on = d === s.doc; return { label: d, on, fg: on ? '#0B0B0C' : '#55555A', mark: on ? '#0B0B0C' : 'transparent', bg: on ? '#0B0B0C' : 'transparent', cfg: on ? '#F3F3F1' : '#0B0B0C', border: on ? '#0B0B0C' : '#B5B5B0', pick: () => this.setState({ doc: d }) }; })
+};
+}
+}
+</script>
+</body>
+</html>

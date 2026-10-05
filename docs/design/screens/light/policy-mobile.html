@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>CRUE Light Policy (mobile)</title>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#F3F3F1;font-family:'Archivo',Helvetica,sans-serif;color:#0B0B0C}
+a{color:inherit}a:hover{opacity:.75}
+.press:active{transform:scale(.98)}
+
+</style>
+</helmet>
+<div style="width: 390px; height: 1500px; background: #F3F3F1; overflow: hidden">
+<header style="height: 60px; background: #F3F3F1; border-bottom: 1px solid #D2D2CE; display: flex; align-items: center; justify-content: space-between; padding: 0 8px; box-sizing: border-box">
+<a href="menu-mobile.html" aria-label="Menu" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: none; border: 0; color: #0B0B0C; cursor: pointer; text-decoration: none"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h18M3 16h18"></path></svg></a>
+<a href="home-mobile.html" aria-label="CRUE home" style="display: flex"><img src="/brand/crue-wordmark-black.png" alt="CRUE" style="width: 86px; height: 18px; display: block"></a>
+<div style="display: flex">
+<a href="search-mobile.html" aria-label="Search" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: none; border: 0; color: #0B0B0C; cursor: pointer; text-decoration: none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="6.5"></circle><path d="M16 16l4.5 4.5"></path></svg></a>
+<a href="bag-mobile.html" aria-label="Bag, 2 items" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: none; border: 0; color: #0B0B0C; cursor: pointer; text-decoration: none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 8h14l-1 13H6L5 8z"></path><path d="M9 8V6a3 3 0 016 0v2"></path></svg></a>
+</div>
+</header>
+<div style="padding: 32px 20px 20px;  display: flex; flex-direction: column; gap: 16px"><nav aria-label="Breadcrumb" style="display: flex; gap: 10px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #55555A"><a href="home-mobile.html" style="text-decoration: none">Home</a><span>/</span><span>Help</span></nav><h1 style="margin: 0; font-size: 34px; line-height: 0.95; font-weight: 800; font-stretch: 125%; text-transform: uppercase">{{title}}</h1><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #55555A">Last updated [DATE]</span></div>
+<div style="display: flex; gap: 8px; overflow-x: auto; padding: 0 16px 16px; border-bottom: 1px solid #D2D2CE; scrollbar-width: none"><sc-for list="{{docs}}" as="d" hint-placeholder-count="4"><button type="button" onClick="{{d.pick}}" aria-pressed="{{d.on}}" style="flex-shrink: 0; height: 44px; padding: 0 16px; border: 1px solid {{d.border}}; background: {{d.bg}}; color: {{d.cfg}}; font-family: 'Archivo', sans-serif; font-size: 12px; font-weight: 700; font-stretch: 112%; letter-spacing: 0.08em; text-transform: uppercase">{{d.label}}</button></sc-for></div>
+<main style="padding: 28px 20px 64px"><article style=" display: flex; flex-direction: column; gap: 36px"><sc-for list="{{sections}}" as="sec" hint-placeholder-count="4"><section style="display: flex; flex-direction: column; gap: 12px"><h2 style="margin: 0; font-size: 16px; font-weight: 800; font-stretch: 125%; text-transform: uppercase; letter-spacing: 0.04em">{{sec.h}}</h2><p style="margin: 0; font-size: 15px; line-height: 1.7; color: #3A3A3E">{{sec.p}}</p></section></sc-for><div style="padding: 24px; background: #E8E8E5; display: flex; flex-direction: column; gap: 8px"><span style="font-size: 14px; font-weight: 700; font-stretch: 112%; text-transform: uppercase">Still need help?</span><span style="font-size: 14px; color: #3A3A3E">Email [SUPPORT EMAIL] and we will reply within [RESPONSE TIME].</span></div></article></main>
+<footer style="border-top: 1px solid #D2D2CE; padding: 40px 20px; display: flex; justify-content: space-between; align-items: center"><img src="/brand/crue-wordmark-black.png" alt="CRUE" style="width: 120px; height: 25px"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; color: #6B6B70">© CRUE [YEAR]</span></footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview": {"width": 390, "height": 1500}}'>
+class Component extends DCLogic {
+constructor(p) { super(p); this.state = { doc: 'Shipping' }; }
+renderVals() {
+const s = this.state;
+const docs = {
+Shipping: ['Processing time', 'Delivery regions and times', 'Shipping costs', 'Tracking your order'],
+Returns: ['Return window', 'Condition of items', 'How to start a return', 'Refunds and exchanges'],
+Privacy: ['What we collect', 'How we use it', 'Cookies', 'Your rights'],
+Terms: ['Orders and payment', 'Pricing and availability', 'Intellectual property', 'Governing law']
+};
+const sections = docs[s.doc].map((h) => ({ h, p: '[Your ' + s.doc.toLowerCase() + ' policy text for “' + h.toLowerCase() + '” goes here. Keep it short and plain.]' }));
+return {
+title: s.doc === 'Terms' ? 'Terms of service' : s.doc === 'Privacy' ? 'Privacy policy' : s.doc + ' policy',
+sections,
+docs: Object.keys(docs).map((d) => { const on = d === s.doc; return { label: d, on, fg: on ? '#0B0B0C' : '#55555A', mark: on ? '#0B0B0C' : 'transparent', bg: on ? '#0B0B0C' : 'transparent', cfg: on ? '#F3F3F1' : '#0B0B0C', border: on ? '#0B0B0C' : '#B5B5B0', pick: () => this.setState({ doc: d }) }; })
+};
+}
+}
+</script>
+</body>
+</html>

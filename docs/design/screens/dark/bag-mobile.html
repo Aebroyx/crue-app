@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>CRUE Bag (mobile)</title>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#0B0B0C;font-family:'Archivo',Helvetica,sans-serif;color:#EDECE8}
+a{color:inherit}a:hover{opacity:.75}
+.press:active{transform:scale(.98)}
+
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: #0B0B0C">
+<aside role="dialog" aria-label="Bag" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; background: #0B0B0C; display: flex; flex-direction: column">
+<div style="height: 60px; flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 8px 0 20px; border-bottom: 1px solid #1F1F22">
+<h2 style="margin: 0; font-size: 18px; font-weight: 800; font-stretch: 125%; text-transform: uppercase">Bag ({{count}})</h2>
+<a href="catalog-mobile.html" aria-label="Close bag" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: none; border: 0; color: #EDECE8; cursor: pointer; text-decoration: none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M18 6L6 18"></path></svg></a>
+</div>
+<div style="flex-shrink: 0; background: #141416; padding: 12px 20px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #C4C3C0">Free shipping over [THRESHOLD]</div>
+<sc-if value="{{hasItems}}" hint-placeholder-val="{{true}}">
+<ul style="list-style: none; margin: 0; padding: 0 20px; flex-grow: 1; overflow-y: auto">
+<sc-for list="{{items}}" as="it" hint-placeholder-count="2">
+<li style="display: flex; gap: 16px; padding: 24px 0; border-bottom: 1px solid #1F1F22">
+<div style="width: 96px; height: 128px; flex-shrink: 0; background: #141416; display: flex; align-items: center; justify-content: center"><img src="/brand/crue-mark-white.png" alt="" style="width: 44px; height: 15px; opacity: 0.1"></div>
+<div style="flex-grow: 1; display: flex; flex-direction: column; gap: 6px">
+<div style="display: flex; justify-content: space-between; gap: 12px"><span style="font-size: 13px; font-weight: 700; font-stretch: 112%; text-transform: uppercase; letter-spacing: 0.04em">{{it.name}}</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; white-space: nowrap">[PRICE]</span></div>
+<span style="font-size: 13px; color: #A1A1A6">{{it.variant}}</span>
+<div style="margin-top: auto; display: flex; align-items: center; justify-content: space-between">
+<div role="group" aria-label="Quantity" style="display: flex; border: 1px solid #3A3A3E">
+<button type="button" onClick="{{it.dec}}" aria-label="Decrease quantity" style="width: 40px; height: 40px; background: none; border: 0; color: #EDECE8; font-size: 16px; cursor: pointer">&#8722;</button>
+<span style="width: 36px; display: flex; align-items: center; justify-content: center; font-family: 'IBM Plex Mono', monospace; font-size: 13px">{{it.qty}}</span>
+<button type="button" onClick="{{it.inc}}" aria-label="Increase quantity" style="width: 40px; height: 40px; background: none; border: 0; color: #EDECE8; font-size: 16px; cursor: pointer">+</button>
+</div>
+<button type="button" onClick="{{it.remove}}" style="height: 40px; background: none; border: 0; padding: 0; color: #A1A1A6; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; text-decoration: underline; text-underline-offset: 5px; cursor: pointer">Remove</button>
+</div>
+</div>
+</li>
+</sc-for>
+</ul>
+<div style="flex-shrink: 0; padding: 20px 20px 28px; border-top: 1px solid #1F1F22; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; justify-content: space-between; align-items: baseline"><span style="font-size: 13px; font-weight: 700; font-stretch: 112%; letter-spacing: 0.1em; text-transform: uppercase">Subtotal</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 14px">[SUBTOTAL]</span></div>
+<p style="margin: 0; font-size: 13px; color: #A1A1A6">Shipping and taxes are calculated at checkout.</p>
+<a href="#checkout" class="press" style="height: 60px; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; border: 0; background: #EDECE8; color: #0B0B0C; font-family: 'Archivo', sans-serif; font-size: 12px; font-weight: 700; font-stretch: 125%; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; text-decoration: none"><span>Checkout</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12h16M14 6l6 6-6 6"></path></svg></a>
+</div>
+</sc-if>
+<sc-if value="{{isEmpty}}" hint-placeholder-val="{{false}}">
+<div style="flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; padding: 0 20px; text-align: center">
+<img src="/brand/crue-mark-white.png" alt="" style="width: 120px; height: 40px; opacity: 0.25">
+<p style="margin: 0; font-size: 22px; font-weight: 800; font-stretch: 125%; text-transform: uppercase">Your bag is empty</p>
+<p style="margin: 0; font-size: 14px; color: #C4C3C0">Nothing pulled in yet.</p>
+<a href="catalog-mobile.html" class="press" style="height: 52px; display: flex; align-items: center; padding: 0 28px; border: 0; background: #EDECE8; color: #0B0B0C; font-family: 'Archivo', sans-serif; font-size: 12px; font-weight: 700; font-stretch: 125%; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; text-decoration: none">Shop all</a>
+</div>
+</sc-if>
+</aside>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview": {"width": 390, "height": 844}}'>
+class Component extends DCLogic {
+constructor(p) { super(p); this.state = { items: [
+{ id: 1, name: 'Horizon Shell Jacket', variant: 'Void Black / M', qty: 1 },
+{ id: 2, name: 'Singularity Run Tee', variant: 'Photon White / L', qty: 1 }
+] }; }
+renderVals() {
+const s = this.state;
+const set = (items) => this.setState({ items });
+const items = s.items.map((it) => ({ ...it,
+inc: () => set(s.items.map((x) => x.id === it.id ? { ...x, qty: x.qty + 1 } : x)),
+dec: () => set(s.items.map((x) => x.id === it.id ? { ...x, qty: Math.max(1, x.qty - 1) } : x)),
+remove: () => set(s.items.filter((x) => x.id !== it.id))
+}));
+const count = s.items.reduce((n, x) => n + x.qty, 0);
+return { items, count, hasItems: items.length > 0, isEmpty: items.length === 0 };
+}
+}
+</script>
+</body>
+</html>

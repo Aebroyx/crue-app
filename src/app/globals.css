@@ -208,6 +208,10 @@
   animation: intro-mark 1.6s 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
+.not-found-mark {
+  animation: intro-mark 1.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
 .intro-rise-1 {
   animation: intro-rise 1s 1s ease-out both;
 }
@@ -306,7 +310,8 @@
   .intro-bar,
   .theme-slice,
   .about-panel,
-  .about-copy {
+  .about-copy,
+  .not-found-mark {
     animation: none;
   }
 
