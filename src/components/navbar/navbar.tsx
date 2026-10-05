@@ -1,6 +1,7 @@
 "use client";
 
 import { Menu, Search, ShoppingBag, User } from "lucide-react";
+import { Bag, useBag } from "@/components/bag/bag";
 import { Wordmark } from "@/components/wordmark";
 import { clearIntroCookie } from "@/lib/intro-cookie";
 
@@ -9,14 +10,14 @@ function replayIntro() {
 }
 
 export function Navbar({
-  bagCount = 0,
   shopCurrent = false,
   aboutCurrent = false,
 }: {
-  bagCount?: number;
   shopCurrent?: boolean;
   aboutCurrent?: boolean;
 }) {
+  const bag = useBag();
+
   return (
     <>
       <div className="relative z-20 flex h-8 items-center justify-center bg-surface px-4 font-[family-name:var(--font-plex)] text-[10px] tracking-[0.16em] uppercase md:h-9 md:gap-8 md:text-[11px] md:tracking-[0.18em]">
@@ -55,9 +56,13 @@ export function Navbar({
           <button type="button" aria-label="Account" className="flex size-11 items-center justify-center">
             <User className="size-5" strokeWidth={1.5} aria-hidden />
           </button>
-          <button type="button" className="flex h-11 items-center gap-2 px-1 font-[family-name:var(--font-plex)] text-[12px] tracking-[0.1em]">
+          <button
+            type="button"
+            onClick={bag.openBag}
+            className="flex h-11 items-center gap-2 px-1 font-[family-name:var(--font-plex)] text-[12px] tracking-[0.1em]"
+          >
             <ShoppingBag className="size-5" strokeWidth={1.5} aria-hidden />
-            <span>BAG ({bagCount})</span>
+            <span>BAG ({bag.count})</span>
           </button>
         </div>
       </header>
@@ -73,16 +78,22 @@ export function Navbar({
           <button type="button" aria-label="Search" className="flex size-11 items-center justify-center">
             <Search className="size-5" strokeWidth={1.5} aria-hidden />
           </button>
-          <button type="button" aria-label={`Bag, ${bagCount} items`} className="relative flex size-11 items-center justify-center">
+          <button
+            type="button"
+            aria-label={`Bag, ${bag.count} items`}
+            onClick={bag.openBag}
+            className="relative flex size-11 items-center justify-center"
+          >
             <ShoppingBag className="size-5" strokeWidth={1.5} aria-hidden />
-            {bagCount > 0 ? (
+            {bag.count > 0 ? (
               <span className="absolute top-1.5 right-1.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-text px-1 font-[family-name:var(--font-plex)] text-[10px] text-bg">
-                {bagCount}
+                {bag.count}
               </span>
             ) : null}
           </button>
         </div>
       </header>
+      <Bag />
     </>
   );
 }

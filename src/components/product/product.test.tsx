@@ -65,7 +65,7 @@ describe("REQ-008 product page", () => {
 
     unmount();
     render(<Storefront showIntro={false} />);
-    expect(screen.getByRole("button", { name: "BAG (0)" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "BAG (1)" })).toBeInTheDocument();
   });
 
   it("REQ-008 keeps the catalog in Storefront shape and does not call Shopify", () => {

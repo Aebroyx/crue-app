@@ -323,6 +323,55 @@
   animation: size-guide-out 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
+@keyframes bag-in {
+  from {
+    opacity: 0;
+    transform: translateX(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes bag-out {
+  to {
+    opacity: 0;
+    transform: translateX(16px);
+  }
+}
+
+.bag-panel {
+  animation: bag-in 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.bag-panel-out {
+  animation: bag-out 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes bag-scrim-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes bag-scrim-out {
+  to {
+    opacity: 0;
+  }
+}
+
+.bag-scrim {
+  animation: bag-scrim-in 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.bag-scrim-out {
+  animation: bag-scrim-out 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .intro-stars,
   .intro-stars-2,
@@ -339,7 +388,11 @@
   .about-copy,
   .not-found-mark,
   .size-guide-panel,
-  .size-guide-panel-out {
+  .size-guide-panel-out,
+  .bag-panel,
+  .bag-panel-out,
+  .bag-scrim,
+  .bag-scrim-out {
     animation: none;
   }
 

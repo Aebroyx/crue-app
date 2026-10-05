@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ArrowRight } from "lucide-react";
+import { useBag } from "@/components/bag/bag";
 import { Footer } from "@/components/footer/footer";
 import { Navbar } from "@/components/navbar/navbar";
 import { SizeGuide } from "@/components/size-guide/size-guide";
@@ -26,20 +27,20 @@ export function Product({
   const [colour, setColour] = useState(colours[0] ?? "");
   const [size, setSize] = useState(sizes.includes("M") ? "M" : (sizes[0] ?? ""));
   const [open, setOpen] = useState<number | null>(0);
-  const [bag, setBag] = useState(0);
   const [added, setAdded] = useState(false);
   const [guide, setGuide] = useState(false);
+  const bag = useBag();
   const price = product.variants[0]?.price.amount ?? "[PRICE]";
   const label = added ? `Added: ${size}, ${colour}` : `Add to bag, ${size}`;
 
   function add() {
     setAdded(true);
-    setBag((count) => count + 1);
+    bag.add({ title: product.title, colour, size });
   }
 
   return (
     <div className="bg-bg font-[family-name:var(--font-benzin)] text-text">
-      <Navbar bagCount={bag} />
+      <Navbar />
       <div className="md:hidden">
         <div className="flex snap-x gap-1.5 overflow-x-auto">
           {product.images.map((image) => (
