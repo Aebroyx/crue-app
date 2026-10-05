@@ -83,10 +83,9 @@ Application code lives in `src/`. Docs stay in `docs/`. Font files the storefron
 
 ## Environments
 
-Expected later, not created yet:
-
-- A Shopify development store.
-- `SHOPIFY_STORE_DOMAIN` and `SHOPIFY_STOREFRONT_ACCESS_TOKEN` in `.env.local`.
+- [`.env.example`](../.env.example) lists `SHOPIFY_STORE_DOMAIN` and `SHOPIFY_STOREFRONT_ACCESS_TOKEN` with empty values. Copy it to `.env.local` and fill those values on your machine. `.env.local` is not committed.
+- A Shopify development store is still required before the Storefront API is wired in. The store handle and public domain stay open in [open-questions.md](open-questions.md).
+- The app does not read these variables until a later requirement connects the Storefront API.
 
 ## Explicit non-goals in code
 
