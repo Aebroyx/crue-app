@@ -1,8 +1,14 @@
+"use client";
+
+import { useState } from "react";
 import { ThemeSwitch } from "@/components/home/theme-switch";
+import { SizeGuide } from "@/components/size-guide/size-guide";
 import { Wordmark } from "@/components/wordmark";
 import type { Theme } from "@/lib/theme-cookie";
 
 export function Footer({ theme = "light" }: { theme?: Theme }) {
+  const [guide, setGuide] = useState(false);
+
   return (
     <footer className="flex flex-col justify-between gap-10 border-t border-line px-5 pt-14 pb-8 md:h-[404px] md:px-12 md:pt-[72px] md:pb-10">
       <div className="grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-4 md:gap-6">
@@ -19,7 +25,15 @@ export function Footer({ theme = "light" }: { theme?: Theme }) {
           <span className="text-[12px] font-bold tracking-[0.1em] text-muted">HELP</span>
           <a href="#drop">Shipping</a>
           <a href="#drop">Returns</a>
-          <a href="#drop">Size guide</a>
+          <a
+            href="#size-guide"
+            onClick={(event) => {
+              event.preventDefault();
+              setGuide(true);
+            }}
+          >
+            Size guide
+          </a>
           <a href="#drop" className="hidden md:inline">Contact</a>
         </nav>
       </div>
@@ -32,6 +46,7 @@ export function Footer({ theme = "light" }: { theme?: Theme }) {
           </span>
         </div>
       </div>
+      <SizeGuide open={guide} onClose={() => setGuide(false)} />
     </footer>
   );
 }

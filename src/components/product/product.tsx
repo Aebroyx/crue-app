@@ -4,6 +4,7 @@ import { useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { Footer } from "@/components/footer/footer";
 import { Navbar } from "@/components/navbar/navbar";
+import { SizeGuide } from "@/components/size-guide/size-guide";
 import { optionValues, type CatalogProduct } from "@/lib/catalog";
 import type { Theme } from "@/lib/theme-cookie";
 
@@ -27,6 +28,7 @@ export function Product({
   const [open, setOpen] = useState<number | null>(0);
   const [bag, setBag] = useState(0);
   const [added, setAdded] = useState(false);
+  const [guide, setGuide] = useState(false);
   const price = product.variants[0]?.price.amount ?? "[PRICE]";
   const label = added ? `Added: ${size}, ${colour}` : `Add to bag, ${size}`;
 
@@ -105,9 +107,9 @@ export function Product({
           <fieldset aria-label="Size" className="border-0 p-0">
             <div className="mb-3 flex items-center justify-between md:mb-3.5">
               <span className="text-[13px] text-text-2">Size</span>
-              <a href="#guide" className="py-3 text-[13px] underline-offset-4">
+              <button type="button" onClick={() => setGuide(true)} className="py-3 text-[13px] underline-offset-4">
                 Size guide
-              </a>
+              </button>
             </div>
             <div className="grid grid-cols-3 gap-2 md:grid-cols-6">
               {sizes.map((value) => (
@@ -169,6 +171,7 @@ export function Product({
           <ArrowRight className="size-[18px]" strokeWidth={1.5} aria-hidden />
         </button>
       </div>
+      <SizeGuide open={guide} onClose={() => setGuide(false)} />
       <Footer theme={theme} />
     </div>
   );

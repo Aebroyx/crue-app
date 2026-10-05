@@ -38,3 +38,4 @@ Each feature is one file: `REQ-NNN-short-name.md`. The template is [`_template.m
 | [REQ-012](REQ-012-about.md) | About | done |
 | [REQ-013](REQ-013-intro-logo.md) | Intro logo | done |
 | [REQ-014](REQ-014-not-found.md) | Not found | done |
+| [REQ-015](REQ-015-size-guide.md) | Size guide | done |

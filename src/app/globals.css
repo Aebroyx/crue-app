@@ -297,6 +297,32 @@
   animation: about-fade 1s ease-out 0.5s both;
 }
 
+@keyframes size-guide-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes size-guide-out {
+  to {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+.size-guide-panel {
+  animation: size-guide-in 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.size-guide-panel-out {
+  animation: size-guide-out 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .intro-stars,
   .intro-stars-2,
@@ -311,7 +337,9 @@
   .theme-slice,
   .about-panel,
   .about-copy,
-  .not-found-mark {
+  .not-found-mark,
+  .size-guide-panel,
+  .size-guide-panel-out {
     animation: none;
   }
 
