@@ -46,7 +46,7 @@ Each feature is one file: `REQ-NNN-short-name.md`. The template is [`_template.m
 | [REQ-020](REQ-020-mobile-menu.md) | Mobile menu | done |
 | [REQ-021](REQ-021-policies.md) | Policy pages | done |
 | [REQ-022](REQ-022-sold-out.md) | Sold-out size | done |
-| [REQ-023](REQ-023-you-may-also-like.md) | You may also like | draft |
+| [REQ-023](REQ-023-you-may-also-like.md) | You may also like | done |
 | [REQ-024](REQ-024-account.md) | Account control | draft |
 | [REQ-025](REQ-025-storefront-products.md) | Storefront products | draft |
 | [REQ-026](REQ-026-storefront-cart.md) | Storefront cart | draft |

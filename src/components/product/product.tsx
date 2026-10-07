@@ -7,7 +7,7 @@ import { ProductImage } from "@/components/product-image/product-image";
 import { Footer } from "@/components/footer/footer";
 import { Navbar } from "@/components/navbar/navbar";
 import { SizeGuide } from "@/components/size-guide/size-guide";
-import { optionValues, type CatalogProduct } from "@/lib/catalog";
+import { catalogProducts, optionValues, type CatalogProduct } from "@/lib/catalog";
 import type { Theme } from "@/lib/theme-cookie";
 
 const swatch: Record<string, string> = {
@@ -19,9 +19,11 @@ const swatch: Record<string, string> = {
 export function Product({
   product,
   theme = "light",
+  catalog,
 }: {
   product: CatalogProduct;
   theme?: Theme;
+  catalog?: CatalogProduct[];
 }) {
   const colours = optionValues(product, "Colour");
   const sizes = optionValues(product, "Size");
@@ -203,6 +205,7 @@ export function Product({
         </button>
       </div>
       <SizeGuide open={guide} onClose={() => setGuide(false)} />
+      <YouMayAlsoLike product={product} catalog={catalog ?? catalogProducts()} />
       <Footer theme={theme} />
     </div>
   );
@@ -214,6 +217,37 @@ function variantUnavailable(product: CatalogProduct, colour: string, size: strin
     const sized = variant.selectedOptions.find((option) => option.name === "Size")?.value;
     return selected === colour && sized === size && variant.availableForSale === false;
   });
+}
+
+function YouMayAlsoLike({ product, catalog }: { product: CatalogProduct; catalog: CatalogProduct[] }) {
+  const others = catalog.filter((item) => item.handle !== product.handle).slice(0, 4);
+
+  return (
+    <section
+      aria-labelledby="you-may-also-like"
+      className="flex flex-col gap-6 px-5 pt-16 pb-28 md:gap-10 md:px-12 md:pt-24 md:pb-24"
+    >
+      <h2 id="you-may-also-like" className="text-[30px] leading-none font-extrabold uppercase md:text-[44px]">
+        You may also like
+      </h2>
+      <div className="flex gap-2.5 overflow-x-auto md:grid md:grid-cols-4 md:gap-4 md:overflow-visible">
+        {others.map((item) => (
+          <article key={item.handle} className="flex w-[160px] shrink-0 flex-col gap-3 md:w-auto md:gap-4">
+            <ProductImage className="aspect-[3/4]" markClassName="w-[72px] opacity-[0.08] md:w-[120px]" />
+            <div className="flex flex-col gap-1 md:flex-row md:justify-between md:gap-3">
+              <a
+                href={`/products/${item.handle}`}
+                className="text-[12px] font-bold tracking-[0.03em] uppercase md:text-[14px] md:tracking-[0.04em]"
+              >
+                {item.title}
+              </a>
+              <span className="font-[family-name:var(--font-plex)] text-[12px] md:text-[13px]">[PRICE]</span>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
 }
 
 function Stage({ alt, className }: { alt: string; className: string }) {
