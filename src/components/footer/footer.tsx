@@ -23,8 +23,8 @@ export function Footer({ theme = "light" }: { theme?: Theme }) {
         </nav>
         <nav aria-label="Help" className="flex flex-col gap-3 text-[14px] md:gap-3.5">
           <span className="text-[12px] font-bold tracking-[0.1em] text-muted">HELP</span>
-          <a href="#drop">Shipping</a>
-          <a href="#drop">Returns</a>
+          <a href="/policies/shipping">Shipping</a>
+          <a href="/policies/returns">Returns</a>
           <a
             href="#size-guide"
             onClick={(event) => {
@@ -34,7 +34,7 @@ export function Footer({ theme = "light" }: { theme?: Theme }) {
           >
             Size guide
           </a>
-          <a href="#drop" className="hidden md:inline">Contact</a>
+          <a href="/policies/shipping" className="hidden md:inline">Contact</a>
         </nav>
       </div>
       <div className="flex items-end justify-between gap-6">

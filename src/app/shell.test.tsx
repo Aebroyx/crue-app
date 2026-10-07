@@ -45,6 +45,7 @@ describe("REQ-001 storefront shell", () => {
       "about/page.tsx",
       "catalog/page.tsx",
       "page.tsx",
+      "policies/[handle]/page.tsx",
       "products/[handle]/page.tsx",
     ]);
   });

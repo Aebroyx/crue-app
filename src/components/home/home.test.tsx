@@ -62,6 +62,7 @@ describe("REQ-004 home", () => {
       "about/page.tsx",
       "catalog/page.tsx",
       "page.tsx",
+      "policies/[handle]/page.tsx",
       "products/[handle]/page.tsx",
     ]);
     expect(container.querySelector("video")).toBeNull();
