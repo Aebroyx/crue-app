@@ -140,8 +140,11 @@ describe("REQ-019 product image skeleton", () => {
 
     const jacket = productByHandle("horizon-shell-jacket")!;
     const product = render(<Product product={jacket} />);
-    const gallery = product.container.querySelector("main");
-    expect(gallery?.querySelectorAll("[data-product-image]")).toHaveLength(jacket.images.length * 2);
+    const also = screen.getByRole("region", { name: "You may also like" });
+    const gallery = [...product.container.querySelectorAll("[data-product-image]")].filter(
+      (node) => !also.contains(node),
+    );
+    expect(gallery).toHaveLength(jacket.images.length * 2);
 
     fireEvent.click(screen.getAllByRole("button", { name: "Add to bag, M" })[0]);
     const bag = screen.getByRole("dialog", { name: "Bag" });
