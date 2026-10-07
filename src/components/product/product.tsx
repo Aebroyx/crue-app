@@ -29,14 +29,35 @@ export function Product({
   const [size, setSize] = useState(sizes.includes("M") ? "M" : (sizes[0] ?? ""));
   const [open, setOpen] = useState<number | null>(0);
   const [added, setAdded] = useState(false);
+  const [notifiedFor, setNotifiedFor] = useState<string | null>(null);
   const [guide, setGuide] = useState(false);
   const bag = useBag();
   const price = product.variants[0]?.price.amount ?? "[PRICE]";
-  const label = added ? `Added: ${size}, ${colour}` : `Add to bag, ${size}`;
+  const selection = `${colour}|${size}`;
+  const unavailable = variantUnavailable(product, colour, size);
+  const notified = notifiedFor === selection;
+  const label = unavailable
+    ? notified
+      ? `We will email you when ${size} is back`
+      : `Notify me when ${size} is back`
+    : added
+      ? `Added: ${size}, ${colour}`
+      : `Add to bag, ${size}`;
+  const actionClass = unavailable
+    ? "border border-text bg-transparent text-text"
+    : "bg-text text-bg";
 
   function add() {
     setAdded(true);
     bag.add({ title: product.title, colour, size });
+  }
+
+  function press() {
+    if (unavailable) {
+      setNotifiedFor(selection);
+      return;
+    }
+    add();
   }
 
   return (
@@ -114,26 +135,34 @@ export function Product({
               </button>
             </div>
             <div className="grid grid-cols-3 gap-2 md:grid-cols-6">
-              {sizes.map((value) => (
-                <button
-                  key={value}
-                  type="button"
-                  aria-pressed={value === size}
-                  onClick={() => setSize(value)}
-                  className={`h-12 border font-[family-name:var(--font-plex)] text-[13px] ${
-                    value === size ? "border-text bg-text text-bg" : "border-control-border bg-transparent text-text"
-                  }`}
-                >
-                  {value}
-                </button>
-              ))}
+              {sizes.map((value) => {
+                const soldOut = variantUnavailable(product, colour, value);
+                const selected = value === size;
+                return (
+                  <button
+                    key={value}
+                    type="button"
+                    aria-pressed={selected}
+                    onClick={() => setSize(value)}
+                    className={`h-12 border font-[family-name:var(--font-plex)] text-[13px] ${
+                      soldOut
+                        ? `line-through text-dim ${selected ? "border-text bg-transparent" : "border-control-border bg-transparent"}`
+                        : selected
+                          ? "border-text bg-text text-bg"
+                          : "border-control-border bg-transparent text-text"
+                    }`}
+                  >
+                    {value}
+                  </button>
+                );
+              })}
             </div>
           </fieldset>
 
           <button
             type="button"
-            onClick={add}
-            className="hidden h-[60px] items-center justify-between bg-text px-6 text-[13px] font-bold tracking-[0.12em] text-bg uppercase active:scale-[0.98] md:flex"
+            onClick={press}
+            className={`hidden h-[60px] items-center justify-between px-6 text-[13px] font-bold tracking-[0.12em] uppercase active:scale-[0.98] md:flex ${actionClass}`}
           >
             <span>{label}</span>
             <ArrowRight className="size-[18px]" strokeWidth={1.5} aria-hidden />
@@ -166,8 +195,8 @@ export function Product({
       <div className="fixed inset-x-0 bottom-0 border-t border-line bg-bg px-4 pt-3 pb-7 md:hidden">
         <button
           type="button"
-          onClick={add}
-          className="flex h-14 w-full items-center justify-between bg-text px-5 text-[12px] font-bold tracking-[0.12em] text-bg uppercase active:scale-[0.98]"
+          onClick={press}
+          className={`flex h-14 w-full items-center justify-between px-5 text-[12px] font-bold tracking-[0.12em] uppercase active:scale-[0.98] ${actionClass}`}
         >
           <span>{label}</span>
           <ArrowRight className="size-[18px]" strokeWidth={1.5} aria-hidden />
@@ -177,6 +206,14 @@ export function Product({
       <Footer theme={theme} />
     </div>
   );
+}
+
+function variantUnavailable(product: CatalogProduct, colour: string, size: string) {
+  return product.variants.some((variant) => {
+    const selected = variant.selectedOptions.find((option) => option.name === "Colour")?.value;
+    const sized = variant.selectedOptions.find((option) => option.name === "Size")?.value;
+    return selected === colour && sized === size && variant.availableForSale === false;
+  });
 }
 
 function Stage({ alt, className }: { alt: string; className: string }) {
