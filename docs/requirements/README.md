@@ -43,3 +43,4 @@ Each feature is one file: `REQ-NNN-short-name.md`. The template is [`_template.m
 | [REQ-017](REQ-017-env.md) | Environment files | done |
 | [REQ-018](REQ-018-search.md) | Search | done |
 | [REQ-019](REQ-019-image-skeleton.md) | Product image skeleton | done |
+| [REQ-020](REQ-020-mobile-menu.md) | Mobile menu | done |

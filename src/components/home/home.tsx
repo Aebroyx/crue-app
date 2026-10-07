@@ -25,7 +25,7 @@ const display =
 export function Home({ theme = "light" }: { theme?: Theme }) {
   return (
     <div className="bg-bg font-[family-name:var(--font-benzin)] text-text">
-      <Navbar />
+      <Navbar theme={theme} />
 
       <section className="relative h-[700px] overflow-hidden md:h-[820px]">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_90%_60%_at_60%_32%,#26262A_0%,#121214_50%,#0B0B0C_80%)] md:bg-[radial-gradient(ellipse_60%_70%_at_72%_42%,#26262A_0%,#121214_45%,#0B0B0C_75%)] hidden dark:block" />

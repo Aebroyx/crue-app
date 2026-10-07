@@ -64,7 +64,7 @@ export function Catalog({
 
   return (
     <div className="bg-bg font-[family-name:var(--font-benzin)] text-text">
-      <Navbar shopCurrent />
+      <Navbar shopCurrent theme={theme} />
       <div className="flex flex-col gap-5 border-b border-line px-5 py-8 md:flex-row md:items-end md:justify-between md:gap-12 md:px-12 md:pt-14 md:pb-6">
         <div className="flex flex-col gap-4 md:gap-5">
           <nav aria-label="Breadcrumb" className="flex gap-2.5 font-[family-name:var(--font-plex)] text-[11px] tracking-[0.14em] text-muted uppercase">

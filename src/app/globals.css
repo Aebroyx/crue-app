@@ -434,6 +434,32 @@
   animation: search-scrim-out 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes menu-out {
+  to {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+}
+
+.menu-panel {
+  animation: menu-in 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.menu-panel-out {
+  animation: menu-out 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
 @keyframes product-image-pulse {
   0%,
   100% {
@@ -473,6 +499,8 @@
   .search-panel-out,
   .search-scrim,
   .search-scrim-out,
+  .menu-panel,
+  .menu-panel-out,
   .product-image-pulse {
     animation: none;
   }

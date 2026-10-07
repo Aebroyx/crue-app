@@ -41,7 +41,7 @@ export function Product({
 
   return (
     <div className="bg-bg font-[family-name:var(--font-benzin)] text-text">
-      <Navbar />
+      <Navbar theme={theme} />
       <div className="md:hidden">
         <div className="flex snap-x gap-1.5 overflow-x-auto">
           {product.images.map((image) => (

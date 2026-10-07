@@ -3,9 +3,12 @@
 import { Menu, Search, ShoppingBag, User } from "lucide-react";
 import { useState } from "react";
 import { Bag, useBag } from "@/components/bag/bag";
+import { MobileMenu } from "@/components/navbar/menu";
 import { SearchOverlay } from "@/components/search/search";
+import { SizeGuide } from "@/components/size-guide/size-guide";
 import { Wordmark } from "@/components/wordmark";
 import { clearIntroCookie } from "@/lib/intro-cookie";
+import type { Theme } from "@/lib/theme-cookie";
 
 function replayIntro() {
   document.cookie = clearIntroCookie();
@@ -14,12 +17,16 @@ function replayIntro() {
 export function Navbar({
   shopCurrent = false,
   aboutCurrent = false,
+  theme = "light",
 }: {
   shopCurrent?: boolean;
   aboutCurrent?: boolean;
+  theme?: Theme;
 }) {
   const bag = useBag();
   const [searchOpen, setSearchOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [guide, setGuide] = useState(false);
 
   return (
     <>
@@ -71,7 +78,7 @@ export function Navbar({
       </header>
 
       <header className="relative z-20 flex h-[60px] items-center justify-between border-b border-line bg-bg px-2 md:hidden">
-        <button type="button" aria-label="Menu" className="flex size-11 items-center justify-center">
+        <button type="button" aria-label="Menu" onClick={() => setMenuOpen(true)} className="flex size-11 items-center justify-center">
           <Menu className="size-[22px]" strokeWidth={1.5} aria-hidden />
         </button>
         <a href="/" aria-label="CRUE home" onClick={replayIntro}>
@@ -98,6 +105,16 @@ export function Navbar({
       </header>
       <Bag />
       <SearchOverlay open={searchOpen} onClose={() => setSearchOpen(false)} />
+      <MobileMenu
+        open={menuOpen}
+        theme={theme}
+        onClose={() => setMenuOpen(false)}
+        onSizeGuide={() => {
+          setMenuOpen(false);
+          setGuide(true);
+        }}
+      />
+      <SizeGuide open={guide} onClose={() => setGuide(false)} />
     </>
   );
 }

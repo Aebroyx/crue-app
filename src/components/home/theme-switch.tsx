@@ -1,17 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { themeCookie, type Theme } from "@/lib/theme-cookie";
-
-const themeEvent = "crue-theme";
-
-function applyTheme(theme: Theme) {
-  if (theme === "dark") {
-    document.documentElement.dataset.theme = "dark";
-    return;
-  }
-  delete document.documentElement.dataset.theme;
-}
+import { chooseTheme, themeEvent, type Theme } from "@/lib/theme-cookie";
 
 export function ThemeSwitch({ theme }: { theme: Theme }) {
   const [current, setCurrent] = useState(theme);
@@ -29,10 +19,7 @@ export function ThemeSwitch({ theme }: { theme: Theme }) {
   }, []);
 
   function toggle() {
-    const next: Theme = current === "dark" ? "light" : "dark";
-    document.cookie = themeCookie(next);
-    applyTheme(next);
-    window.dispatchEvent(new CustomEvent(themeEvent, { detail: next }));
+    chooseTheme(current === "dark" ? "light" : "dark");
   }
 
   const label = current === "light" ? "Dark" : "Light";
