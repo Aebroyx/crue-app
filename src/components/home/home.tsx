@@ -3,7 +3,7 @@ import { Footer } from "@/components/footer/footer";
 import { ProductImage } from "@/components/product-image/product-image";
 import { Newsletter } from "@/components/home/newsletter";
 import { Navbar } from "@/components/navbar/navbar";
-import { catalogProducts } from "@/lib/catalog";
+import { catalogProducts, optionValues, type CatalogProduct } from "@/lib/catalog";
 import type { Theme } from "@/lib/theme-cookie";
 
 const colourLine: Record<string, { meta: string; metaShort: string }> = {
@@ -13,16 +13,32 @@ const colourLine: Record<string, { meta: string; metaShort: string }> = {
   "Accretion Split Short": { meta: "Nebula Grey, 3 colours", metaShort: "Nebula Grey" },
 };
 
-const products = catalogProducts().filter((product) => colourLine[product.title]).map((product) => ({
-  name: product.title,
-  handle: product.handle,
-  ...colourLine[product.title],
-}));
-
 const display =
   "font-extrabold uppercase leading-[0.9] tracking-[-0.02em]";
 
-export function Home({ theme = "light" }: { theme?: Theme }) {
+function dropLine(product: CatalogProduct) {
+  const known = colourLine[product.title];
+  if (known) return known;
+  const colours = optionValues(product, "Colour");
+  const first = colours[0] ?? "";
+  const count = colours.length > 1 ? `, ${colours.length} colours` : "";
+  return { meta: `${first}${count}`, metaShort: first };
+}
+
+export function Home({
+  theme = "light",
+  products = catalogProducts(),
+}: {
+  theme?: Theme;
+  products?: CatalogProduct[];
+}) {
+  const cards = products.map((product) => ({
+    name: product.title,
+    handle: product.handle,
+    price: product.variants[0]?.price.amount ?? "",
+    image: product.images[0],
+    ...dropLine(product),
+  }));
   return (
     <div className="bg-bg font-[family-name:var(--font-benzin)] text-text">
       <Navbar theme={theme} />
@@ -70,9 +86,14 @@ export function Home({ theme = "light" }: { theme?: Theme }) {
       <section id="drop" className="flex flex-col gap-6 px-4 py-16 md:gap-10 md:px-12 md:py-24">
         <h2 className={`${display} text-[30px] leading-none md:text-[44px]`}>The Drop</h2>
         <div className="grid grid-cols-2 gap-x-2.5 gap-y-6 md:grid-cols-4 md:gap-4">
-          {products.map((product) => (
-            <article key={product.name} className="flex flex-col gap-3 md:gap-4">
-              <ProductImage className="h-[228px] md:h-[432px]" markClassName="w-[72px] opacity-[0.08] md:w-[120px]" />
+          {cards.map((product) => (
+            <article key={product.handle} className="flex flex-col gap-3 md:gap-4">
+              <ProductImage
+                src={product.image?.url}
+                alt={product.image?.alt ?? ""}
+                className="h-[228px] md:h-[432px]"
+                markClassName="w-[72px] opacity-[0.08] md:w-[120px]"
+              />
               <div className="flex flex-col gap-1 md:flex-row md:justify-between md:gap-3">
                 <div className="flex flex-col gap-1 md:gap-1.5">
                   <a
@@ -84,7 +105,7 @@ export function Home({ theme = "light" }: { theme?: Theme }) {
                   <span className="text-[12px] text-muted md:hidden">{product.metaShort}</span>
                   <span className="hidden text-[13px] text-muted md:inline">{product.meta}</span>
                 </div>
-                <span className="font-[family-name:var(--font-plex)] text-[12px] md:text-[13px]">[PRICE]</span>
+                <span className="font-[family-name:var(--font-plex)] text-[12px] md:text-[13px]">{product.price}</span>
               </div>
             </article>
           ))}

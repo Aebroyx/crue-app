@@ -1,5 +1,3 @@
-import catalog from "@/data/catalog.json";
-
 export type SelectedOption = { name: string; value: string };
 
 export type CatalogVariant = {
@@ -9,6 +7,8 @@ export type CatalogVariant = {
   price: { amount: string };
 };
 
+export type CatalogImage = { url?: string; alt: string; altText?: string };
+
 export type CatalogProduct = {
   id: string;
   handle: string;
@@ -16,14 +16,18 @@ export type CatalogProduct = {
   description: string;
   options: { name: string; values: string[] }[];
   variants: CatalogVariant[];
-  images: { alt: string }[];
+  images: CatalogImage[];
   accordions: { title: string; body: string }[];
   category: string;
   listingColours: string[];
   listingSizes: string[];
 };
 
-const products = catalog.products as CatalogProduct[];
+let products: CatalogProduct[] = [];
+
+export function setCatalogProducts(next: CatalogProduct[]) {
+  products = next;
+}
 
 export function catalogProducts() {
   return products;

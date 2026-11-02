@@ -28,7 +28,7 @@ describe("REQ-008 product page", () => {
       expect(productByHandle(product.handle)?.title).toBe(product.title);
     }
     expect(productByHandle("missing")).toBeUndefined();
-    expect(read("src/app/products/[handle]/page.tsx")).toMatch(/productByHandle/);
+    expect(read("src/app/products/[handle]/page.tsx")).toMatch(/storefrontProducts/);
     expect(read("src/app/products/[handle]/page.tsx")).toMatch(/notFound/);
   });
 
@@ -68,13 +68,10 @@ describe("REQ-008 product page", () => {
     expect(screen.getByRole("button", { name: "BAG (1)" })).toBeInTheDocument();
   });
 
-  it("REQ-008 keeps the catalog in Storefront shape and does not call Shopify", () => {
+  it("REQ-008 keeps the catalog in Storefront shape", () => {
     const horizon = productByHandle("horizon-shell-jacket")!;
     const tee = productByHandle("singularity-run-tee")!;
-    const file = read("src/data/catalog.json");
-    const sources = ["src/lib/catalog.ts", "src/app/products/[handle]/page.tsx", "src/components/product/product.tsx"]
-      .map(read)
-      .join("\n");
+    const file = read("src/data/catalog.fixture.json");
 
     expect(catalogProducts()).toHaveLength(6);
     expect(horizon.options).toEqual(tee.options);
@@ -85,6 +82,5 @@ describe("REQ-008 product page", () => {
       true,
     );
     expect(file).not.toMatch(/currency/);
-    expect(sources).not.toMatch(/shopify|Storefront API/i);
   });
 });

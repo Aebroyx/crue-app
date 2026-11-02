@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Search as SearchIcon, X } from "lucide-react";
-import { catalogProducts } from "@/lib/catalog";
+import { useCatalogProducts } from "@/components/catalog-context";
+import { type CatalogProduct } from "@/lib/catalog";
 
 const popular = ["Shell jacket", "Run tee", "Tight", "Short"];
 
@@ -17,8 +18,8 @@ function prefersReducedMotion() {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
-function matches(query: string) {
-  return catalogProducts().filter((product) =>
+function matches(products: CatalogProduct[], query: string) {
+  return products.filter((product) =>
     `${product.title} ${product.category}`.toLowerCase().includes(query),
   );
 }
@@ -28,6 +29,7 @@ export function SearchOverlay({ open, onClose }: { open: boolean; onClose: () =>
   const onCloseRef = useRef(onClose);
   const [query, setQuery] = useState("");
   const [closing, setClosing] = useState(false);
+  const products = useCatalogProducts();
 
   onCloseRef.current = onClose;
 
@@ -100,7 +102,7 @@ export function SearchOverlay({ open, onClose }: { open: boolean; onClose: () =>
   if (!open) return null;
 
   const trimmed = query.trim().toLowerCase();
-  const results = trimmed ? matches(trimmed) : [];
+  const results = trimmed ? matches(products, trimmed) : [];
   const idle = trimmed.length === 0;
   const noResults = !idle && results.length === 0;
 

@@ -48,6 +48,6 @@ Each feature is one file: `REQ-NNN-short-name.md`. The template is [`_template.m
 | [REQ-022](REQ-022-sold-out.md) | Sold-out size | done |
 | [REQ-023](REQ-023-you-may-also-like.md) | You may also like | done |
 | [REQ-024](REQ-024-account.md) | Account control | done |
-| [REQ-025](REQ-025-storefront-products.md) | Storefront products | draft |
+| [REQ-025](REQ-025-storefront-products.md) | Storefront products | done |
 | [REQ-026](REQ-026-storefront-cart.md) | Storefront cart | draft |
 | [REQ-027](REQ-027-predictive-search.md) | Predictive search | draft |

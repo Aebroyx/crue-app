@@ -1,0 +1,161 @@
+import {
+  type CatalogProduct,
+  type SelectedOption,
+} from "@/lib/catalog";
+
+const apiVersion = "2026-10";
+
+const productQuery = `
+  query StorefrontProducts($cursor: String) {
+    products(first: 50, after: $cursor) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      nodes {
+        id
+        handle
+        title
+        description
+        productType
+        options {
+          name
+          values
+        }
+        variants(first: 100) {
+          nodes {
+            id
+            availableForSale
+            selectedOptions {
+              name
+              value
+            }
+            price {
+              amount
+            }
+          }
+        }
+        images(first: 20) {
+          nodes {
+            url
+            altText
+          }
+        }
+      }
+    }
+  }
+`;
+
+type StorefrontNode = {
+  id: string;
+  handle: string;
+  title: string;
+  description?: string | null;
+  productType?: string | null;
+  options?: { name: string; values: string[] }[];
+  variants?: {
+    nodes?: {
+      id: string;
+      availableForSale: boolean;
+      selectedOptions: SelectedOption[];
+      price?: { amount?: string | null } | null;
+    }[];
+  };
+  images?: { nodes?: { url?: string | null; altText?: string | null }[] };
+};
+
+type StorefrontPayload = {
+  data?: {
+    products?: {
+      pageInfo?: { hasNextPage?: boolean; endCursor?: string | null };
+      nodes?: StorefrontNode[];
+    };
+  } | null;
+};
+
+export function optionName(name: string) {
+  return name === "Color" ? "Colour" : name;
+}
+
+export function mapStorefrontProduct(node: StorefrontNode): CatalogProduct {
+  const options = (node.options ?? []).map((option) => ({
+    name: optionName(option.name),
+    values: option.values ?? [],
+  }));
+  const colours = options.find((option) => option.name === "Colour")?.values ?? [];
+  const sizes = options.find((option) => option.name === "Size")?.values ?? [];
+
+  return {
+    id: node.id,
+    handle: node.handle,
+    title: node.title,
+    description: node.description ?? "",
+    options,
+    variants: (node.variants?.nodes ?? []).map((variant) => ({
+      id: variant.id,
+      availableForSale: variant.availableForSale,
+      selectedOptions: (variant.selectedOptions ?? []).map((option) => ({
+        name: optionName(option.name),
+        value: option.value,
+      })),
+      price: { amount: variant.price?.amount ?? "" },
+    })),
+    images: (node.images?.nodes ?? []).flatMap((image) => {
+      const alt = image.altText ?? "";
+      if (!image.url && !alt) return [];
+      return [{ url: image.url || undefined, alt, altText: alt }];
+    }),
+    accordions: [],
+    category: node.productType ?? "",
+    listingColours: colours,
+    listingSizes: sizes,
+  };
+}
+
+export async function requestStorefrontProducts(
+  env: { domain?: string; token?: string },
+  fetchImpl: typeof fetch,
+): Promise<CatalogProduct[]> {
+  const domain = env.domain?.trim().replace(/^https?:\/\//, "").replace(/\/$/, "");
+  const token = env.token?.trim();
+  if (!domain || !token) return [];
+
+  const products: CatalogProduct[] = [];
+  let cursor: string | null = null;
+
+  try {
+    for (let page = 0; page < 4; page += 1) {
+      const response = await fetchImpl(`https://${domain}/api/${apiVersion}/graphql.json`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Shopify-Storefront-Access-Token": token,
+        },
+        body: JSON.stringify({ query: productQuery, variables: { cursor } }),
+        cache: "no-store",
+      });
+      if (!response.ok) return [];
+      const payload = (await response.json()) as StorefrontPayload;
+      const connection = payload.data?.products;
+      if (!connection?.nodes) return [];
+      products.push(...connection.nodes.map(mapStorefrontProduct));
+      if (!connection.pageInfo?.hasNextPage || !connection.pageInfo.endCursor) break;
+      cursor = connection.pageInfo.endCursor;
+    }
+  } catch {
+    return [];
+  }
+
+  return products;
+}
+
+export async function storefrontProducts() {
+  if (process.env.NODE_ENV === "test") return [];
+  return requestStorefrontProducts(
+    {
+      domain: process.env.SHOPIFY_STORE_DOMAIN,
+      token: process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN,
+    },
+    fetch,
+  );
+}

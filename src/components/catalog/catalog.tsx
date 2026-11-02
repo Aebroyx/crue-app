@@ -5,7 +5,8 @@ import { ChevronDown, SlidersHorizontal } from "lucide-react";
 import { Footer } from "@/components/footer/footer";
 import { ProductImage } from "@/components/product-image/product-image";
 import { Navbar } from "@/components/navbar/navbar";
-import { catalogProducts, type CatalogProduct } from "@/lib/catalog";
+import { useCatalogProducts } from "@/components/catalog-context";
+import { type CatalogProduct } from "@/lib/catalog";
 import type { Theme } from "@/lib/theme-cookie";
 
 const categories = ["All", "Tops", "Bottoms", "Layers", "Accessories"];
@@ -21,18 +22,20 @@ export function Catalog({
   size = "",
   colour = "",
   theme = "light",
+  products: productsProp,
 }: {
   category?: string;
   size?: string;
   colour?: string;
   theme?: Theme;
+  products?: CatalogProduct[];
 }) {
   const [currentCategory, setCurrentCategory] = useState(category);
   const [currentSize, setCurrentSize] = useState(size);
   const [currentColour, setCurrentColour] = useState(colour);
   const [filtersOpen, setFiltersOpen] = useState(true);
   const [sheetOpen, setSheetOpen] = useState(false);
-  const products = catalogProducts();
+  const products = productsProp ?? useCatalogProducts();
   const shown = products.filter((product) => matches(product, currentCategory, currentSize, currentColour));
   const filtered = currentCategory !== "All" || currentSize !== "" || currentColour !== "";
   const extra = Number(Boolean(currentSize)) + Number(Boolean(currentColour));
@@ -144,7 +147,12 @@ export function Catalog({
               <div className={`grid grid-cols-2 gap-x-2.5 gap-y-7 md:gap-x-4 md:gap-y-10 ${filtersOpen ? "md:grid-cols-3" : "md:grid-cols-4"}`}>
                 {shown.map((product) => (
                   <a key={product.handle} href={`/products/${product.handle}`} className="flex flex-col gap-2.5 md:gap-4">
-                    <ProductImage className="aspect-[3/4]" markClassName="w-[66px] opacity-[0.08] md:w-[110px]" />
+                    <ProductImage
+                      src={product.images[0]?.url}
+                      alt={product.images[0]?.alt ?? ""}
+                      className="aspect-[3/4]"
+                      markClassName="w-[66px] opacity-[0.08] md:w-[110px]"
+                    />
                     <span className="text-[12px] font-bold tracking-[0.03em] uppercase md:text-[14px] md:tracking-[0.04em]">{product.title}</span>
                     <span className="flex items-center gap-2.5">
                       <span className="flex gap-1">
@@ -154,7 +162,9 @@ export function Catalog({
                       </span>
                       <span className="hidden text-[13px] text-muted md:inline">{product.listingColours[0]}</span>
                     </span>
-                    <span className="font-[family-name:var(--font-plex)] text-[12px] md:text-[13px]">[PRICE]</span>
+                    <span className="font-[family-name:var(--font-plex)] text-[12px] md:text-[13px]">
+                      {product.variants[0]?.price.amount ?? ""}
+                    </span>
                   </a>
                 ))}
               </div>

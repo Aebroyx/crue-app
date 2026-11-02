@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { render, screen } from "@testing-library/react";
 import { Storefront } from "@/app/page";
+import { catalogProducts } from "@/lib/catalog";
 
 jest.mock("next/font/google", () => ({
   Geist: () => ({ className: "font-geist" }),
@@ -40,7 +41,7 @@ describe("REQ-004 home", () => {
     ]) {
       expect(screen.getByText(name)).toBeInTheDocument();
     }
-    expect(screen.getAllByText("[PRICE]")).toHaveLength(4);
+    expect(screen.getAllByText("[PRICE]")).toHaveLength(catalogProducts().length);
     expect(screen.getByText("Free shipping over [THRESHOLD]")).toHaveClass("hidden", "md:inline");
     expect(screen.getByText("© CRUE [YEAR]")).toBeInTheDocument();
   });

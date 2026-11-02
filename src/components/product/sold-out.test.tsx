@@ -124,7 +124,7 @@ describe("REQ-022 sold-out size", () => {
     expect(screen.getByRole("listitem")).toHaveTextContent("Void Black / M");
     expect(screen.getByRole("button", { name: "BAG (1)" })).toBeInTheDocument();
 
-    const catalog = fs.readFileSync(path.join(process.cwd(), "src/data/catalog.json"), "utf8");
+    const catalog = fs.readFileSync(path.join(process.cwd(), "src/data/catalog.fixture.json"), "utf8");
     expect(catalog).not.toMatch(/"availableForSale": false/);
     expect(productByHandle("horizon-shell-jacket")!.variants.every((variant) => variant.availableForSale)).toBe(true);
   });

@@ -6,7 +6,7 @@ import { forgetBagMemory } from "@/components/bag/bag";
 import { Catalog } from "@/components/catalog/catalog";
 import { Product } from "@/components/product/product";
 import { ProductImage } from "@/components/product-image/product-image";
-import { productByHandle } from "@/lib/catalog";
+import { catalogProducts, productByHandle } from "@/lib/catalog";
 
 function read(relativePath: string) {
   return fs.readFileSync(path.join(process.cwd(), relativePath), "utf8");
@@ -131,7 +131,7 @@ describe("REQ-019 product image skeleton", () => {
     expect(read("src/components/search/search.tsx")).not.toMatch(/ProductImage/);
 
     const home = render(<Storefront showIntro={false} />);
-    expect(home.container.querySelectorAll("[data-product-image]")).toHaveLength(4);
+    expect(home.container.querySelectorAll("[data-product-image]")).toHaveLength(catalogProducts().length);
     home.unmount();
 
     const catalog = render(<Catalog />);

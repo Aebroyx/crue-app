@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
+import { CatalogProvider } from "@/components/catalog-context";
 import { benzin, geist, plex } from "@/lib/fonts";
+import { storefrontProducts } from "@/lib/storefront";
 import { themeCookieName, themeFromCookie } from "@/lib/theme-cookie";
 import "./globals.css";
 
@@ -23,6 +25,7 @@ export default async function RootLayout({
 }>) {
   const jar = await cookies();
   const theme = themeFromCookie(jar.get(themeCookieName)?.value);
+  const products = await storefrontProducts();
 
   return (
     <html
@@ -31,7 +34,7 @@ export default async function RootLayout({
       className={`${benzin.variable} ${plex.variable}`}
     >
       <body className={`${geist.className} bg-bg text-text antialiased`}>
-        {children}
+        <CatalogProvider products={products}>{children}</CatalogProvider>
       </body>
     </html>
   );

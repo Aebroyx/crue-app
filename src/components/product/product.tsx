@@ -7,7 +7,8 @@ import { ProductImage } from "@/components/product-image/product-image";
 import { Footer } from "@/components/footer/footer";
 import { Navbar } from "@/components/navbar/navbar";
 import { SizeGuide } from "@/components/size-guide/size-guide";
-import { catalogProducts, optionValues, type CatalogProduct } from "@/lib/catalog";
+import { useCatalogProducts } from "@/components/catalog-context";
+import { optionValues, type CatalogProduct } from "@/lib/catalog";
 import type { Theme } from "@/lib/theme-cookie";
 
 const swatch: Record<string, string> = {
@@ -34,6 +35,8 @@ export function Product({
   const [notifiedFor, setNotifiedFor] = useState<string | null>(null);
   const [guide, setGuide] = useState(false);
   const bag = useBag();
+  const stored = useCatalogProducts();
+  const catalogList = catalog ?? stored;
   const price = product.variants[0]?.price.amount ?? "[PRICE]";
   const selection = `${colour}|${size}`;
   const unavailable = variantUnavailable(product, colour, size);
@@ -67,14 +70,19 @@ export function Product({
       <Navbar theme={theme} />
       <div className="md:hidden">
         <div className="flex snap-x gap-1.5 overflow-x-auto">
-          {product.images.map((image) => (
-            <Stage key={image.alt} alt={image.alt} className="h-[480px] w-[360px] shrink-0 snap-start" />
+          {product.images.map((image, index) => (
+            <Stage
+              key={`${image.url ?? image.alt}-${index}`}
+              src={image.url}
+              alt={image.alt}
+              className="h-[480px] w-[360px] shrink-0 snap-start"
+            />
           ))}
         </div>
         <div className="flex gap-1.5 px-5 pt-4">
           {product.images.map((image, index) => (
             <span
-              key={image.alt}
+              key={`${image.url ?? image.alt}-${index}`}
               className={`h-0.5 w-5 ${index === 0 ? "bg-text" : "bg-control-border"}`}
             />
           ))}
@@ -83,8 +91,8 @@ export function Product({
 
       <main className="flex flex-col gap-7 px-5 pt-7 pb-28 md:flex-row md:gap-16 md:px-12 md:pt-8 md:pb-16">
         <div className="hidden w-[840px] shrink-0 grid-cols-2 gap-3 md:grid">
-          {product.images.map((image) => (
-            <Stage key={image.alt} alt={image.alt} className="h-[560px]" />
+          {product.images.map((image, index) => (
+            <Stage key={`${image.url ?? image.alt}-${index}`} src={image.url} alt={image.alt} className="h-[560px]" />
           ))}
         </div>
 
@@ -205,7 +213,7 @@ export function Product({
         </button>
       </div>
       <SizeGuide open={guide} onClose={() => setGuide(false)} />
-      <YouMayAlsoLike product={product} catalog={catalog ?? catalogProducts()} />
+      <YouMayAlsoLike product={product} catalog={catalogList} />
       <Footer theme={theme} />
     </div>
   );
@@ -233,7 +241,12 @@ function YouMayAlsoLike({ product, catalog }: { product: CatalogProduct; catalog
       <div className="flex gap-2.5 overflow-x-auto md:grid md:grid-cols-4 md:gap-4 md:overflow-visible">
         {others.map((item) => (
           <article key={item.handle} className="flex w-[160px] shrink-0 flex-col gap-3 md:w-auto md:gap-4">
-            <ProductImage className="aspect-[3/4]" markClassName="w-[72px] opacity-[0.08] md:w-[120px]" />
+            <ProductImage
+              src={item.images[0]?.url}
+              alt={item.images[0]?.alt ?? ""}
+              className="aspect-[3/4]"
+              markClassName="w-[72px] opacity-[0.08] md:w-[120px]"
+            />
             <div className="flex flex-col gap-1 md:flex-row md:justify-between md:gap-3">
               <a
                 href={`/products/${item.handle}`}
@@ -241,7 +254,9 @@ function YouMayAlsoLike({ product, catalog }: { product: CatalogProduct; catalog
               >
                 {item.title}
               </a>
-              <span className="font-[family-name:var(--font-plex)] text-[12px] md:text-[13px]">[PRICE]</span>
+              <span className="font-[family-name:var(--font-plex)] text-[12px] md:text-[13px]">
+                {item.variants[0]?.price.amount ?? ""}
+              </span>
             </div>
           </article>
         ))}
@@ -250,8 +265,13 @@ function YouMayAlsoLike({ product, catalog }: { product: CatalogProduct; catalog
   );
 }
 
-function Stage({ alt, className }: { alt: string; className: string }) {
+function Stage({ src, alt, className }: { src?: string; alt: string; className: string }) {
   return (
-    <ProductImage alt={alt} className={className} markClassName="h-8 w-24 opacity-[0.08] md:h-12 md:w-[140px]" />
+    <ProductImage
+      src={src}
+      alt={alt}
+      className={className}
+      markClassName="h-8 w-24 opacity-[0.08] md:h-12 md:w-[140px]"
+    />
   );
 }
