@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import { fireEvent, render, screen, within } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { checkoutLink, forgetBagMemory } from "@/components/bag/bag";
 import { Storefront } from "@/app/page";
 import { Product } from "@/components/product/product";
@@ -165,5 +165,36 @@ describe("REQ-026 storefront cart", () => {
     expect(go).not.toHaveBeenCalled();
     setCartClient(memoryCartClient);
     go.mockRestore();
+  });
+
+  it("REQ-026 drops a line Shopify has already removed", async () => {
+    renderJacket();
+    addMedium();
+    expect(screen.getByRole("listitem")).toBeInTheDocument();
+
+    setCartClient({
+      create: memoryCartClient.create,
+      linesAdd: memoryCartClient.linesAdd,
+      linesUpdate() {
+        return null;
+      },
+      linesRemove() {
+        return null;
+      },
+      fetchCart(cartId) {
+        return Promise.resolve({
+          id: cartId,
+          checkoutUrl: "https://checkout.shopify.com/cart",
+          subtotal: "",
+          lines: [],
+        });
+      },
+    });
+
+    fireEvent.click(screen.getByRole("button", { name: "Remove" }));
+
+    await waitFor(() => {
+      expect(screen.queryByRole("listitem")).not.toBeInTheDocument();
+    });
   });
 });

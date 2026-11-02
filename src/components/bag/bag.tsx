@@ -20,6 +20,8 @@ const emptyState: BagState = { cartId: "", checkoutUrl: "", subtotal: "", lines:
 
 let state: BagState = { ...emptyState };
 let hydrated = false;
+let busy = false;
+const waiters: Array<() => void> = [];
 const listeners = new Set<() => void>();
 
 function readStored(): Omit<BagState, "open"> {
@@ -74,6 +76,59 @@ function isPromise<T>(value: T | Promise<T>): value is Promise<T> {
   return typeof (value as Promise<T>)?.then === "function";
 }
 
+function release() {
+  const next = waiters.shift();
+  if (next) next();
+  else busy = false;
+}
+
+function enqueue<T>(task: () => T | Promise<T>): T | Promise<T> {
+  if (!busy) {
+    busy = true;
+    try {
+      const result = task();
+      if (isPromise(result)) return result.finally(release);
+      release();
+      return result;
+    } catch (error) {
+      release();
+      throw error;
+    }
+  }
+  return new Promise((resolve, reject) => {
+    waiters.push(() => {
+      try {
+        const result = task();
+        if (isPromise(result)) result.then(resolve, reject).finally(release);
+        else {
+          resolve(result);
+          release();
+        }
+      } catch (error) {
+        reject(error);
+        release();
+      }
+    });
+  });
+}
+
+async function restore(previous: BagState, open: boolean) {
+  const fetchCart = cartClient().fetchCart;
+  if (state.cartId && fetchCart) {
+    try {
+      const fresh = await fetchCart(state.cartId);
+      if (fresh) {
+        commit(fromCart(fresh, open));
+        return false;
+      }
+    } catch {
+      // The saved lines stay when the cart cannot be read back.
+    }
+  }
+  commit(previous);
+  return false;
+}
+
 function settle(
   previous: BagState,
   result: CartSnapshot | Promise<CartSnapshot | null> | null,
@@ -82,28 +137,21 @@ function settle(
   if (isPromise(result)) {
     return result
       .then((cart) => {
-        if (!cart) {
-          commit(previous);
-          return false;
-        }
+        if (!cart) return restore(previous, open);
         commit(fromCart(cart, open));
         return true;
       })
-      .catch(() => {
-        commit(previous);
-        return false;
-      });
+      .catch(() => restore(previous, open));
   }
-  if (!result) {
-    commit(previous);
-    return false;
-  }
+  if (!result) return restore(previous, open);
   commit(fromCart(result, open));
   return true;
 }
 
 export function resetBag() {
   hydrated = false;
+  busy = false;
+  waiters.length = 0;
   state = { ...emptyState };
   if (typeof sessionStorage !== "undefined") sessionStorage.removeItem(storageKey);
   listeners.forEach((listener) => listener());
@@ -116,24 +164,30 @@ export function forgetBagMemory() {
 }
 
 export function addLine(item: CartItem) {
-  const previous = clone(state);
-  const result = state.cartId ? cartClient().linesAdd(state.cartId, item) : cartClient().create(item);
-  return settle(previous, result, true);
+  return enqueue(() => {
+    const previous = clone(state);
+    const result = state.cartId ? cartClient().linesAdd(state.cartId, item) : cartClient().create(item);
+    return settle(previous, result, true);
+  });
 }
 
 function changeQuantity(id: string, next: number) {
-  const previous = clone(state);
-  const quantity = Math.max(1, next);
-  if (!state.cartId) return;
-  const result = cartClient().linesUpdate(state.cartId, id, quantity);
-  settle(previous, result, state.open);
+  return enqueue(() => {
+    const previous = clone(state);
+    const quantity = Math.max(1, next);
+    if (!state.cartId) return false;
+    const result = cartClient().linesUpdate(state.cartId, id, quantity);
+    return settle(previous, result, state.open);
+  });
 }
 
 function removeLine(id: string) {
-  const previous = clone(state);
-  if (!state.cartId) return;
-  const result = cartClient().linesRemove(state.cartId, id);
-  settle(previous, result, state.open);
+  return enqueue(() => {
+    const previous = clone(state);
+    if (!state.cartId) return false;
+    const result = cartClient().linesRemove(state.cartId, id);
+    return settle(previous, result, state.open);
+  });
 }
 
 export function useBag() {
