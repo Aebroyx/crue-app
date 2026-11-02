@@ -4,6 +4,7 @@ import "@testing-library/jest-dom";
 import { resetBag } from "@/components/bag/bag";
 import { memoryCartClient, resetMemoryCart, setCartClient } from "@/lib/cart";
 import { setCatalogProducts, type CatalogProduct } from "@/lib/catalog";
+import { resetSearchClient } from "@/lib/search";
 
 const fixture = JSON.parse(
   fs.readFileSync(path.join(process.cwd(), "src/data/catalog.fixture.json"), "utf8"),
@@ -14,5 +15,6 @@ setCatalogProducts(fixture.products);
 beforeEach(() => {
   resetMemoryCart();
   setCartClient(memoryCartClient);
+  resetSearchClient();
   resetBag();
 });

@@ -2,10 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Search as SearchIcon, X } from "lucide-react";
+import { ProductImage } from "@/components/product-image/product-image";
 import { useCatalogProducts } from "@/components/catalog-context";
-import { type CatalogProduct } from "@/lib/catalog";
-
-const popular = ["Shell jacket", "Run tee", "Tight", "Short"];
+import { searchClient, type SearchHit } from "@/lib/search";
 
 export const searchLink = {
   go(href: string) {
@@ -18,10 +17,8 @@ function prefersReducedMotion() {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
-function matches(products: CatalogProduct[], query: string) {
-  return products.filter((product) =>
-    `${product.title} ${product.category}`.toLowerCase().includes(query),
-  );
+function isPromise<T>(value: T | Promise<T>): value is Promise<T> {
+  return typeof (value as Promise<T>)?.then === "function";
 }
 
 export function SearchOverlay({ open, onClose }: { open: boolean; onClose: () => void }) {
@@ -29,7 +26,14 @@ export function SearchOverlay({ open, onClose }: { open: boolean; onClose: () =>
   const onCloseRef = useRef(onClose);
   const [query, setQuery] = useState("");
   const [closing, setClosing] = useState(false);
-  const products = useCatalogProducts();
+  const [hits, setHits] = useState<SearchHit[] | null>(null);
+  const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [pending, setPending] = useState(false);
+  const productNames = useCatalogProducts()
+    .map((product) => product.title)
+    .filter(Boolean)
+    .slice(0, 4);
+  const chips = suggestions.length > 0 ? suggestions.slice(0, 4) : productNames;
 
   onCloseRef.current = onClose;
 
@@ -99,12 +103,39 @@ export function SearchOverlay({ open, onClose }: { open: boolean; onClose: () =>
     };
   }, [open]);
 
+  useEffect(() => {
+    const trimmed = query.trim();
+    if (!trimmed) {
+      setHits([]);
+      setSuggestions([]);
+      setPending(false);
+      return;
+    }
+    const result = searchClient().search(trimmed);
+    if (isPromise(result)) {
+      let cancelled = false;
+      setPending(true);
+      void result.then((answer) => {
+        if (cancelled) return;
+        setHits(answer.products);
+        setSuggestions(answer.queries);
+        setPending(false);
+      });
+      return () => {
+        cancelled = true;
+      };
+    }
+    setHits(result.products);
+    setSuggestions(result.queries);
+    setPending(false);
+  }, [query]);
+
   if (!open) return null;
 
-  const trimmed = query.trim().toLowerCase();
-  const results = trimmed ? matches(products, trimmed) : [];
+  const trimmed = query.trim();
+  const results = hits ?? [];
   const idle = trimmed.length === 0;
-  const noResults = !idle && results.length === 0;
+  const noResults = !idle && !pending && hits !== null && results.length === 0;
 
   return (
     <div className="fixed inset-0 z-40 font-[family-name:var(--font-benzin)] text-text">
@@ -137,7 +168,7 @@ export function SearchOverlay({ open, onClose }: { open: boolean; onClose: () =>
           </button>
         </div>
         <div className="min-h-0 flex-1 overflow-y-auto px-4 pt-7 pb-10 md:px-12">
-          {idle ? <Popular onPick={setQuery} /> : null}
+          {idle ? <Popular labels={chips} onPick={setQuery} /> : null}
           {results.length > 0 ? (
             <div className="flex flex-col gap-5">
               <span className="font-[family-name:var(--font-plex)] text-[11px] tracking-[0.16em] text-muted uppercase">
@@ -145,15 +176,20 @@ export function SearchOverlay({ open, onClose }: { open: boolean; onClose: () =>
               </span>
               <div className="grid grid-cols-2 gap-x-3 gap-y-6 md:grid-cols-6">
                 {results.map((product) => (
-                  <a key={product.handle} href={`/products/${product.handle}`} className="flex flex-col gap-2.5">
-                    <div className="flex aspect-[3/4] items-center justify-center bg-surface">
-                      <img src="/brand/crue-mark-white.png" alt="" className="hidden h-[19px] w-14 opacity-10 dark:block" />
-                      <img src="/brand/crue-mark-black.png" alt="" className="h-[19px] w-14 opacity-10 dark:hidden" />
-                    </div>
+                  <a
+                    key={product.handle}
+                    href={`/products/${product.handle}`}
+                    onClick={() => onCloseRef.current()}
+                    className="flex flex-col gap-2.5"
+                  >
+                    <ProductImage
+                      src={product.imageUrl}
+                      alt={product.imageAlt ?? ""}
+                      className="aspect-[3/4]"
+                      markClassName="h-[19px] w-14 opacity-10"
+                    />
                     <span className="text-[12px] font-bold tracking-[0.04em] uppercase">{product.title}</span>
-                    <span className="font-[family-name:var(--font-plex)] text-[12px]">
-                      {product.variants[0]?.price.amount ?? "[PRICE]"}
-                    </span>
+                    <span className="font-[family-name:var(--font-plex)] text-[12px]">{product.amount}</span>
                   </a>
                 ))}
               </div>
@@ -174,7 +210,7 @@ export function SearchOverlay({ open, onClose }: { open: boolean; onClose: () =>
             <div className="flex flex-col gap-4">
               <p className="text-[22px] font-extrabold uppercase">No results for “{query.trim()}”</p>
               <p className="text-[14px] text-text-2">Check the spelling or try one of these.</p>
-              <Popular onPick={setQuery} labelled={false} />
+              <Popular labels={chips} onPick={setQuery} labelled={false} />
             </div>
           ) : null}
         </div>
@@ -183,10 +219,18 @@ export function SearchOverlay({ open, onClose }: { open: boolean; onClose: () =>
   );
 }
 
-function Popular({ onPick, labelled = true }: { onPick: (label: string) => void; labelled?: boolean }) {
+function Popular({
+  labels,
+  onPick,
+  labelled = true,
+}: {
+  labels: string[];
+  onPick: (label: string) => void;
+  labelled?: boolean;
+}) {
   const chips = (
       <div className="flex flex-wrap gap-2">
-        {popular.map((label) => (
+        {labels.map((label) => (
           <button
             key={label}
             type="button"

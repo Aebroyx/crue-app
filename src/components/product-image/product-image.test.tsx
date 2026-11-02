@@ -128,7 +128,7 @@ describe("REQ-019 product image skeleton", () => {
     expect(read("src/components/catalog/catalog.tsx")).toMatch(/ProductImage/);
     expect(read("src/components/product/product.tsx")).toMatch(/ProductImage/);
     expect(read("src/components/bag/bag.tsx")).toMatch(/ProductImage/);
-    expect(read("src/components/search/search.tsx")).not.toMatch(/ProductImage/);
+    expect(read("src/components/search/search.tsx")).toMatch(/ProductImage/);
 
     const home = render(<Storefront showIntro={false} />);
     expect(home.container.querySelectorAll("[data-product-image]")).toHaveLength(catalogProducts().length);

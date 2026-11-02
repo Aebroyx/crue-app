@@ -34,7 +34,7 @@ describe("REQ-013 intro logo", () => {
     render(<Storefront showIntro />);
     const intro = within(document.querySelector("[data-intro]") as HTMLElement);
 
-    expect(intro.queryByRole("button", { name: "Skip", exact: true })).not.toBeInTheDocument();
+    expect(intro.queryByRole("button", { name: /^Skip$/ })).not.toBeInTheDocument();
     expect(intro.queryByRole("button", { name: "Skip intro" })).not.toBeInTheDocument();
   });
 

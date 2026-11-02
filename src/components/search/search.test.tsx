@@ -7,7 +7,7 @@ import { Catalog } from "@/components/catalog/catalog";
 import { NotFound } from "@/components/not-found/not-found";
 import { Product } from "@/components/product/product";
 import { searchLink } from "@/components/search/search";
-import { productByHandle } from "@/lib/catalog";
+import { catalogProducts, productByHandle } from "@/lib/catalog";
 
 function openSearch() {
   fireEvent.click(screen.getAllByRole("button", { name: "Search" })[0]);
@@ -19,7 +19,7 @@ describe("REQ-018 search", () => {
     openSearch();
     expect(screen.getByRole("dialog", { name: "Search" })).toBeInTheDocument();
     expect(screen.getByText("Popular searches")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Shell jacket" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: catalogProducts()[0].title })).toBeInTheDocument();
     expect(screen.queryByText(/result/)).not.toBeInTheDocument();
     expect(window.location.pathname).not.toBe("/search");
 
@@ -50,8 +50,8 @@ describe("REQ-018 search", () => {
 
     const dialog = () => within(screen.getByRole("dialog", { name: "Search" }));
 
-    fireEvent.click(screen.getByRole("button", { name: "Run tee" }));
-    expect(screen.getByRole("searchbox", { name: "Search" })).toHaveValue("Run tee");
+    fireEvent.click(screen.getByRole("button", { name: "Singularity Run Tee" }));
+    expect(screen.getByRole("searchbox", { name: "Search" })).toHaveValue("Singularity Run Tee");
     expect(dialog().getByRole("link", { name: /Singularity Run Tee/ })).toHaveAttribute(
       "href",
       "/products/singularity-run-tee",
@@ -92,7 +92,7 @@ describe("REQ-018 search", () => {
     expect(screen.getByText("No results for “nope”")).toBeInTheDocument();
     expect(screen.getByText("Check the spelling or try one of these.")).toBeInTheDocument();
     const dialog = within(screen.getByRole("dialog", { name: "Search" }));
-    expect(dialog.getByRole("button", { name: "Short" })).toBeInTheDocument();
+    expect(dialog.getByRole("button", { name: catalogProducts()[3].title })).toBeInTheDocument();
     expect(dialog.queryByRole("link", { name: /Horizon Shell Jacket/ })).not.toBeInTheDocument();
     expect(dialog.queryByRole("link", { name: "View all in shop" })).not.toBeInTheDocument();
   });

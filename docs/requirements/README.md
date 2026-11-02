@@ -50,4 +50,4 @@ Each feature is one file: `REQ-NNN-short-name.md`. The template is [`_template.m
 | [REQ-024](REQ-024-account.md) | Account control | done |
 | [REQ-025](REQ-025-storefront-products.md) | Storefront products | done |
 | [REQ-026](REQ-026-storefront-cart.md) | Storefront cart | done |
-| [REQ-027](REQ-027-predictive-search.md) | Predictive search | draft |
+| [REQ-027](REQ-027-predictive-search.md) | Predictive search | done |

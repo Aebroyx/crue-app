@@ -64,12 +64,14 @@ type StorefrontNode = {
   images?: { nodes?: { url?: string | null; altText?: string | null }[] };
 };
 
+type ProductConnection = {
+  pageInfo?: { hasNextPage?: boolean; endCursor?: string | null };
+  nodes?: StorefrontNode[];
+};
+
 type StorefrontPayload = {
   data?: {
-    products?: {
-      pageInfo?: { hasNextPage?: boolean; endCursor?: string | null };
-      nodes?: StorefrontNode[];
-    };
+    products?: ProductConnection;
   } | null;
 };
 
@@ -150,8 +152,13 @@ export async function requestStorefrontProducts(
   let cursor: string | null = null;
 
   for (let page = 0; page < 4; page += 1) {
-    const payload = await storefrontGraphql<StorefrontPayload>(productQuery, { cursor }, fetchImpl, env);
-    const connection = payload?.data?.products;
+    const payload: StorefrontPayload | null = await storefrontGraphql<StorefrontPayload>(
+      productQuery,
+      { cursor },
+      fetchImpl,
+      env,
+    );
+    const connection: ProductConnection | undefined = payload?.data?.products;
     if (!connection?.nodes) return [];
     products.push(...connection.nodes.map(mapStorefrontProduct));
     if (!connection.pageInfo?.hasNextPage || !connection.pageInfo.endCursor) break;
