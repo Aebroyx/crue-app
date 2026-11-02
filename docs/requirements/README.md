@@ -54,4 +54,4 @@ Each feature is one file: `REQ-NNN-short-name.md`. The template is [`_template.m
 | [REQ-028](REQ-028-product-recommendations.md) | Product recommendations | done |
 | [REQ-029](REQ-029-announcement.md) | Announcement bar | done |
 | [REQ-030](REQ-030-home-hero.md) | Top banner carousel | done |
-| [REQ-031](REQ-031-home-story.md) | Home manifesto | draft |
+| [REQ-031](REQ-031-home-story.md) | Home manifesto | done |

@@ -5,6 +5,7 @@ import { ProductImage } from "@/components/product-image/product-image";
 import { Newsletter } from "@/components/home/newsletter";
 import { Navbar } from "@/components/navbar/navbar";
 import { type BannerSlide } from "@/lib/banners";
+import { manifestoFallback, type Manifesto } from "@/lib/manifesto";
 import { catalogProducts, optionValues, type CatalogProduct } from "@/lib/catalog";
 import type { Theme } from "@/lib/theme-cookie";
 
@@ -31,10 +32,12 @@ export function Home({
   theme = "light",
   products = catalogProducts(),
   banners = [],
+  manifesto = manifestoFallback,
 }: {
   theme?: Theme;
   products?: CatalogProduct[];
   banners?: BannerSlide[];
+  manifesto?: Manifesto;
 }) {
   const cards = products.map((product) => ({
     name: product.title,
@@ -82,17 +85,17 @@ export function Home({
         <div className="flex flex-col gap-6 md:grid md:grid-cols-12 md:gap-x-6">
           <div className="flex flex-col gap-6 md:col-start-4 md:col-span-8 md:gap-8">
             <h2 className={`${display} text-[34px] leading-[1.04] md:text-[64px] md:leading-[1.02]`}>
-              Gravity is your training partner.
+              {manifesto.heading}
             </h2>
             <p className="max-w-[560px] text-[15px] leading-[1.6] text-text-2 md:text-[17px]">
-              CRUE is built for the hybrid athlete: the one who runs at first light and lifts after dark.
-              <span className="hidden md:inline"> Every piece is cut to move between both.</span>
+              {manifesto.body}
+              <span className="hidden md:inline"> {manifesto.bodyWide}</span>
             </p>
             <a
-              href="#manifesto"
+              href={manifesto.linkHref}
               className="self-start py-3 font-[family-name:var(--font-plex)] text-[11px] tracking-[0.16em] uppercase underline-offset-[5px] md:text-[12px] md:underline-offset-[6px]"
             >
-              Read the story
+              {manifesto.linkLabel}
             </a>
           </div>
         </div>

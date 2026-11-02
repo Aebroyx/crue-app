@@ -1,6 +1,6 @@
 # REQ-031: Home manifesto
 
-- Status: draft
+- Status: done
 - Date: 2026-11-02
 
 ## Problem

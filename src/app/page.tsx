@@ -2,6 +2,7 @@ import { cookies } from "next/headers";
 import { Home } from "@/components/home/home";
 import { Intro } from "@/components/intro/intro";
 import { storefrontBanners, type BannerSlide } from "@/lib/banners";
+import { storefrontManifesto, type Manifesto } from "@/lib/manifesto";
 import { catalogProducts, type CatalogProduct } from "@/lib/catalog";
 import { hasSeenIntro, introCookieName } from "@/lib/intro-cookie";
 import { storefrontProducts } from "@/lib/storefront";
@@ -12,16 +13,18 @@ export function Storefront({
   theme = "light",
   products,
   banners,
+  manifesto,
 }: {
   showIntro: boolean;
   theme?: Theme;
   products?: CatalogProduct[];
   banners?: BannerSlide[];
+  manifesto?: Manifesto;
 }) {
   return (
     <>
       {showIntro ? <Intro /> : null}
-      <Home theme={theme} products={products ?? catalogProducts()} banners={banners} />
+      <Home theme={theme} products={products ?? catalogProducts()} banners={banners} manifesto={manifesto} />
     </>
   );
 }
@@ -34,6 +37,7 @@ export default async function HomePage() {
       theme={themeFromCookie(jar.get(themeCookieName)?.value)}
       products={await storefrontProducts()}
       banners={await storefrontBanners()}
+      manifesto={await storefrontManifesto()}
     />
   );
 }
