@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
+import { AnnouncementProvider } from "@/components/announcement-context";
 import { CatalogProvider } from "@/components/catalog-context";
+import { storefrontAnnouncement } from "@/lib/announcement";
 import { benzin, geist, plex } from "@/lib/fonts";
 import { storefrontProducts } from "@/lib/storefront";
 import { themeCookieName, themeFromCookie } from "@/lib/theme-cookie";
@@ -25,7 +27,7 @@ export default async function RootLayout({
 }>) {
   const jar = await cookies();
   const theme = themeFromCookie(jar.get(themeCookieName)?.value);
-  const products = await storefrontProducts();
+  const [products, announcement] = await Promise.all([storefrontProducts(), storefrontAnnouncement()]);
 
   return (
     <html
@@ -34,7 +36,9 @@ export default async function RootLayout({
       className={`${benzin.variable} ${plex.variable}`}
     >
       <body className={`${geist.className} bg-bg text-text antialiased`}>
-        <CatalogProvider products={products}>{children}</CatalogProvider>
+        <AnnouncementProvider announcement={announcement}>
+          <CatalogProvider products={products}>{children}</CatalogProvider>
+        </AnnouncementProvider>
       </body>
     </html>
   );

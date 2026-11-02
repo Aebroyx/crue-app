@@ -2,6 +2,7 @@
 
 import { Menu, Search, ShoppingBag, User } from "lucide-react";
 import { useState } from "react";
+import { useAnnouncement } from "@/components/announcement-context";
 import { Bag, useBag } from "@/components/bag/bag";
 import { MobileMenu } from "@/components/navbar/menu";
 import { SearchOverlay } from "@/components/search/search";
@@ -24,6 +25,7 @@ export function Navbar({
   theme?: Theme;
 }) {
   const bag = useBag();
+  const announcement = useAnnouncement();
   const [searchOpen, setSearchOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [guide, setGuide] = useState(false);
@@ -31,9 +33,9 @@ export function Navbar({
   return (
     <>
       <div className="relative z-20 flex h-8 items-center justify-center bg-surface px-4 font-[family-name:var(--font-plex)] text-[10px] tracking-[0.16em] uppercase md:h-9 md:gap-8 md:text-[11px] md:tracking-[0.18em]">
-        <span className="md:hidden">Drop 001, out now</span>
-        <span className="hidden md:inline">Drop 001: Event Horizon, out now</span>
-        <span className="hidden text-muted md:inline">Free shipping over [THRESHOLD]</span>
+        <span className="md:hidden">{announcement.mobileText}</span>
+        <span className="hidden md:inline">{announcement.desktopText}</span>
+        <span className="hidden text-muted md:inline">{announcement.shippingText}</span>
       </div>
 
       <header className="relative z-20 hidden h-[72px] grid-cols-3 items-center border-b border-line bg-bg px-12 md:grid">
