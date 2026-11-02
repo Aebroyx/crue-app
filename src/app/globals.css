@@ -36,6 +36,11 @@
   --color-muted: #a1a1a6;
 }
 
+[data-banner-meta] {
+  --color-text-2: #c4c3c0;
+  --color-muted: #a1a1a6;
+}
+
 @keyframes intro-fade {
   from {
     opacity: 0;

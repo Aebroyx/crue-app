@@ -42,7 +42,7 @@ describe("REQ-015 size guide", () => {
     const home = render(<Home />);
     fireEvent.click(footerGuide());
     expect(screen.getByRole("dialog", { name: "Size guide" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Event Horizon" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "The Drop" })).toBeInTheDocument();
     home.unmount();
 
     const catalog = render(<Catalog />);

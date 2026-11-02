@@ -1,8 +1,10 @@
 import { ArrowRight } from "lucide-react";
 import { Footer } from "@/components/footer/footer";
+import { Hero } from "@/components/home/hero";
 import { ProductImage } from "@/components/product-image/product-image";
 import { Newsletter } from "@/components/home/newsletter";
 import { Navbar } from "@/components/navbar/navbar";
+import { type BannerSlide } from "@/lib/banners";
 import { catalogProducts, optionValues, type CatalogProduct } from "@/lib/catalog";
 import type { Theme } from "@/lib/theme-cookie";
 
@@ -28,9 +30,11 @@ function dropLine(product: CatalogProduct) {
 export function Home({
   theme = "light",
   products = catalogProducts(),
+  banners = [],
 }: {
   theme?: Theme;
   products?: CatalogProduct[];
+  banners?: BannerSlide[];
 }) {
   const cards = products.map((product) => ({
     name: product.title,
@@ -43,45 +47,7 @@ export function Home({
     <div className="bg-bg font-[family-name:var(--font-benzin)] text-text">
       <Navbar theme={theme} />
 
-      <section className="relative h-[700px] overflow-hidden md:h-[820px]">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_90%_60%_at_60%_32%,#26262A_0%,#121214_50%,#0B0B0C_80%)] md:bg-[radial-gradient(ellipse_60%_70%_at_72%_42%,#26262A_0%,#121214_45%,#0B0B0C_75%)] hidden dark:block" />
-        <img
-          src="/brand/glow-dark.jpg"
-          alt=""
-          className="absolute top-[-20%] left-0 h-[180%] w-[160%] max-w-none object-cover opacity-55 dark:hidden"
-        />
-        <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(243,243,241,0.92)_0%,rgba(243,243,241,0.55)_38%,rgba(243,243,241,0)_70%)] dark:hidden" />
-        <img
-          src="/brand/crue-mark-white.png"
-          alt=""
-          className="absolute top-[150px] left-[-60px] w-[520px] opacity-[0.07] md:left-[36%] md:w-[1200px] hidden dark:block"
-        />
-        <div className="absolute right-5 bottom-8 left-5 flex flex-col gap-5 md:right-12 md:bottom-14 md:left-12 md:flex-row md:items-end md:justify-between md:gap-12">
-          <div className="flex flex-col gap-5 md:gap-7">
-            <span className="font-[family-name:var(--font-plex)] text-[11px] tracking-[0.2em] text-muted uppercase md:text-[12px]">
-              Drop 001
-            </span>
-            <h1 className={`${display} text-[50px] leading-[0.88] md:text-[148px] md:leading-[0.86]`}>
-              Event
-              <br />
-              Horizon
-            </h1>
-          </div>
-          <div className="flex flex-col gap-5 md:w-[340px] md:gap-7 md:pb-2">
-            <p className="text-[15px] leading-[1.55] text-text-2 md:text-[16px]">
-              Technical running wear for the hybrid athlete.
-              <span className="hidden md:inline"> Built for the long run and the heavy set.</span>
-            </p>
-            <a
-              href="#drop"
-              className="flex h-14 items-center justify-between bg-text px-5 text-[13px] font-bold tracking-[0.12em] text-bg uppercase active:scale-[0.98] md:px-6"
-            >
-              <span>Shop Drop 001</span>
-              <ArrowRight className="size-[18px]" strokeWidth={1.5} aria-hidden />
-            </a>
-          </div>
-        </div>
-      </section>
+      <Hero slides={banners} />
 
       <section id="drop" className="flex flex-col gap-6 px-4 py-16 md:gap-10 md:px-12 md:py-24">
         <h2 className={`${display} text-[30px] leading-none md:text-[44px]`}>The Drop</h2>

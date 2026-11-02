@@ -13,7 +13,7 @@ describe("REQ-004 home", () => {
   it("REQ-004 shows the home after the intro is dismissed", () => {
     render(<Storefront showIntro={false} />);
 
-    expect(screen.getByRole("heading", { name: /Event\s+Horizon/ })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "The Drop" })).toBeInTheDocument();
     expect(screen.queryByRole("img", { name: "CRUE mark" })).not.toBeInTheDocument();
     expect(document.querySelector("[data-intro]")).toBeNull();
   });
@@ -21,7 +21,7 @@ describe("REQ-004 home", () => {
   it("REQ-004 renders the hero, the drop, the manifesto, and the bento", () => {
     render(<Storefront showIntro={false} />);
 
-    expect(screen.getByRole("link", { name: /Shop Drop 001/ })).toHaveAttribute("href", "#drop");
+    expect(screen.queryByRole("link", { name: "Shop all" })).not.toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "The Drop" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "Gravity is your training partner." })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Read the story" })).toHaveAttribute("href", "#manifesto");

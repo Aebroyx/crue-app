@@ -13,13 +13,12 @@ function read(relativePath: string) {
 describe("REQ-006 Benzin", () => {
   it("REQ-006 sets display and UI text in Benzin", () => {
     render(<Storefront showIntro={false} />);
-    const home = screen.getByRole("heading", { name: /Event\s+Horizon/ }).closest("div.bg-bg");
+    const home = screen.getByRole("heading", { name: "The Drop" }).closest("div.bg-bg");
 
     expect(home).toHaveClass(benzin);
     expect(home?.className).not.toMatch(/md:font-|max-md:font-/);
     expect(screen.getByRole("navigation", { name: "Main" })).not.toHaveClass(plex);
-    expect(screen.getByRole("link", { name: /Shop Drop 001/ })).not.toHaveClass(plex);
-    expect(screen.getByText(/Technical running wear/)).not.toHaveClass(plex);
+    expect(screen.getByRole("heading", { name: "The Drop" })).not.toHaveClass(plex);
     expect(screen.getByText("Horizon Shell Jacket")).not.toHaveClass(plex);
     expect(home?.className).not.toMatch(/font-stretch|font-archivo/);
     expect(read("src/components/home/home.tsx")).not.toMatch(/font-stretch|font-archivo/);

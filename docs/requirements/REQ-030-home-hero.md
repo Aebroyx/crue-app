@@ -1,15 +1,15 @@
-# REQ-030: Home hero
+# REQ-030: Top banner carousel
 
-- Status: draft
+- Status: done
 - Date: 2026-11-02
 
 ## Problem
 
-The home hero still says "Drop 001", "Event Horizon", the hybrid-athlete sentence, and "Shop Drop 001". Changing the campaign means a code change.
+The large band under the menu still shows the glow and the faint mark. The merchant cannot put campaign photographs there, or rotate them.
 
 ## Why
 
-[architecture.md](../architecture.md) says a home section is a metaobject the storefront already knows how to render. [REQ-004](REQ-004-home.md) hard-coded this hero. Business reason: the merchant should change the campaign words and the button without a deploy. Technical reason: the hero layout, type, and height already exist. This requirement fills the existing slots from Shopify.
+The top banner is an image carousel. The manifesto lower on the page is a different metaobject, specified in [REQ-031](REQ-031-home-story.md). [REQ-004](REQ-004-home.md) already draws the frame at 700px on a phone and 820px on a wide screen. This requirement fills that frame from one `home_banner` entry: the photograph and the words on top of it.
 
 ## Actors
 
@@ -17,52 +17,70 @@ Visitor and merchant.
 
 ## In scope
 
-- One Storefront metaobject, type `home_hero`, with fields `eyebrow`, `heading`, `body`, `body_wide`, `button_label`, and `button_href`.
-- The existing hero renders those fields. `body_wide` is the extra sentence shown only on a wide screen, the way [REQ-004](REQ-004-home.md) hides "Built for the long run and the heavy set." on a phone.
-- `heading` may contain a line break. The component keeps the current hero type. It does not restyle the heading.
-- `button_href` is a path on this site, such as `#drop` or `/catalog`. The button keeps its current shape.
-- A missing entry, an empty field, or a failed query uses the matching [REQ-004](REQ-004-home.md) copy for that slot: eyebrow "Drop 001", heading "Event Horizon", body "Technical running wear for the hybrid athlete.", `body_wide` "Built for the long run and the heavy set.", button "Shop Drop 001" to `#drop`. This requirement does not invent a new line.
+- Storefront metaobjects of type `home_banner`. Each entry is one slide, with fields `position`, `image`, `eyebrow`, `heading`, `body`, `body_wide`, `button_label`, and `button_href`. `image` is one file.
+- The storefront reads up to 10 published entries and orders them by `position`, lowest first. An entry with no `position` comes after the numbered ones.
+- The image fills the existing hero frame and is cropped to it. The phone frame stays 700px tall. The wide frame stays 820px tall. The image alt text is the alt text saved on that file. An empty alt leaves the image decorative.
+- The slide that is showing renders its own words. `body_wide` is the extra sentence shown only on a wide screen. `heading` may contain a line break. The type and the button shape stay as they are. `button_href` is a path on this site.
+- An empty text field is left off the slide. The eyebrow, heading, body, wide sentence, and button each render only when that field has text. The button also needs `button_href`. A blank body does not block the slide.
+- Two or more slides advance every 3 seconds, then the first slide shows again. The photograph and the words advance together.
+- The timer pauses while the pointer is over the frame or keyboard focus is inside it. It resumes when the pointer leaves and focus is outside.
+- One image does not advance. No entries, or a failed query, shows the glow and the logo from [REQ-004](REQ-004-home.md) and does not advance. The light theme uses the glow file, which already contains the logo. The white logo shows in the dark theme.
+- A slide whose `image` is missing, or whose file is not an image, shows the glow and the logo for that slide. The other slides still show their images.
+- `prefers-reduced-motion: reduce` shows the first image and does not start the timer.
 
 ## Out of scope
 
-- A second hero, a slider, or a video.
-- The announcement bar, the story, The Drop title, and the category tiles.
-- A new image treatment. The glow and the faint mark stay the brand files already placed by [REQ-004](REQ-004-home.md). This requirement does not add a merchant image slot.
-- A separate CMS.
+- The manifesto. That band is [REQ-031](REQ-031-home-story.md).
+- The thin announcement bar. That bar is [REQ-029](REQ-029-announcement.md).
+- A second image for the phone, a focal point, and a crop the merchant draws.
+- A video, dots, previous and next arrows, swipe, and drag.
+- Changing the 3 second interval from Shopify Admin.
 
 ## Behavior
 
-A visitor opens the home page on a phone or on a wide screen.
+A visitor opens the home page on a phone or on a wide screen. Two banners are published, and each has an image.
 
-- They see `eyebrow`, `heading`, and `body`. A wide screen also shows `body_wide`.
-- They activate the button. The address is `button_href`.
-- The merchant changes `heading` in Shopify Admin. The next load shows that heading. The button label stays as it was.
-- The metaobject is missing. The hero shows the [REQ-004](REQ-004-home.md) copy.
+- They see the first photograph filling the frame, with that slide's eyebrow, heading, and body. A wide screen also shows `body_wide`.
+- Three seconds pass. The next photograph appears with the next slide's words.
+- They hold the pointer over the frame. The photograph stays. They move the pointer away. The 3 second count starts again.
+- A slide has no image. That turn shows the glow and the logo.
+- Their browser asks for reduced motion. The first photograph stays in place.
+- They activate the button. The address is that slide's `button_href`.
+- A field is empty. That piece is not on the slide. The photograph stays, and the fields that have text stay.
+- No `home_banner` entry exists. The frame shows the glow and the mark, with no eyebrow, heading, body, or button, and it does not advance.
 
 ## Acceptance criteria
 
-1. `REQ-030` reads `home_hero.eyebrow`, `home_hero.heading`, `home_hero.body`, `home_hero.body_wide`, `home_hero.button_label`, and `home_hero.button_href` from the Storefront API.
-2. `REQ-030` shows `body_wide` only on a wide screen and sends the button to `button_href`.
-3. `REQ-030` uses the [REQ-004](REQ-004-home.md) hero copy when the entry or a field is missing, or the query fails.
+1. `REQ-030` reads `home_banner.position`, `home_banner.image`, `home_banner.eyebrow`, `home_banner.heading`, `home_banner.body`, `home_banner.body_wide`, `home_banner.button_label`, and `home_banner.button_href` from the Storefront API, and orders slides by `position`.
+2. `REQ-030` fills the hero frame with one image and that slide's words, replaces both after 3 seconds, and returns to the first. `body_wide` shows only on a wide screen. The button goes to that slide's `button_href`.
+3. `REQ-030` pauses the timer while the pointer is over the frame or focus is inside it.
+4. `REQ-030` does not advance when only one image exists, the query fails, or `prefers-reduced-motion: reduce` is set.
+5. `REQ-030` shows the glow and the logo when a slide has no image.
+6. `REQ-030` omits a text field when it is empty, including the button, and still shows the fields that have text.
 
 ## Edge cases
 
-- An empty string is missing. That slot uses the [REQ-004](REQ-004-home.md) copy. The other slots still use Shopify.
-- A heading line break is kept. The hero does not become one forced line.
+- An empty alt text renders an empty alt.
+- An empty string omits that piece. A button with a label and no `button_href` is omitted.
+- A heading line break is kept.
+- More than 10 published entries: the storefront shows the 10 with the lowest `position`.
 
 ## Shopify boundary
 
-Reads one `home_hero` metaobject from the Storefront API. Does not write a cart, a checkout URL, a customer, or an order. [ADR 0001](../adr/0001-shopify-as-system-of-record.md) stays the decision.
+Reads `home_banner` metaobjects, the `image` file, and the text fields on each one from the Storefront API. Does not write a cart, a checkout URL, a customer, or an order. [ADR 0001](../adr/0001-shopify-as-system-of-record.md) stays the decision.
 
 ## Tests
 
-Jest, with the requirement id in the name:
+Jest, with the requirement id in the name. Timer tests use fake timers.
 
-- `REQ-030 reads the hero fields from the metaobject`
-- `REQ-030 shows the wide sentence only on a wide screen and links the button`
-- `REQ-030 falls back to the REQ-004 hero when the metaobject is missing`
+- `REQ-030 reads the banner image in position order`
+- `REQ-030 advances the image and that slide's words every 3 seconds`
+- `REQ-030 pauses while the frame is hovered or focused`
+- `REQ-030 does not advance for one image, a failed query, or reduced motion`
+- `REQ-030 shows the glow and the mark when the image is missing`
+- `REQ-030 omits an empty field and keeps the fields that have text`
 
-Jest mocks the metaobject. It does not call the live store.
+Jest mocks the metaobjects. It does not call the live store.
 
 ## Open questions
 
@@ -74,5 +92,6 @@ These stay open. This requirement does not answer them:
 
 ## Dependencies
 
-- [REQ-004](REQ-004-home.md). The hero layout and the fallback copy.
+- [REQ-004](REQ-004-home.md). The frame, the words on top, and the glow used when an image is missing.
+- [REQ-031](REQ-031-home-story.md). The manifesto, which this requirement does not render.
 - [ADR 0001](../adr/0001-shopify-as-system-of-record.md).
