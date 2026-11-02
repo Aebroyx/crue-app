@@ -53,8 +53,29 @@ export function Product({
     : "bg-text text-bg";
 
   function add() {
-    setAdded(true);
-    bag.add({ title: product.title, colour, size });
+    const variant = product.variants.find((item) => {
+      const selected = Object.fromEntries(item.selectedOptions.map((option) => [option.name, option.value]));
+      const colourMatches = !colour || selected.Colour === colour;
+      const sizeMatches = !size || selected.Size === size;
+      return colourMatches && sizeMatches;
+    });
+    if (!variant) return;
+    const result = bag.add({
+      variantId: variant.id,
+      title: product.title,
+      colour,
+      size,
+      amount: variant.price.amount,
+      imageUrl: product.images[0]?.url,
+      imageAlt: product.images[0]?.alt,
+    });
+    if (typeof result === "boolean") {
+      if (result) setAdded(true);
+      return;
+    }
+    void result.then((ok) => {
+      if (ok) setAdded(true);
+    });
   }
 
   function press() {

@@ -3,84 +3,147 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, X } from "lucide-react";
 import { ProductImage } from "@/components/product-image/product-image";
+import { cartClient, type CartItem, type CartLine, type CartSnapshot } from "@/lib/cart";
 
-export type BagLine = {
-  id: string;
-  title: string;
-  colour: string;
-  size: string;
-  quantity: number;
-};
+export type BagLine = CartLine;
 
 type BagState = {
+  cartId: string;
+  checkoutUrl: string;
+  subtotal: string;
   lines: BagLine[];
   open: boolean;
 };
 
-const storageKey = "crue-bag";
+const storageKey = "crue-cart";
+const emptyState: BagState = { cartId: "", checkoutUrl: "", subtotal: "", lines: [], open: false };
 
-let state: BagState = { lines: [], open: false };
+let state: BagState = { ...emptyState };
+let hydrated = false;
 const listeners = new Set<() => void>();
 
-function readLines(): BagLine[] {
-  if (typeof sessionStorage === "undefined") return [];
+function readStored(): Omit<BagState, "open"> {
+  if (typeof sessionStorage === "undefined") return emptyState;
   try {
     const raw = sessionStorage.getItem(storageKey);
-    if (!raw) return [];
-    const parsed = JSON.parse(raw) as BagLine[];
-    return Array.isArray(parsed) ? parsed : [];
+    if (!raw) return emptyState;
+    const parsed = JSON.parse(raw) as Partial<BagState>;
+    if (!parsed || !Array.isArray(parsed.lines)) return emptyState;
+    return {
+      cartId: parsed.cartId ?? "",
+      checkoutUrl: parsed.checkoutUrl ?? "",
+      subtotal: parsed.subtotal ?? "",
+      lines: parsed.lines,
+    };
   } catch {
-    return [];
+    return emptyState;
   }
 }
 
-function commit(patch: Partial<BagState>) {
-  state = { ...state, ...patch };
+function commit(next: BagState) {
+  state = next;
   if (typeof sessionStorage !== "undefined") {
-    sessionStorage.setItem(storageKey, JSON.stringify(state.lines));
+    sessionStorage.setItem(
+      storageKey,
+      JSON.stringify({
+        cartId: state.cartId,
+        checkoutUrl: state.checkoutUrl,
+        subtotal: state.subtotal,
+        lines: state.lines,
+      }),
+    );
   }
   listeners.forEach((listener) => listener());
 }
 
+function clone(value: BagState): BagState {
+  return JSON.parse(JSON.stringify(value)) as BagState;
+}
+
+function fromCart(cart: CartSnapshot, open: boolean): BagState {
+  return {
+    cartId: cart.id,
+    checkoutUrl: cart.checkoutUrl,
+    subtotal: cart.subtotal,
+    lines: cart.lines,
+    open,
+  };
+}
+
+function isPromise<T>(value: T | Promise<T>): value is Promise<T> {
+  return typeof (value as Promise<T>)?.then === "function";
+}
+
+function settle(
+  previous: BagState,
+  result: CartSnapshot | Promise<CartSnapshot | null> | null,
+  open: boolean,
+): boolean | Promise<boolean> {
+  if (isPromise(result)) {
+    return result
+      .then((cart) => {
+        if (!cart) {
+          commit(previous);
+          return false;
+        }
+        commit(fromCart(cart, open));
+        return true;
+      })
+      .catch(() => {
+        commit(previous);
+        return false;
+      });
+  }
+  if (!result) {
+    commit(previous);
+    return false;
+  }
+  commit(fromCart(result, open));
+  return true;
+}
+
 export function resetBag() {
-  state = { lines: [], open: false };
+  hydrated = false;
+  state = { ...emptyState };
   if (typeof sessionStorage !== "undefined") sessionStorage.removeItem(storageKey);
   listeners.forEach((listener) => listener());
 }
 
 export function forgetBagMemory() {
-  state = { lines: [], open: false };
+  hydrated = false;
+  state = { ...emptyState };
   listeners.forEach((listener) => listener());
 }
 
-function lineId(title: string, colour: string, size: string) {
-  return `${title} ${colour} ${size}`;
-}
-
-export function addLine(item: { title: string; colour: string; size: string }) {
-  const id = lineId(item.title, item.colour, item.size);
-  const existing = state.lines.find((line) => line.id === id);
-  const lines = existing
-    ? state.lines.map((line) => (line.id === id ? { ...line, quantity: line.quantity + 1 } : line))
-    : [...state.lines, { ...item, id, quantity: 1 }];
-  commit({ lines, open: true });
+export function addLine(item: CartItem) {
+  const previous = clone(state);
+  const result = state.cartId ? cartClient().linesAdd(state.cartId, item) : cartClient().create(item);
+  return settle(previous, result, true);
 }
 
 function changeQuantity(id: string, next: number) {
-  commit({
-    lines: state.lines.map((line) => (line.id === id ? { ...line, quantity: Math.max(1, next) } : line)),
-  });
+  const previous = clone(state);
+  const quantity = Math.max(1, next);
+  if (!state.cartId) return;
+  const result = cartClient().linesUpdate(state.cartId, id, quantity);
+  settle(previous, result, state.open);
 }
 
 function removeLine(id: string) {
-  commit({ lines: state.lines.filter((line) => line.id !== id) });
+  const previous = clone(state);
+  if (!state.cartId) return;
+  const result = cartClient().linesRemove(state.cartId, id);
+  settle(previous, result, state.open);
 }
 
 export function useBag() {
   const [snapshot, setSnapshot] = useState(state);
 
   useEffect(() => {
-    state = { ...state, lines: readLines() };
+    if (!hydrated) {
+      state = { ...readStored(), open: false };
+      hydrated = true;
+    }
     const sync = () => setSnapshot({ ...state });
     listeners.add(sync);
     sync();
@@ -94,10 +157,11 @@ export function useBag() {
   return {
     lines: snapshot.lines,
     open: snapshot.open,
+    subtotal: snapshot.subtotal,
     count,
     add: addLine,
-    openBag: () => commit({ open: true }),
-    closeBag: () => commit({ open: false }),
+    openBag: () => commit({ ...state, open: true }),
+    closeBag: () => commit({ ...state, open: false }),
     increase: (id: string) => {
       const line = state.lines.find((item) => item.id === id);
       if (line) changeQuantity(id, line.quantity + 1);
@@ -108,6 +172,17 @@ export function useBag() {
     },
     remove: removeLine,
   };
+}
+
+export const checkoutLink = {
+  go(href: string) {
+    window.location.assign(href);
+  },
+};
+
+function checkout() {
+  if (state.lines.length === 0 || !state.checkoutUrl) return;
+  checkoutLink.go(state.checkoutUrl);
 }
 
 export const catalogLink = {
@@ -210,11 +285,16 @@ export function Bag() {
             <ul className="min-h-0 flex-1 list-none overflow-y-auto px-5 md:px-7">
               {bag.lines.map((line) => (
                 <li key={line.id} className="flex gap-4 border-b border-line py-6">
-                  <ProductImage className="h-32 w-24 shrink-0" markClassName="h-[15px] w-11 opacity-10" />
+                  <ProductImage
+                    src={line.imageUrl}
+                    alt={line.imageAlt ?? ""}
+                    className="h-32 w-24 shrink-0"
+                    markClassName="h-[15px] w-11 opacity-10"
+                  />
                   <div className="flex min-w-0 flex-1 flex-col gap-1.5">
                     <div className="flex items-start justify-between gap-3">
                       <span className="text-[13px] font-bold tracking-[0.04em] uppercase">{line.title}</span>
-                      <span className="font-[family-name:var(--font-plex)] text-[13px] whitespace-nowrap">[PRICE]</span>
+                      <span className="font-[family-name:var(--font-plex)] text-[13px] whitespace-nowrap">{line.amount}</span>
                     </div>
                     <span className="text-[13px] text-muted">
                       {line.colour} / {line.size}
@@ -256,11 +336,12 @@ export function Bag() {
             <div className="flex shrink-0 flex-col gap-3 border-t border-line px-5 pt-5 pb-7 md:px-7">
               <div className="flex items-baseline justify-between">
                 <span className="text-[13px] font-bold tracking-[0.1em] uppercase">Subtotal</span>
-                <span className="font-[family-name:var(--font-plex)] text-[14px]">[SUBTOTAL]</span>
+                <span className="font-[family-name:var(--font-plex)] text-[14px]">{bag.subtotal}</span>
               </div>
               <p className="text-[13px] text-muted">Shipping and taxes are calculated at checkout.</p>
               <button
                 type="button"
+                onClick={checkout}
                 className="flex h-[60px] w-full items-center justify-between bg-text px-6 text-[12px] font-bold tracking-[0.12em] text-bg uppercase active:scale-[0.98]"
               >
                 <span>Checkout</span>

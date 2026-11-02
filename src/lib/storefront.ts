@@ -112,38 +112,50 @@ export function mapStorefrontProduct(node: StorefrontNode): CatalogProduct {
   };
 }
 
+export async function storefrontGraphql<T>(
+  query: string,
+  variables: Record<string, unknown>,
+  fetchImpl: typeof fetch,
+  env: { domain?: string; token?: string } = {
+    domain: process.env.SHOPIFY_STORE_DOMAIN,
+    token: process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN,
+  },
+): Promise<T | null> {
+  const domain = env.domain?.trim().replace(/^https?:\/\//, "").replace(/\/$/, "");
+  const token = env.token?.trim();
+  if (!domain || !token) return null;
+
+  try {
+    const response = await fetchImpl(`https://${domain}/api/${apiVersion}/graphql.json`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Shopify-Storefront-Access-Token": token,
+      },
+      body: JSON.stringify({ query, variables }),
+      cache: "no-store",
+    });
+    if (!response.ok) return null;
+    return (await response.json()) as T;
+  } catch {
+    return null;
+  }
+}
+
 export async function requestStorefrontProducts(
   env: { domain?: string; token?: string },
   fetchImpl: typeof fetch,
 ): Promise<CatalogProduct[]> {
-  const domain = env.domain?.trim().replace(/^https?:\/\//, "").replace(/\/$/, "");
-  const token = env.token?.trim();
-  if (!domain || !token) return [];
-
   const products: CatalogProduct[] = [];
   let cursor: string | null = null;
 
-  try {
-    for (let page = 0; page < 4; page += 1) {
-      const response = await fetchImpl(`https://${domain}/api/${apiVersion}/graphql.json`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-Shopify-Storefront-Access-Token": token,
-        },
-        body: JSON.stringify({ query: productQuery, variables: { cursor } }),
-        cache: "no-store",
-      });
-      if (!response.ok) return [];
-      const payload = (await response.json()) as StorefrontPayload;
-      const connection = payload.data?.products;
-      if (!connection?.nodes) return [];
-      products.push(...connection.nodes.map(mapStorefrontProduct));
-      if (!connection.pageInfo?.hasNextPage || !connection.pageInfo.endCursor) break;
-      cursor = connection.pageInfo.endCursor;
-    }
-  } catch {
-    return [];
+  for (let page = 0; page < 4; page += 1) {
+    const payload = await storefrontGraphql<StorefrontPayload>(productQuery, { cursor }, fetchImpl, env);
+    const connection = payload?.data?.products;
+    if (!connection?.nodes) return [];
+    products.push(...connection.nodes.map(mapStorefrontProduct));
+    if (!connection.pageInfo?.hasNextPage || !connection.pageInfo.endCursor) break;
+    cursor = connection.pageInfo.endCursor;
   }
 
   return products;

@@ -3,7 +3,7 @@ import path from "node:path";
 import { fireEvent, render, screen, within } from "@testing-library/react";
 import { Storefront } from "@/app/page";
 import { About } from "@/components/about/about";
-import { catalogLink, forgetBagMemory } from "@/components/bag/bag";
+import { catalogLink, checkoutLink, forgetBagMemory } from "@/components/bag/bag";
 import { Catalog } from "@/components/catalog/catalog";
 import { NotFound } from "@/components/not-found/not-found";
 import { Product } from "@/components/product/product";
@@ -140,14 +140,15 @@ describe("REQ-016 bag", () => {
     expect(screen.queryByRole("link", { name: "Shop all" })).not.toBeInTheDocument();
   });
 
-  it("REQ-016 does not navigate on Checkout and closes the bag", () => {
+  it("REQ-016 closes the bag from the control, Escape, and the scrim", () => {
     product();
     addDefault();
-    const address = window.location.href;
+    const go = jest.spyOn(checkoutLink, "go").mockImplementation(() => undefined);
 
     fireEvent.click(screen.getByRole("button", { name: "Checkout" }));
-    expect(window.location.href).toBe(address);
+    expect(go).toHaveBeenCalledWith("https://checkout.shopify.com/cart");
     expect(screen.getByRole("dialog", { name: "Bag" })).toBeInTheDocument();
+    go.mockRestore();
 
     const dialog = screen.getByRole("dialog", { name: "Bag" });
     const checkout = screen.getByRole("button", { name: "Checkout" });
@@ -158,7 +159,6 @@ describe("REQ-016 bag", () => {
 
     fireEvent.click(screen.getByRole("button", { name: "Close bag" }));
     expect(screen.queryByRole("dialog", { name: "Bag" })).not.toBeInTheDocument();
-    expect(window.location.href).toBe(address);
 
     fireEvent.click(screen.getByRole("button", { name: "BAG (1)" }));
     fireEvent.keyDown(document, { key: "Escape" });
