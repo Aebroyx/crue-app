@@ -30,15 +30,15 @@ flowchart LR
 - Products, variants, inventory, collections, pricing, and discounts.
 - Cart creation through the Storefront API, then payment, tax, and shipping on hosted checkout.
 - Orders, fulfillments, and the transactional mail tied to them (order confirmation, shipping).
-- Customer records. If accounts are added later, they use Shopify customer accounts, not a local user table.
+- Customer records. Guest checkout is available. A buyer can create a Shopify customer account to save details. This repo does not keep a user table.
 - Page and metaobject content. Editors change copy and structured entries in Shopify Admin. The storefront renders them.
 - Payment method configuration. The storefront never talks to Midtrans, Xendit, PayPal, or a card network.
 
 ## Payments from Indonesia
 
-Shopify Payments is not available for an Indonesian merchant. Checkout still runs on Shopify. Local methods (cards, virtual account, QRIS, e-wallets) come from a gateway app installed in the admin, typically Midtrans or Xendit. PayPal remains the usual path for overseas cards. Which gateway Crue uses is open.
+Shopify Payments is not available for an Indonesian merchant. Checkout still runs on Shopify. The live plan is Basic. The gateway installed in the admin is Midtrans, which covers local cards, virtual accounts, QRIS, and e-wallets. The storefront never talks to Midtrans.
 
-Shopify also charges its own transaction fee on top of the gateway when Shopify Payments is not used. The rate depends on the Shopify plan. That fee is a business cost, not something the storefront calculates.
+Shopify also charges its own transaction fee on top of the gateway when Shopify Payments is not used. On Basic that fee is 2%. That fee is a business cost, not something the storefront calculates.
 
 ## Content
 
@@ -58,7 +58,7 @@ Brand files for screens live in [`design/brand/`](design/brand/). The earlier SV
 ## Email
 
 - Shipment and order mail: Shopify notifications, triggered when the order or fulfillment changes in Shopify.
-- Newsletter: Shopify Email, with the signup captured into Shopify customers. A tool such as Klaviyo is out of scope until a requirement replaces this.
+- Newsletter: Shopify Email is confirmed for v1. The signup is captured into Shopify customers. A tool such as Klaviyo is out of scope until a requirement replaces this.
 
 ## Code layout
 
@@ -84,8 +84,8 @@ Application code lives in `src/`. Docs stay in `docs/`. Font files the storefron
 ## Environments
 
 - [`.env.example`](../.env.example) lists `SHOPIFY_STORE_DOMAIN` and `SHOPIFY_STOREFRONT_ACCESS_TOKEN` with empty values. Copy it to `.env.local` and fill those values on your machine. `.env.local` is not committed.
-- A Shopify development store is still required before the Storefront API is wired in. The store handle and public domain stay open in [open-questions.md](open-questions.md).
-- The app does not read these variables until a later requirement connects the Storefront API.
+- The public domain is `crue.run`. The development store handle is `crue-dev`. The live store handle stays open in [open-questions.md](open-questions.md).
+- The storefront reads `SHOPIFY_STORE_DOMAIN` and `SHOPIFY_STOREFRONT_ACCESS_TOKEN` from the environment.
 
 ## Explicit non-goals in code
 

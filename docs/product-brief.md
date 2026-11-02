@@ -10,7 +10,7 @@ The mark is a black hole. The wider identity is spatial: gravity, pull, depth. T
 
 People who buy running clothes as both equipment and culture. They expect a fast, sparse site on a phone and on a desktop, and they expect the object to feel considered.
 
-The merchant operates from Indonesia. Who the first customers are (domestic, international, or both) is still open. See [open-questions.md](open-questions.md).
+The merchant operates from Indonesia. The first customers are in Indonesia.
 
 The storefront ships in English first. Indonesian is a later requirement. This brief does not specify that requirement.
 
@@ -19,8 +19,9 @@ The storefront ships in English first. Indonesian is a later requirement. This b
 - Introduce the brand with a fullscreen black-hole sequence, then show the home page.
 - Sell running wear on a fully responsive site.
 - Let a merchant run the business from Shopify Admin: products, inventory, orders, customers, discounts, pages, and the content entries the storefront reads.
-- Take payment and send shipment mail through Shopify and the gateway connected there.
-- Support a newsletter through Shopify Email until a later requirement says otherwise.
+- Take payment through Shopify Checkout with Midtrans, on the Basic plan. The public domain is `crue.run`.
+- Send shipment mail through Shopify notifications.
+- Support a newsletter through Shopify Email.
 
 ## What v1 does not do
 
@@ -28,7 +29,7 @@ The storefront ships in English first. Indonesian is a later requirement. This b
 - A custom backend for catalog, cart, checkout, or payments.
 - A second CMS.
 - A live 3D black hole, and a video intro. The intro is the CSS sequence in the design. A 3D scene can be specified later if that sequence is not enough.
-- Accounts, raffles, drops, loyalty, or custom courier logic, unless a later requirement adds them.
+- A required account. Guest checkout stays available. A buyer can create a Shopify customer account when they want to save details. How that prompt is shown waits for a requirement. Raffles, drops, loyalty, and custom courier logic stay out unless a later requirement adds them.
 
 ## Success for the first build
 
