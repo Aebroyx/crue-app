@@ -105,7 +105,7 @@ describe("REQ-025 storefront products", () => {
     expect(catalog.container.querySelector('img[src="https://cdn.shopify.com/horizon.jpg"]')).toBeTruthy();
     catalog.unmount();
 
-    const page = render(<Product product={item} catalog={[item]} />);
+    const page = render(<Product product={item} />);
     expect(screen.getAllByText("189000.0").length).toBeGreaterThan(0);
     expect(page.container.querySelector('img[src="https://cdn.shopify.com/horizon.jpg"]')).toBeTruthy();
   });

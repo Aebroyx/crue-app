@@ -7,8 +7,8 @@ import { ProductImage } from "@/components/product-image/product-image";
 import { Footer } from "@/components/footer/footer";
 import { Navbar } from "@/components/navbar/navbar";
 import { SizeGuide } from "@/components/size-guide/size-guide";
-import { useCatalogProducts } from "@/components/catalog-context";
 import { optionValues, type CatalogProduct } from "@/lib/catalog";
+import { type Recommendation } from "@/lib/recommendations";
 import type { Theme } from "@/lib/theme-cookie";
 
 const swatch: Record<string, string> = {
@@ -20,11 +20,11 @@ const swatch: Record<string, string> = {
 export function Product({
   product,
   theme = "light",
-  catalog,
+  recommendations = [],
 }: {
   product: CatalogProduct;
   theme?: Theme;
-  catalog?: CatalogProduct[];
+  recommendations?: Recommendation[];
 }) {
   const colours = optionValues(product, "Colour");
   const sizes = optionValues(product, "Size");
@@ -35,8 +35,6 @@ export function Product({
   const [notifiedFor, setNotifiedFor] = useState<string | null>(null);
   const [guide, setGuide] = useState(false);
   const bag = useBag();
-  const stored = useCatalogProducts();
-  const catalogList = catalog ?? stored;
   const price = product.variants[0]?.price.amount ?? "[PRICE]";
   const selection = `${colour}|${size}`;
   const unavailable = variantUnavailable(product, colour, size);
@@ -234,7 +232,7 @@ export function Product({
         </button>
       </div>
       <SizeGuide open={guide} onClose={() => setGuide(false)} />
-      <YouMayAlsoLike product={product} catalog={catalogList} />
+      <YouMayAlsoLike product={product} recommendations={recommendations} />
       <Footer theme={theme} />
     </div>
   );
@@ -248,8 +246,14 @@ function variantUnavailable(product: CatalogProduct, colour: string, size: strin
   });
 }
 
-function YouMayAlsoLike({ product, catalog }: { product: CatalogProduct; catalog: CatalogProduct[] }) {
-  const others = catalog.filter((item) => item.handle !== product.handle).slice(0, 4);
+function YouMayAlsoLike({
+  product,
+  recommendations,
+}: {
+  product: CatalogProduct;
+  recommendations: Recommendation[];
+}) {
+  const others = recommendations.filter((item) => item.handle !== product.handle).slice(0, 4);
 
   return (
     <section
@@ -263,8 +267,8 @@ function YouMayAlsoLike({ product, catalog }: { product: CatalogProduct; catalog
         {others.map((item) => (
           <article key={item.handle} className="flex w-[160px] shrink-0 flex-col gap-3 md:w-auto md:gap-4">
             <ProductImage
-              src={item.images[0]?.url}
-              alt={item.images[0]?.alt ?? ""}
+              src={item.imageUrl}
+              alt={item.imageAlt ?? ""}
               className="aspect-[3/4]"
               markClassName="w-[72px] opacity-[0.08] md:w-[120px]"
             />
@@ -276,7 +280,7 @@ function YouMayAlsoLike({ product, catalog }: { product: CatalogProduct; catalog
                 {item.title}
               </a>
               <span className="font-[family-name:var(--font-plex)] text-[12px] md:text-[13px]">
-                {item.variants[0]?.price.amount ?? ""}
+                {item.amount}
               </span>
             </div>
           </article>

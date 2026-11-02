@@ -3,6 +3,7 @@ import path from "node:path";
 import { render, screen, within } from "@testing-library/react";
 import { Product } from "@/components/product/product";
 import { catalogProducts, productByHandle, type CatalogProduct } from "@/lib/catalog";
+import { type Recommendation } from "@/lib/recommendations";
 
 function read(relativePath: string) {
   return fs.readFileSync(path.join(process.cwd(), relativePath), "utf8");
@@ -16,12 +17,23 @@ function region() {
   return screen.getByRole("region", { name: "You may also like" });
 }
 
+function asRecommendations(products: CatalogProduct[]): Recommendation[] {
+  return products.map((item) => ({
+    id: item.id,
+    handle: item.handle,
+    title: item.title,
+    amount: item.variants[0]?.price.amount ?? "",
+    imageUrl: item.images[0]?.url,
+    imageAlt: item.images[0]?.alt,
+  }));
+}
+
 describe("REQ-023 you may also like", () => {
   const horizon = productByHandle("horizon-shell-jacket")!;
   const tee = productByHandle("singularity-run-tee")!;
 
   it("REQ-023 shows four other products under Horizon", () => {
-    render(<Product product={horizon} />);
+    render(<Product product={horizon} recommendations={asRecommendations(catalogProducts())} />);
     const row = region();
 
     expect(screen.getByRole("heading", { name: "You may also like" })).toBeInTheDocument();
@@ -44,7 +56,7 @@ describe("REQ-023 you may also like", () => {
   });
 
   it("REQ-023 excludes the product on screen and keeps the price placeholder", () => {
-    const { unmount } = render(<Product product={tee} />);
+    const { unmount } = render(<Product product={tee} recommendations={asRecommendations(catalogProducts())} />);
     const row = region();
 
     expect(titlesIn(row)).toEqual([
@@ -67,7 +79,7 @@ describe("REQ-023 you may also like", () => {
     }
 
     unmount();
-    render(<Product product={horizon} catalog={[horizon]} />);
+    render(<Product product={horizon} recommendations={asRecommendations([horizon])} />);
     const alone = region();
     expect(screen.getByRole("heading", { name: "You may also like" })).toBeInTheDocument();
     expect(within(alone).queryByRole("link")).not.toBeInTheDocument();
@@ -76,7 +88,7 @@ describe("REQ-023 you may also like", () => {
   });
 
   it("REQ-023 links a card to its product page", () => {
-    render(<Product product={horizon} />);
+    render(<Product product={horizon} recommendations={asRecommendations(catalogProducts())} />);
     const row = region();
     const others: CatalogProduct[] = catalogProducts()
       .filter((item) => item.handle !== horizon.handle)
