@@ -43,7 +43,7 @@ function FrameBackdrop({ slide }: { slide?: BannerSlide }) {
   );
 }
 
-export function Hero({ slides = [] }: { slides?: BannerSlide[] }) {
+export function Hero({ slides = [], underNav = false }: { slides?: BannerSlide[]; underNav?: boolean }) {
   const [index, setIndex] = useState(0);
   const [hovering, setHovering] = useState(false);
   const [focused, setFocused] = useState(false);
@@ -71,7 +71,7 @@ export function Hero({ slides = [] }: { slides?: BannerSlide[] }) {
 
   return (
     <section
-      className="relative h-[700px] overflow-hidden md:h-[820px]"
+      className={`relative h-[700px] overflow-hidden md:h-[820px] ${underNav ? "-mt-[60px] md:-mt-[72px]" : ""}`}
       onMouseEnter={() => setHovering(true)}
       onMouseLeave={(event) => {
         if (!stayedInside(event.currentTarget, event.relatedTarget)) setHovering(false);

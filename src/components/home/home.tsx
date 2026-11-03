@@ -48,9 +48,9 @@ export function Home({
   }));
   return (
     <div className="bg-bg font-[family-name:var(--font-benzin)] text-text">
-      <Navbar theme={theme} />
+      <Navbar overlay theme={theme} />
 
-      <Hero slides={banners} />
+      <Hero slides={banners} underNav />
 
       <section id="drop" className="flex flex-col gap-6 px-4 py-16 md:gap-10 md:px-12 md:py-24">
         <h2 className={`${display} text-[30px] leading-none md:text-[44px]`}>The Drop</h2>

@@ -1,7 +1,7 @@
 "use client";
 
 import { Menu, Search, ShoppingBag, User } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAnnouncement } from "@/components/announcement-context";
 import { Bag, useBag } from "@/components/bag/bag";
 import { MobileMenu } from "@/components/navbar/menu";
@@ -15,30 +15,53 @@ function replayIntro() {
   document.cookie = clearIntroCookie();
 }
 
+function navSurface(overlay: boolean, stuck: boolean) {
+  const place = "sticky top-0 z-30 text-text transition-[background-color,border-color,color] duration-300 ease-out";
+  if (overlay && !stuck) return `${place} border-b border-transparent bg-transparent`;
+  return `${place} border-b border-line bg-bg`;
+}
+
 export function Navbar({
   shopCurrent = false,
   aboutCurrent = false,
+  overlay = false,
   theme = "light",
 }: {
   shopCurrent?: boolean;
   aboutCurrent?: boolean;
+  overlay?: boolean;
   theme?: Theme;
 }) {
   const bag = useBag();
   const announcement = useAnnouncement();
+  const barRef = useRef<HTMLDivElement>(null);
+  const [stuck, setStuck] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [guide, setGuide] = useState(false);
+  const surface = navSurface(overlay, stuck);
+  const onPhoto = overlay && !stuck;
+
+  useEffect(() => {
+    if (!overlay) return;
+    const onScroll = () => {
+      const height = barRef.current?.offsetHeight ?? 0;
+      setStuck(window.scrollY > height);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [overlay]);
 
   return (
     <>
-      <div className="relative z-20 flex h-8 items-center justify-center bg-surface px-4 font-[family-name:var(--font-plex)] text-[10px] tracking-[0.16em] uppercase md:h-9 md:gap-8 md:text-[11px] md:tracking-[0.18em]">
+      <div ref={barRef} className="relative z-20 flex h-8 items-center justify-center bg-surface px-4 font-[family-name:var(--font-plex)] text-[10px] tracking-[0.16em] uppercase md:h-9 md:gap-8 md:text-[11px] md:tracking-[0.18em]">
         <span className="md:hidden">{announcement.mobileText}</span>
         <span className="hidden md:inline">{announcement.desktopText}</span>
         <span className="hidden text-muted md:inline">{announcement.shippingText}</span>
       </div>
 
-      <header className="relative z-20 hidden h-[72px] grid-cols-3 items-center border-b border-line bg-bg px-12 md:grid">
+      <header data-nav-on-photo={onPhoto ? "" : undefined} className={`hidden h-[72px] grid-cols-3 items-center px-12 md:grid ${surface}`}>
         <nav aria-label="Main" className="flex gap-7 text-[12px] font-semibold tracking-[0.12em] uppercase">
           <a
             href="/catalog"
@@ -59,7 +82,7 @@ export function Navbar({
           </a>
         </nav>
         <a href="/" aria-label="CRUE home" className="justify-self-center" onClick={replayIntro}>
-          <Wordmark className="h-[22px] w-[104px]" />
+          <Wordmark onDark={onPhoto} className="h-[22px] w-[104px]" />
         </a>
         <div className="flex items-center justify-end gap-2">
           <button type="button" aria-label="Search" onClick={() => setSearchOpen(true)} className="flex size-11 items-center justify-center">
@@ -79,12 +102,12 @@ export function Navbar({
         </div>
       </header>
 
-      <header className="relative z-20 flex h-[60px] items-center justify-between border-b border-line bg-bg px-2 md:hidden">
+      <header data-nav-on-photo={onPhoto ? "" : undefined} className={`flex h-[60px] items-center justify-between px-2 md:hidden ${surface}`}>
         <button type="button" aria-label="Menu" onClick={() => setMenuOpen(true)} className="flex size-11 items-center justify-center">
           <Menu className="size-[22px]" strokeWidth={1.5} aria-hidden />
         </button>
         <a href="/" aria-label="CRUE home" onClick={replayIntro}>
-          <Wordmark className="h-[18px] w-[86px]" />
+          <Wordmark onDark={onPhoto} className="h-[18px] w-[86px]" />
         </a>
         <div className="flex">
           <button type="button" aria-label="Search" onClick={() => setSearchOpen(true)} className="flex size-11 items-center justify-center">
