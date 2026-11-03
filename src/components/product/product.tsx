@@ -7,15 +7,17 @@ import { ProductImage } from "@/components/product-image/product-image";
 import { Footer } from "@/components/footer/footer";
 import { Navbar } from "@/components/navbar/navbar";
 import { SizeGuide } from "@/components/size-guide/size-guide";
-import { optionValues, type CatalogProduct } from "@/lib/catalog";
+import { swatchFill, type CatalogProduct } from "@/lib/catalog";
 import { type Recommendation } from "@/lib/recommendations";
 import type { Theme } from "@/lib/theme-cookie";
 
-const swatch: Record<string, string> = {
-  "Void Black": "#0B0B0C",
-  "Photon White": "#EDECE8",
-  "Nebula Grey": "#7C7C81",
-};
+function firstSelection(product: CatalogProduct) {
+  const selected: Record<string, string> = {};
+  for (const option of product.options) {
+    selected[option.name] = option.name === "Size" && option.values.includes("M") ? "M" : (option.values[0] ?? "");
+  }
+  return selected;
+}
 
 export function Product({
   product,
@@ -26,43 +28,46 @@ export function Product({
   theme?: Theme;
   recommendations?: Recommendation[];
 }) {
-  const colours = optionValues(product, "Colour");
-  const sizes = optionValues(product, "Size");
-  const [colour, setColour] = useState(colours[0] ?? "");
-  const [size, setSize] = useState(sizes.includes("M") ? "M" : (sizes[0] ?? ""));
+  const [selected, setSelected] = useState(() => firstSelection(product));
+  const colour = selected.Colour ?? "";
+  const size = selected.Size ?? "";
   const [open, setOpen] = useState<number | null>(0);
   const [added, setAdded] = useState(false);
   const [notifiedFor, setNotifiedFor] = useState<string | null>(null);
   const [guide, setGuide] = useState(false);
   const bag = useBag();
-  const price = product.variants[0]?.price.amount ?? "[PRICE]";
-  const selection = `${colour}|${size}`;
-  const unavailable = variantUnavailable(product, colour, size);
+  const price = matchingVariant(product, selected)?.price.amount ?? product.variants[0]?.price.amount ?? "[PRICE]";
+  const extras = product.options
+    .filter((option) => option.name !== "Colour" && option.name !== "Size")
+    .map((option) => selected[option.name])
+    .filter(Boolean);
+  const choice = [size, ...extras].filter(Boolean).join(", ");
+  const selection = product.options.map((option) => selected[option.name] ?? "").join("|");
+  const unavailable = variantUnavailable(product, selected);
   const notified = notifiedFor === selection;
   const label = unavailable
     ? notified
-      ? `We will email you when ${size} is back`
-      : `Notify me when ${size} is back`
+      ? `We will email you when ${choice} is back`
+      : `Notify me when ${choice} is back`
     : added
-      ? `Added: ${size}, ${colour}`
-      : `Add to bag, ${size}`;
+      ? `Added: ${[size, colour, ...extras].filter(Boolean).join(", ")}`
+      : `Add to bag, ${choice}`;
   const actionClass = unavailable
     ? "border border-text bg-transparent text-text"
     : "bg-text text-bg";
 
+  function choose(name: string, value: string) {
+    setSelected((current) => ({ ...current, [name]: value }));
+  }
+
   function add() {
-    const variant = product.variants.find((item) => {
-      const selected = Object.fromEntries(item.selectedOptions.map((option) => [option.name, option.value]));
-      const colourMatches = !colour || selected.Colour === colour;
-      const sizeMatches = !size || selected.Size === size;
-      return colourMatches && sizeMatches;
-    });
+    const variant = matchingVariant(product, selected);
     if (!variant) return;
     const result = bag.add({
       variantId: variant.id,
       title: product.title,
       colour,
-      size,
+      size: choice,
       amount: variant.price.amount,
       imageUrl: product.images[0]?.url,
       imageAlt: product.images[0]?.alt,
@@ -136,57 +141,63 @@ export function Product({
             <p className="text-[14px] leading-[1.6] text-pretty text-text-2 md:text-[15px]">{product.description}</p>
           </div>
 
-          <fieldset className="border-0 p-0">
-            <legend className="mb-3 text-[13px] text-text-2 md:mb-3.5">
-              Colour: <span className="font-semibold text-text">{colour}</span>
-            </legend>
-            <div className="flex gap-2.5 md:gap-3">
-              {colours.map((name) => (
-                <button
-                  key={name}
-                  type="button"
-                  aria-label={name}
-                  aria-pressed={name === colour}
-                  onClick={() => setColour(name)}
-                  className={`size-12 border p-[3px] md:size-11 ${name === colour ? "border-text" : "border-transparent"}`}
-                >
-                  <span className="block size-full border border-control-border" style={{ background: swatch[name] }} />
-                </button>
-              ))}
-            </div>
-          </fieldset>
-
-          <fieldset aria-label="Size" className="border-0 p-0">
-            <div className="mb-3 flex items-center justify-between md:mb-3.5">
-              <span className="text-[13px] text-text-2">Size</span>
-              <button type="button" onClick={() => setGuide(true)} className="py-3 text-[13px] underline-offset-4">
-                Size guide
-              </button>
-            </div>
-            <div className="grid grid-cols-3 gap-2 md:grid-cols-6">
-              {sizes.map((value) => {
-                const soldOut = variantUnavailable(product, colour, value);
-                const selected = value === size;
-                return (
-                  <button
-                    key={value}
-                    type="button"
-                    aria-pressed={selected}
-                    onClick={() => setSize(value)}
-                    className={`h-12 border font-[family-name:var(--font-plex)] text-[13px] ${
-                      soldOut
-                        ? `line-through text-dim ${selected ? "border-text bg-transparent" : "border-control-border bg-transparent"}`
-                        : selected
-                          ? "border-text bg-text text-bg"
-                          : "border-control-border bg-transparent text-text"
-                    }`}
-                  >
-                    {value}
-                  </button>
-                );
-              })}
-            </div>
-          </fieldset>
+          {product.options.map((option) =>
+            option.name === "Colour" ? (
+              <fieldset key={option.name} className="border-0 p-0">
+                <legend className="mb-3 text-[13px] text-text-2 md:mb-3.5">
+                  Colour: <span className="font-semibold text-text">{selected.Colour}</span>
+                </legend>
+                <div className="flex gap-2.5 md:gap-3">
+                  {option.values.map((name) => (
+                    <button
+                      key={name}
+                      type="button"
+                      aria-label={name}
+                      aria-pressed={name === selected.Colour}
+                      onClick={() => choose(option.name, name)}
+                      className={`size-12 cursor-pointer border p-[3px] md:size-11 ${name === selected.Colour ? "border-text" : "border-transparent"}`}
+                    >
+                      <span className="block size-full border border-control-border" style={{ background: swatchFill(name) }} />
+                    </button>
+                  ))}
+                </div>
+              </fieldset>
+            ) : (
+              <fieldset key={option.name} aria-label={option.name} className="border-0 p-0">
+                <div className="mb-3 flex items-center justify-between md:mb-3.5">
+                  <span className="text-[13px] text-text-2">{option.name}</span>
+                  {option.name === "Size" ? (
+                    <button type="button" onClick={() => setGuide(true)} className="cursor-pointer py-3 text-[13px] underline-offset-4">
+                      Size guide
+                    </button>
+                  ) : null}
+                </div>
+                <div className={`grid grid-cols-3 gap-2 ${option.name === "Size" ? "md:grid-cols-6" : ""}`}>
+                  {option.values.map((value) => {
+                    const soldOut = variantUnavailable(product, { ...selected, [option.name]: value });
+                    const pressed = value === selected[option.name];
+                    return (
+                      <button
+                        key={value}
+                        type="button"
+                        aria-pressed={pressed}
+                        onClick={() => choose(option.name, value)}
+                        className={`h-12 cursor-pointer border font-[family-name:var(--font-plex)] text-[13px] ${
+                          soldOut
+                            ? `line-through text-dim ${pressed ? "border-text bg-transparent" : "border-control-border bg-transparent"}`
+                            : pressed
+                              ? "border-text bg-text text-bg"
+                              : "border-control-border bg-transparent text-text"
+                        }`}
+                      >
+                        {value}
+                      </button>
+                    );
+                  })}
+                </div>
+              </fieldset>
+            ),
+          )}
 
           <button
             type="button"
@@ -238,12 +249,15 @@ export function Product({
   );
 }
 
-function variantUnavailable(product: CatalogProduct, colour: string, size: string) {
-  return product.variants.some((variant) => {
-    const selected = variant.selectedOptions.find((option) => option.name === "Colour")?.value;
-    const sized = variant.selectedOptions.find((option) => option.name === "Size")?.value;
-    return selected === colour && sized === size && variant.availableForSale === false;
-  });
+function matchingVariant(product: CatalogProduct, selected: Record<string, string>) {
+  return product.variants.find((variant) =>
+    variant.selectedOptions.every((option) => selected[option.name] === option.value),
+  );
+}
+
+function variantUnavailable(product: CatalogProduct, selected: Record<string, string>) {
+  const variant = matchingVariant(product, selected);
+  return Boolean(variant && variant.availableForSale === false);
 }
 
 function YouMayAlsoLike({

@@ -40,3 +40,15 @@ export function productByHandle(handle: string) {
 export function optionValues(product: CatalogProduct, name: string) {
   return product.options.find((option) => option.name === name)?.values ?? [];
 }
+
+const swatch: Record<string, string> = {
+  "void black": "#0B0B0C",
+  "photon white": "#EDECE8",
+  "nebula grey": "#7C7C81",
+  black: "#0B0B0C",
+  white: "#EDECE8",
+};
+
+export function swatchFill(name: string) {
+  return swatch[name.trim().toLowerCase()] ?? "#E8E8E5";
+}

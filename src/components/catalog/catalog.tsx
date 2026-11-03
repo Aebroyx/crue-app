@@ -6,16 +6,10 @@ import { Footer } from "@/components/footer/footer";
 import { ProductImage } from "@/components/product-image/product-image";
 import { Navbar } from "@/components/navbar/navbar";
 import { useCatalogProducts } from "@/components/catalog-context";
-import { type CatalogProduct } from "@/lib/catalog";
+import { optionValues, swatchFill, type CatalogProduct } from "@/lib/catalog";
 import type { Theme } from "@/lib/theme-cookie";
 
 const categories = ["All", "Tops", "Bottoms", "Layers", "Accessories"];
-const sizes = ["XS", "S", "M", "L", "XL", "XXL"];
-const colours = [
-  { name: "Void Black", hex: "#0B0B0C" },
-  { name: "Photon White", hex: "#EDECE8" },
-  { name: "Nebula Grey", hex: "#7C7C81" },
-];
 
 export function Catalog({
   category = "All",
@@ -33,18 +27,22 @@ export function Catalog({
   const [currentCategory, setCurrentCategory] = useState(category);
   const [currentSize, setCurrentSize] = useState(size);
   const [currentColour, setCurrentColour] = useState(colour);
+  const [currentExtra, setCurrentExtra] = useState<Record<string, string>>({});
   const [filtersOpen, setFiltersOpen] = useState(true);
   const [sheetOpen, setSheetOpen] = useState(false);
   const products = productsProp ?? useCatalogProducts();
-  const shown = products.filter((product) => matches(product, currentCategory, currentSize, currentColour));
-  const filtered = currentCategory !== "All" || currentSize !== "" || currentColour !== "";
-  const extra = Number(Boolean(currentSize)) + Number(Boolean(currentColour));
+  const shown = products.filter((product) => matches(product, currentCategory, currentSize, currentColour, currentExtra));
+  const filtered = currentCategory !== "All" || currentSize !== "" || currentColour !== "" || Object.values(currentExtra).some(Boolean);
+  const extra = Number(Boolean(currentSize)) + Number(Boolean(currentColour)) + Object.values(currentExtra).filter(Boolean).length;
 
-  function writeQuery(next: { category: string; size: string; colour: string }) {
+  function writeQuery(next: { category: string; size: string; colour: string; extra: Record<string, string> }) {
     const params = new URLSearchParams();
     if (next.category !== "All") params.set("category", next.category);
     if (next.size) params.set("size", next.size);
     if (next.colour) params.set("colour", next.colour);
+    for (const [name, value] of Object.entries(next.extra)) {
+      if (value) params.set(name, value);
+    }
     const query = params.toString();
     window.history.replaceState(null, "", query ? `/catalog?${query}` : "/catalog");
   }
@@ -58,11 +56,21 @@ export function Catalog({
     setCurrentCategory(value.category);
     setCurrentSize(value.size);
     setCurrentColour(value.colour);
-    writeQuery(value);
+    writeQuery({ ...value, extra: currentExtra });
+  }
+
+  function applyExtra(name: string, value: string) {
+    const next = { ...currentExtra, [name]: currentExtra[name] === value ? "" : value };
+    setCurrentExtra(next);
+    writeQuery({ category: currentCategory, size: currentSize, colour: currentColour, extra: next });
   }
 
   function clear() {
-    apply({ category: "All", size: "", colour: "" });
+    setCurrentCategory("All");
+    setCurrentSize("");
+    setCurrentColour("");
+    setCurrentExtra({});
+    writeQuery({ category: "All", size: "", colour: "", extra: {} });
   }
 
   return (
@@ -105,11 +113,13 @@ export function Catalog({
             <FilterGroups
               products={products}
               category={currentCategory}
-              size={currentSize}
-              colour={currentColour}
+              picked={{ Size: currentSize, Colour: currentColour, ...currentExtra }}
               onCategory={(value) => apply({ category: value })}
-              onSize={(value) => apply({ size: currentSize === value ? "" : value })}
-              onColour={(value) => apply({ colour: currentColour === value ? "" : value })}
+              onPick={(name, value) => {
+                if (name === "Size") apply({ size: currentSize === value ? "" : value });
+                else if (name === "Colour") apply({ colour: currentColour === value ? "" : value });
+                else applyExtra(name, value);
+              }}
             />
             {filtered ? (
               <button type="button" onClick={clear} className="mt-5 h-11 font-[family-name:var(--font-plex)] text-[12px] tracking-[0.14em] uppercase underline underline-offset-[6px]">
@@ -126,7 +136,7 @@ export function Catalog({
               {extra > 0 ? `Filter (${extra})` : "Filter"}
             </button>
             <div className="flex gap-2 overflow-x-auto">
-              {categories.map((item) => (
+              {listedCategories(products).map((item) => (
                 <button
                   key={item}
                   type="button"
@@ -157,7 +167,7 @@ export function Catalog({
                     <span className="flex items-center gap-2.5">
                       <span className="flex gap-1">
                         {product.listingColours.map((name) => (
-                          <span key={name} className="size-2.5 border border-control-border" style={{ background: colours.find((item) => item.name === name)?.hex }} />
+                          <span key={name} className="size-2.5 border border-control-border" style={{ background: swatchFill(name) }} />
                         ))}
                       </span>
                       <span className="hidden text-[13px] text-muted md:inline">{product.listingColours[0]}</span>
@@ -195,12 +205,14 @@ export function Catalog({
             <FilterGroups
               products={products}
               category={currentCategory}
-              size={currentSize}
-              colour={currentColour}
+              picked={{ Size: currentSize, Colour: currentColour, ...currentExtra }}
               showCategory={false}
               onCategory={(value) => apply({ category: value })}
-              onSize={(value) => apply({ size: currentSize === value ? "" : value })}
-              onColour={(value) => apply({ colour: currentColour === value ? "" : value })}
+              onPick={(name, value) => {
+                if (name === "Size") apply({ size: currentSize === value ? "" : value });
+                else if (name === "Colour") apply({ colour: currentColour === value ? "" : value });
+                else applyExtra(name, value);
+              }}
             />
           </div>
           <div className="flex gap-3 border-t border-line px-4 py-4">
@@ -218,78 +230,117 @@ export function Catalog({
   );
 }
 
-function matches(product: CatalogProduct, category: string, size: string, colour: string) {
-  const categoryMatches = category === "All" || product.category === category;
-  const sizeMatches = size === "" || product.listingSizes.includes(size);
-  const colourMatches = colour === "" || product.listingColours.includes(colour);
-  return categoryMatches && sizeMatches && colourMatches;
+function matches(
+  product: CatalogProduct,
+  category: string,
+  size: string,
+  colour: string,
+  extra: Record<string, string>,
+) {
+  if (category !== "All" && product.category !== category) return false;
+  const picked = { Size: size, Colour: colour, ...extra };
+  return Object.entries(picked).every(([name, value]) => {
+    if (!value) return true;
+    const values = optionValues(product, name);
+    return values.includes(value);
+  });
+}
+
+function listedCategories(products: CatalogProduct[]) {
+  const present = new Set(products.map((product) => product.category).filter(Boolean));
+  const known = categories.filter((item) => item !== "All" && present.has(item));
+  const extra = [...present].filter((item) => !categories.includes(item));
+  return ["All", ...known, ...extra];
+}
+
+function groupsFrom(products: CatalogProduct[]) {
+  const values = new Map<string, string[]>();
+  for (const product of products) {
+    for (const option of product.options) {
+      const list = values.get(option.name) ?? [];
+      for (const value of option.values) {
+        if (!list.includes(value)) list.push(value);
+      }
+      values.set(option.name, list);
+    }
+  }
+  return [...values.entries()].map(([name, optionValues]) => ({ name, values: optionValues }));
 }
 
 function FilterGroups({
   products,
   category,
-  size,
-  colour,
+  picked,
   onCategory,
-  onSize,
-  onColour,
+  onPick,
   showCategory = true,
 }: {
   products: CatalogProduct[];
   category: string;
-  size: string;
-  colour: string;
+  picked: Record<string, string>;
   onCategory: (value: string) => void;
-  onSize: (value: string) => void;
-  onColour: (value: string) => void;
+  onPick: (name: string, value: string) => void;
   showCategory?: boolean;
 }) {
+  const groups = groupsFrom(products);
   return (
     <div className="flex flex-col gap-8">
-      {showCategory ? <fieldset className="border-0 border-b border-line p-0 pb-8">
-        <legend className="mb-4 font-[family-name:var(--font-plex)] text-[11px] tracking-[0.16em] text-muted uppercase">Category</legend>
-        <div className="flex flex-col">
-          {categories.map((item) => {
-            const count = products.filter((product) => matches(product, item, size, colour)).length;
-            const on = item === category;
-            return (
-              <button key={item} type="button" aria-pressed={on} onClick={() => onCategory(item)} className={`flex h-10 w-full items-center justify-between gap-3 text-[13px] font-bold tracking-[0.04em] uppercase ${on ? "text-text" : "text-muted"}`}>
-                <span className="min-w-0">{item}</span>
-                <span className="shrink-0 font-[family-name:var(--font-plex)] text-[12px] font-normal">{count}</span>
-              </button>
-            );
-          })}
-        </div>
-      </fieldset> : null}
-      <fieldset className="border-0 border-b border-line p-0 pb-8">
-        <legend className="mb-4 font-[family-name:var(--font-plex)] text-[11px] tracking-[0.16em] text-muted uppercase">Size</legend>
-        <div className="grid grid-cols-3 gap-2">
-          {sizes.map((item) => (
-            <button
-              key={item}
-              type="button"
-              aria-pressed={item === size}
-              onClick={() => onSize(item)}
-              className={`h-11 border font-[family-name:var(--font-plex)] text-[13px] ${item === size ? "border-text bg-text text-bg" : "border-control-border"}`}
-            >
-              {item}
-            </button>
-          ))}
-        </div>
-      </fieldset>
-      <fieldset className="border-0 p-0">
-        <legend className="mb-4 font-[family-name:var(--font-plex)] text-[11px] tracking-[0.16em] text-muted uppercase">Colour</legend>
-        <div className="flex flex-col">
-          {colours.map((item) => (
-            <button key={item.name} type="button" aria-pressed={item.name === colour} onClick={() => onColour(item.name)} className="flex h-11 items-center gap-3.5 text-[14px]">
-              <span className={`size-8 border ${item.name === colour ? "border-text" : "border-transparent"} p-0.5`}>
-                <span className="block size-full border border-control-border" style={{ background: item.hex }} />
-              </span>
-              {item.name}
-            </button>
-          ))}
-        </div>
-      </fieldset>
+      {showCategory ? (
+        <fieldset className="border-0 border-b border-line p-0 pb-8">
+          <legend className="mb-4 font-[family-name:var(--font-plex)] text-[11px] tracking-[0.16em] text-muted uppercase">Category</legend>
+          <div className="flex flex-col">
+            {listedCategories(products).map((item) => {
+              const count = products.filter((product) =>
+                matches(
+                  product,
+                  item,
+                  picked.Size ?? "",
+                  picked.Colour ?? "",
+                  Object.fromEntries(Object.entries(picked).filter(([name]) => name !== "Size" && name !== "Colour")),
+                ),
+              ).length;
+              const on = item === category;
+              return (
+                <button key={item} type="button" aria-pressed={on} onClick={() => onCategory(item)} className={`flex h-10 w-full items-center justify-between gap-3 text-[13px] font-bold tracking-[0.04em] uppercase ${on ? "text-text" : "text-muted"}`}>
+                  <span className="min-w-0">{item}</span>
+                  <span className="shrink-0 font-[family-name:var(--font-plex)] text-[12px] font-normal">{count}</span>
+                </button>
+              );
+            })}
+          </div>
+        </fieldset>
+      ) : null}
+      {groups.map((group) => (
+        <fieldset key={group.name} className="border-0 border-b border-line p-0 pb-8 last:border-b-0 last:pb-0">
+          <legend className="mb-4 font-[family-name:var(--font-plex)] text-[11px] tracking-[0.16em] text-muted uppercase">{group.name}</legend>
+          {group.name === "Colour" ? (
+            <div className="flex flex-col">
+              {group.values.map((name) => (
+                <button key={name} type="button" aria-pressed={name === picked.Colour} onClick={() => onPick("Colour", name)} className="flex h-11 items-center gap-3.5 text-[14px]">
+                  <span className={`size-8 border ${name === picked.Colour ? "border-text" : "border-transparent"} p-0.5`}>
+                    <span className="block size-full border border-control-border" style={{ background: swatchFill(name) }} />
+                  </span>
+                  {name}
+                </button>
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-3 gap-2">
+              {group.values.map((value) => (
+                <button
+                  key={value}
+                  type="button"
+                  aria-pressed={value === picked[group.name]}
+                  onClick={() => onPick(group.name, value)}
+                  className={`h-11 border font-[family-name:var(--font-plex)] text-[13px] ${value === picked[group.name] ? "border-text bg-text text-bg" : "border-control-border"}`}
+                >
+                  {value}
+                </button>
+              ))}
+            </div>
+          )}
+        </fieldset>
+      ))}
     </div>
   );
 }

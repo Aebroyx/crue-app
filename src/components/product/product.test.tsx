@@ -83,4 +83,36 @@ describe("REQ-008 product page", () => {
     );
     expect(file).not.toMatch(/currency/);
   });
+
+  it("REQ-008 shows sleeve length and a Shopify colour from the product options", () => {
+    const base = productByHandle("horizon-shell-jacket")!;
+    render(
+      <Product
+        product={{
+          ...base,
+          options: [
+            { name: "Colour", values: ["Black"] },
+            { name: "Size", values: ["M"] },
+            { name: "Sleeve length type", values: ["Short", "Long"] },
+          ],
+          variants: ["Short", "Long"].map((sleeve) => ({
+            id: sleeve,
+            availableForSale: true,
+            selectedOptions: [
+              { name: "Colour", value: "Black" },
+              { name: "Size", value: "M" },
+              { name: "Sleeve length type", value: sleeve },
+            ],
+            price: { amount: "10" },
+          })),
+        }}
+      />,
+    );
+
+    expect(screen.getByRole("button", { name: "Black" })).toHaveAttribute("aria-pressed", "true");
+    expect(screen.getByRole("button", { name: "Short" })).toHaveAttribute("aria-pressed", "true");
+    fireEvent.click(screen.getByRole("button", { name: "Long" }));
+    expect(screen.getByRole("button", { name: "Long" })).toHaveAttribute("aria-pressed", "true");
+    expect(screen.getAllByRole("button", { name: "Add to bag, M, Long" })).toHaveLength(2);
+  });
 });
