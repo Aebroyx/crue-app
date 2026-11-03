@@ -101,7 +101,7 @@ export function Catalog({
 
       <div className="md:flex md:items-start">
         {filtersOpen ? (
-          <aside className="hidden w-[240px] shrink-0 border-r border-line px-8 py-8 md:block">
+          <aside className="hidden w-[240px] shrink-0 border-r border-line px-8 py-8 md:block [&_button]:cursor-pointer">
             <FilterGroups
               products={products}
               category={currentCategory}
@@ -184,7 +184,7 @@ export function Catalog({
       </div>
 
       {sheetOpen ? (
-        <div role="dialog" aria-label="Filters" className="fixed inset-0 z-20 flex flex-col bg-bg md:hidden">
+        <div role="dialog" aria-label="Filters" className="fixed inset-0 z-20 flex flex-col bg-bg md:hidden [&_button]:cursor-pointer">
           <div className="flex h-[60px] items-center justify-between border-b border-line px-5">
             <span className="text-[16px] font-extrabold uppercase">Filters</span>
             <button type="button" onClick={() => setSheetOpen(false)} className="h-11 px-2">

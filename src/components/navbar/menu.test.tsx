@@ -34,6 +34,8 @@ describe("REQ-020 mobile menu", () => {
     const dialog = openMenu();
 
     expect(dialog).toHaveClass("fixed", "inset-0", "menu-panel", "md:hidden");
+    expect(dialog.className).toContain("[&_button]:cursor-pointer");
+    expect(dialog.className).toContain("[&_a]:cursor-pointer");
     expect(dialog.querySelector("[data-scrim]")).toBeNull();
     expect(within(dialog).getByRole("navigation", { name: "Main" }).textContent?.replace(/\s+/g, "")).toBe(
       "ShopRunTrainDropsAbout",
@@ -106,7 +108,7 @@ describe("REQ-020 mobile menu", () => {
     go.mockRestore();
   });
 
-  it("REQ-020 does not navigate for Account or the social labels", () => {
+  it("REQ-020 does not navigate for the social labels", () => {
     render(<Storefront showIntro={false} />);
     const address = window.location.href;
     const go = jest.spyOn(menuLink, "go").mockImplementation(() => undefined);
@@ -119,10 +121,6 @@ describe("REQ-020 mobile menu", () => {
       expect(within(dialog).queryByRole("link", { name: label })).not.toBeInTheDocument();
       fireEvent.click(social);
     }
-
-    const account = within(dialog).getByRole("button", { name: "Account" });
-    expect(account.closest("a")).toBeNull();
-    fireEvent.click(account);
 
     expect(go).not.toHaveBeenCalled();
     expect(window.location.href).toBe(address);

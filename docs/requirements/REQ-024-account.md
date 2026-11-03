@@ -60,6 +60,8 @@ Jest, with the requirement id in the name:
 - `REQ-024 does not navigate from the menu Account row`
 - `REQ-024 does not add an account route`
 
+[REQ-033](REQ-033-customer-account.md) replaces the two navigation cases. Those controls now hand the visitor to Shopify customer accounts. The route case still holds.
+
 ## Open questions
 
 This blocks any later requirement that sends the visitor to an account:

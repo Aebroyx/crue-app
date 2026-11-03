@@ -72,6 +72,6 @@ describe("REQ-024 account control", () => {
     const menu = fs.readFileSync(path.join(process.cwd(), "src/components/navbar/menu.tsx"), "utf8");
 
     expect(navbar).toMatch(/<button type="button" aria-label="Account"/);
-    expect(menu).toMatch(/<button type="button"[^>]*>\s*Account\s*<\/button>/);
+    expect(menu).toMatch(/<button[\s\S]*?type="button"[\s\S]*?>\s*Account\s*<\/button>/);
   });
 });

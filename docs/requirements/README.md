@@ -56,3 +56,4 @@ Each feature is one file: `REQ-NNN-short-name.md`. The template is [`_template.m
 | [REQ-030](REQ-030-home-hero.md) | Top banner carousel | done |
 | [REQ-031](REQ-031-home-story.md) | Home manifesto | done |
 | [REQ-032](REQ-032-sticky-nav.md) | Sticky nav | done |
+| [REQ-033](REQ-033-customer-account.md) | Customer account | done |

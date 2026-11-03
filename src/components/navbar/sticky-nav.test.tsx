@@ -25,6 +25,9 @@ describe("REQ-032 sticky nav", () => {
     const announcement = screen.getByText("Drop 001, out now").parentElement;
     const banner = document.querySelector("section");
 
+    for (const name of ["Search", "Account", "BAG (0)"]) {
+      expect(screen.getAllByRole("button", { name }).every((button) => button.classList.contains("cursor-pointer"))).toBe(true);
+    }
     expect(announcement).not.toHaveClass("sticky");
     expect(announcement).toHaveClass("bg-surface");
     expect(desktop).toHaveClass("sticky", "top-0", "bg-transparent", "border-transparent", "duration-300");

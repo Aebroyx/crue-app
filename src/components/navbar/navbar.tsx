@@ -2,12 +2,14 @@
 
 import { Menu, Search, ShoppingBag, User } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { useAccountUrl } from "@/components/account-url";
 import { useAnnouncement } from "@/components/announcement-context";
 import { Bag, useBag } from "@/components/bag/bag";
 import { MobileMenu } from "@/components/navbar/menu";
 import { SearchOverlay } from "@/components/search/search";
 import { SizeGuide } from "@/components/size-guide/size-guide";
 import { Wordmark } from "@/components/wordmark";
+import { accountLink } from "@/lib/customer-account";
 import { clearIntroCookie } from "@/lib/intro-cookie";
 import type { Theme } from "@/lib/theme-cookie";
 
@@ -33,6 +35,7 @@ export function Navbar({
   theme?: Theme;
 }) {
   const bag = useBag();
+  const accountUrl = useAccountUrl();
   const announcement = useAnnouncement();
   const barRef = useRef<HTMLDivElement>(null);
   const [stuck, setStuck] = useState(false);
@@ -85,16 +88,16 @@ export function Navbar({
           <Wordmark onDark={onPhoto} className="h-[22px] w-[104px]" />
         </a>
         <div className="flex items-center justify-end gap-2">
-          <button type="button" aria-label="Search" onClick={() => setSearchOpen(true)} className="flex size-11 items-center justify-center">
+          <button type="button" aria-label="Search" onClick={() => setSearchOpen(true)} className="flex size-11 cursor-pointer items-center justify-center">
             <Search className="size-5" strokeWidth={1.5} aria-hidden />
           </button>
-          <button type="button" aria-label="Account" className="flex size-11 items-center justify-center">
+          <button type="button" aria-label="Account" onClick={() => accountLink.go(accountUrl)} className="flex size-11 cursor-pointer items-center justify-center">
             <User className="size-5" strokeWidth={1.5} aria-hidden />
           </button>
           <button
             type="button"
             onClick={bag.openBag}
-            className="flex h-11 items-center gap-2 px-1 font-[family-name:var(--font-plex)] text-[12px] tracking-[0.1em]"
+            className="flex h-11 cursor-pointer items-center gap-2 px-1 font-[family-name:var(--font-plex)] text-[12px] tracking-[0.1em]"
           >
             <ShoppingBag className="size-5" strokeWidth={1.5} aria-hidden />
             <span>BAG ({bag.count})</span>
@@ -110,14 +113,14 @@ export function Navbar({
           <Wordmark onDark={onPhoto} className="h-[18px] w-[86px]" />
         </a>
         <div className="flex">
-          <button type="button" aria-label="Search" onClick={() => setSearchOpen(true)} className="flex size-11 items-center justify-center">
+          <button type="button" aria-label="Search" onClick={() => setSearchOpen(true)} className="flex size-11 cursor-pointer items-center justify-center">
             <Search className="size-5" strokeWidth={1.5} aria-hidden />
           </button>
           <button
             type="button"
             aria-label={`Bag, ${bag.count} items`}
             onClick={bag.openBag}
-            className="relative flex size-11 items-center justify-center"
+            className="relative flex size-11 cursor-pointer items-center justify-center"
           >
             <ShoppingBag className="size-5" strokeWidth={1.5} aria-hidden />
             {bag.count > 0 ? (

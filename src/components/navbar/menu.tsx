@@ -2,7 +2,9 @@
 
 import { useEffect, useRef, useState, type MouseEvent } from "react";
 import { ArrowRight, X } from "lucide-react";
+import { useAccountUrl } from "@/components/account-url";
 import { Wordmark } from "@/components/wordmark";
+import { accountLink } from "@/lib/customer-account";
 import { chooseTheme, themeEvent, type Theme } from "@/lib/theme-cookie";
 
 const mainLinks = [
@@ -47,6 +49,7 @@ export function MobileMenu({
   onClose: () => void;
   onSizeGuide: () => void;
 }) {
+  const accountUrl = useAccountUrl();
   const dialogRef = useRef<HTMLDivElement>(null);
   const onCloseRef = useRef(onClose);
   const [current, setCurrent] = useState(theme);
@@ -150,7 +153,7 @@ export function MobileMenu({
       aria-modal="true"
       aria-label="Menu"
       tabIndex={-1}
-      className={`menu-panel fixed inset-0 z-40 flex flex-col bg-bg font-[family-name:var(--font-benzin)] text-text outline-none md:hidden ${closing ? "menu-panel-out" : ""}`}
+          className={`menu-panel fixed inset-0 z-40 flex flex-col bg-bg font-[family-name:var(--font-benzin)] text-text outline-none md:hidden [&_a]:cursor-pointer [&_button]:cursor-pointer ${closing ? "menu-panel-out" : ""}`}
     >
       <div className="flex h-[60px] shrink-0 items-center justify-between border-b border-line pr-2 pl-5">
         <Wordmark className="h-[18px] w-[86px]" />
@@ -173,7 +176,11 @@ export function MobileMenu({
           ))}
         </nav>
         <nav aria-label="Help" className="flex flex-col px-5 pt-6">
-          <button type="button" className="flex h-10 items-center bg-transparent text-left text-[15px] text-text-2 hover:opacity-75">
+          <button
+            type="button"
+            onClick={() => accountLink.go(accountUrl)}
+            className="flex h-10 items-center bg-transparent text-left text-[15px] text-text-2 hover:opacity-75"
+          >
             Account
           </button>
           <a

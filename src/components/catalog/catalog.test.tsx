@@ -10,6 +10,7 @@ describe("REQ-011 catalog", () => {
     home.unmount();
 
     render(<Catalog />);
+    expect(document.querySelector("aside")?.className).toContain("[&_button]:cursor-pointer");
     expect(screen.getByRole("link", { name: "Shop" })).toHaveAttribute("aria-current", "page");
     expect(screen.queryByRole("heading", { name: "Enter the orbit" })).not.toBeInTheDocument();
   });
