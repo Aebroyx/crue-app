@@ -6,6 +6,7 @@ import { useBag } from "@/components/bag/bag";
 import { ProductImage } from "@/components/product-image/product-image";
 import { Footer } from "@/components/footer/footer";
 import { Navbar } from "@/components/navbar/navbar";
+import { useSizeCharts } from "@/components/size-chart-context";
 import { SizeGuide } from "@/components/size-guide/size-guide";
 import { swatchFill, type CatalogProduct } from "@/lib/catalog";
 import { type Recommendation } from "@/lib/recommendations";
@@ -35,6 +36,8 @@ export function Product({
   const [added, setAdded] = useState(false);
   const [notifiedFor, setNotifiedFor] = useState<string | null>(null);
   const [guide, setGuide] = useState(false);
+  const charts = useSizeCharts();
+  const chart = charts.find((item) => item.id === product.sizeChartId);
   const bag = useBag();
   const price = matchingVariant(product, selected)?.price.amount ?? product.variants[0]?.price.amount ?? "[PRICE]";
   const extras = product.options
@@ -166,7 +169,7 @@ export function Product({
               <fieldset key={option.name} aria-label={option.name} className="border-0 p-0">
                 <div className="mb-3 flex items-center justify-between md:mb-3.5">
                   <span className="text-[13px] text-text-2">{option.name}</span>
-                  {option.name === "Size" ? (
+                  {option.name === "Size" && chart ? (
                     <button type="button" onClick={() => setGuide(true)} className="cursor-pointer py-3 text-[13px] underline-offset-4">
                       Size guide
                     </button>
@@ -242,7 +245,7 @@ export function Product({
           <ArrowRight className="size-[18px]" strokeWidth={1.5} aria-hidden />
         </button>
       </div>
-      <SizeGuide open={guide} onClose={() => setGuide(false)} />
+      <SizeGuide open={guide} charts={chart ? [chart] : []} onClose={() => setGuide(false)} />
       <YouMayAlsoLike product={product} recommendations={recommendations} />
       <Footer theme={theme} />
     </div>

@@ -2,11 +2,13 @@
 
 import { useState } from "react";
 import { ThemeSwitch } from "@/components/home/theme-switch";
+import { useSizeCharts } from "@/components/size-chart-context";
 import { SizeGuide } from "@/components/size-guide/size-guide";
 import { Wordmark } from "@/components/wordmark";
 import type { Theme } from "@/lib/theme-cookie";
 
 export function Footer({ theme = "light" }: { theme?: Theme }) {
+  const charts = useSizeCharts();
   const [guide, setGuide] = useState(false);
 
   return (
@@ -23,15 +25,17 @@ export function Footer({ theme = "light" }: { theme?: Theme }) {
           <span className="text-[12px] font-bold tracking-[0.1em] text-muted">HELP</span>
           <a href="/policies/shipping">Shipping</a>
           <a href="/policies/returns">Returns</a>
-          <a
-            href="#size-guide"
-            onClick={(event) => {
-              event.preventDefault();
-              setGuide(true);
-            }}
-          >
-            Size guide
-          </a>
+          {charts.length > 0 ? (
+            <a
+              href="#size-guide"
+              onClick={(event) => {
+                event.preventDefault();
+                setGuide(true);
+              }}
+            >
+              Size guide
+            </a>
+          ) : null}
           <a href="/policies/shipping" className="hidden md:inline">Contact</a>
         </nav>
       </div>
@@ -44,7 +48,7 @@ export function Footer({ theme = "light" }: { theme?: Theme }) {
           </span>
         </div>
       </div>
-      <SizeGuide open={guide} onClose={() => setGuide(false)} />
+      <SizeGuide open={guide} charts={charts} onClose={() => setGuide(false)} />
     </footer>
   );
 }

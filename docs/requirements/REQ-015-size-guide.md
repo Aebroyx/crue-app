@@ -78,9 +78,9 @@ Jest, with the requirement id in the name:
 
 - `REQ-015 opens the size guide from the product page`
 - `REQ-015 opens the size guide from the footer`
-- `REQ-015 starts on Tops in centimetres`
-- `REQ-015 switches category and units`
 - `REQ-015 closes on the control, Escape, and the scrim`
+
+`REQ-015 starts on Tops in centimetres` and `REQ-015 switches category and units` asserted the placeholder cells and the category and unit controls. [REQ-035](REQ-035-size-chart.md) replaces that table, so those two cases are not run.
 - `REQ-015 uses the desktop dialog and the phone sheet`
 
 That the overlay matches the light and dark size guide screens at 390 and at 1440 is a browser check. Jest in this requirement does not prove the pixels.

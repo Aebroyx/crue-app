@@ -2,41 +2,26 @@
 
 import { useEffect, useRef, useState } from "react";
 import { X } from "lucide-react";
-
-const sizes = ["XS", "S", "M", "L", "XL", "XXL"];
-
-const charts = {
-  Tops: {
-    columns: ["Chest", "Waist", "Length"],
-    notes: [
-      ["Chest", "Measure around the fullest part of your chest, keeping the tape level under your arms."],
-      ["Waist", "Measure around your natural waist, the narrowest part of your torso."],
-      ["Length", "Measured on the garment, from the highest point of the shoulder to the hem."],
-    ],
-  },
-  Bottoms: {
-    columns: ["Waist", "Hip", "Inseam"],
-    notes: [
-      ["Waist", "Measure around your natural waist, the narrowest part of your torso."],
-      ["Hip", "Stand with feet together and measure around the fullest part of your hips."],
-      ["Inseam", "Measure from the top of your inner thigh down to your ankle."],
-    ],
-  },
-} as const;
-
-type Category = keyof typeof charts;
-type Unit = "cm" | "in";
+import { orderSizeCharts, type SizeChart } from "@/lib/size-chart";
 
 function prefersReducedMotion() {
   if (typeof window.matchMedia !== "function") return true;
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
-export function SizeGuide({ open, onClose }: { open: boolean; onClose: () => void }) {
+export function SizeGuide({
+  open,
+  onClose,
+  charts,
+}: {
+  open: boolean;
+  onClose: () => void;
+  charts: SizeChart[];
+}) {
+  const ordered = orderSizeCharts(charts);
   const dialogRef = useRef<HTMLDivElement>(null);
   const onCloseRef = useRef(onClose);
-  const [category, setCategory] = useState<Category>("Tops");
-  const [unit, setUnit] = useState<Unit>("cm");
+  const [chartId, setChartId] = useState(ordered[0]?.id ?? "");
   const [closing, setClosing] = useState(false);
 
   onCloseRef.current = onClose;
@@ -52,8 +37,7 @@ export function SizeGuide({ open, onClose }: { open: boolean; onClose: () => voi
   useEffect(() => {
     if (!open) {
       setClosing(false);
-      setCategory("Tops");
-      setUnit("cm");
+      setChartId(ordered[0]?.id ?? "");
       return;
     }
 
@@ -87,12 +71,17 @@ export function SizeGuide({ open, onClose }: { open: boolean; onClose: () => voi
       document.removeEventListener("keydown", onKey);
       previous?.focus();
     };
+    // Reset the selected chart when the dialog closes. `charts` is read from this render.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
-  if (!open) return null;
+  if (!open || ordered.length === 0) return null;
 
-  const chart = charts[category];
-  const value = unit === "cm" ? "[cm]" : "[in]";
+  const chart = ordered.find((item) => item.id === chartId) ?? ordered[0];
+  const measureNotes = chart.columns.flatMap((column, index) => {
+    const note = chart.notes[index]?.trim() ?? "";
+    return note ? [{ column, note }] : [];
+  });
 
   return (
     <div className="fixed inset-0 z-40 flex items-end font-[family-name:var(--font-benzin)] text-text md:items-center md:justify-center">
@@ -119,78 +108,70 @@ export function SizeGuide({ open, onClose }: { open: boolean; onClose: () => voi
           </button>
         </div>
         <div className="flex min-h-0 flex-1 flex-col gap-6 overflow-y-auto px-5 pt-6 pb-8 md:px-9">
-          <div className="flex items-center justify-between gap-3">
-            <div role="tablist" aria-label="Category" className="flex border border-control-border">
-              {(["Tops", "Bottoms"] as const).map((tab) => (
+          {ordered.length > 1 ? (
+            <div role="tablist" aria-label="Chart" className="flex border border-control-border">
+              {ordered.map((item) => (
                 <button
-                  key={tab}
+                  key={item.id}
                   type="button"
                   role="tab"
-                  aria-selected={category === tab}
-                  onClick={() => setCategory(tab)}
+                  aria-selected={item.id === chart.id}
+                  onClick={() => setChartId(item.id)}
                   className={`h-10 px-4 font-[family-name:var(--font-plex)] text-[11px] tracking-[0.14em] uppercase ${
-                    category === tab ? "bg-text text-bg" : "bg-transparent text-text"
+                    item.id === chart.id ? "bg-text text-bg" : "bg-transparent text-text"
                   }`}
                 >
-                  {tab}
+                  {item.name}
                 </button>
               ))}
             </div>
-            <div role="group" aria-label="Units" className="flex border border-control-border">
-              {(["cm", "in"] as const).map((choice) => (
-                <button
-                  key={choice}
-                  type="button"
-                  aria-pressed={unit === choice}
-                  onClick={() => setUnit(choice)}
-                  className={`h-10 px-4 font-[family-name:var(--font-plex)] text-[11px] tracking-[0.14em] uppercase ${
-                    unit === choice ? "bg-text text-bg" : "bg-transparent text-text"
-                  }`}
-                >
-                  {choice}
-                </button>
-              ))}
-            </div>
-          </div>
-          <table className="w-full border-collapse text-[14px]">
-            <thead>
-              <tr className="text-left font-[family-name:var(--font-plex)] text-[11px] font-normal tracking-[0.14em] text-muted uppercase">
-                <th scope="col" className="pb-3 font-normal">
-                  Size
-                </th>
-                {chart.columns.map((column) => (
-                  <th key={column} scope="col" className="pb-3 font-normal">
-                    {column}
+          ) : null}
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse text-[14px]">
+              <thead>
+                <tr className="text-left font-[family-name:var(--font-plex)] text-[11px] font-normal tracking-[0.14em] text-muted uppercase">
+                  <th scope="col" className="pb-3 font-normal">
+                    Size
                   </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {sizes.map((size) => (
-                <tr key={size} className="border-t border-line">
-                  <th scope="row" className="py-3.5 text-left font-bold">
-                    {size}
-                  </th>
-                  {chart.columns.map((column) => (
-                    <td key={column} className="py-3.5 font-[family-name:var(--font-plex)] text-text-2">
-                      {value}
-                    </td>
+                  {chart.columns.map((column, index) => (
+                    <th key={`${column}-${index}`} scope="col" className="pb-3 font-normal">
+                      {column}
+                    </th>
                   ))}
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {chart.rows.map((row, rowIndex) => (
+                  <tr key={`${row.size}-${rowIndex}`} className="border-t border-line">
+                    <th scope="row" className="py-3.5 text-left font-bold">
+                      {row.size}
+                    </th>
+                    {chart.columns.map((column, index) => (
+                      <td key={`${column}-${index}`} className="py-3.5 font-[family-name:var(--font-plex)] text-text-2">
+                        {row.values[index] ?? ""}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
           <div className="flex flex-col gap-3.5 pt-2">
-            <h3 className="text-[14px] font-extrabold tracking-[0.04em] uppercase">How to measure</h3>
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-              {chart.notes.map(([title, body]) => (
-                <div key={title} className="flex flex-col gap-1.5">
-                  <span className="text-[13px] font-bold uppercase">{title}</span>
-                  <span className="text-[13px] leading-[1.55] text-text-2">{body}</span>
+            {chart.unitLabel ? <p className="text-[13px] text-muted">{chart.unitLabel}</p> : null}
+            {chart.fitNote ? <p className="text-[13px] text-muted">{chart.fitNote}</p> : null}
+            {measureNotes.length > 0 ? (
+              <>
+                <h3 className="text-[14px] font-extrabold tracking-[0.04em] uppercase">How to measure</h3>
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+                  {measureNotes.map((item) => (
+                    <div key={item.column} className="flex flex-col gap-1.5">
+                      <span className="text-[13px] font-bold uppercase">{item.column}</span>
+                      <span className="text-[13px] leading-[1.55] text-text-2">{item.note}</span>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-            <p className="text-[13px] text-muted">[Fit note: for example, true to size; size up for a relaxed fit.]</p>
+              </>
+            ) : null}
           </div>
         </div>
       </div>

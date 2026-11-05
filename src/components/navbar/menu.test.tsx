@@ -3,6 +3,8 @@ import path from "node:path";
 import { fireEvent, render, screen, within } from "@testing-library/react";
 import { Storefront } from "@/app/page";
 import { menuLink } from "@/components/navbar/menu";
+import { SizeChartProvider } from "@/components/size-chart-context";
+import type { SizeChart } from "@/lib/size-chart";
 import { themeCookieName } from "@/lib/theme-cookie";
 
 function openMenu() {
@@ -41,7 +43,7 @@ describe("REQ-020 mobile menu", () => {
       "ShopAbout",
     );
     expect(within(dialog).getByRole("navigation", { name: "Help" }).textContent?.replace(/\s+/g, "")).toBe(
-      "AccountShipping&returnsSizeguideContact",
+      "AccountShipping&returnsContact",
     );
     expect(within(dialog).getByText("Theme")).toBeInTheDocument();
     expect(within(dialog).getByRole("group", { name: "Theme" })).toBeInTheDocument();
@@ -77,7 +79,21 @@ describe("REQ-020 mobile menu", () => {
   });
 
   it("REQ-020 opens policies and the size guide", () => {
-    render(<Storefront showIntro={false} />);
+    const chart: SizeChart = {
+      id: "gid://shopify/Metaobject/tee",
+      name: "Tee",
+      position: 1,
+      unitLabel: "",
+      fitNote: "",
+      columns: ["Chest"],
+      notes: [],
+      rows: [{ size: "M", values: ["49"] }],
+    };
+    render(
+      <SizeChartProvider charts={[chart]}>
+        <Storefront showIntro={false} />
+      </SizeChartProvider>,
+    );
     const address = window.location.href;
     const go = jest.spyOn(menuLink, "go").mockImplementation(() => undefined);
 
@@ -98,8 +114,7 @@ describe("REQ-020 mobile menu", () => {
     const guide = screen.getByRole("dialog", { name: "Size guide" });
     expect(screen.queryByRole("dialog", { name: "Menu" })).not.toBeInTheDocument();
     expect(guide).toHaveClass("size-guide-panel");
-    expect(within(guide).getByRole("tab", { name: "Tops" })).toHaveAttribute("aria-selected", "true");
-    expect(within(guide).getByRole("button", { name: "cm" })).toHaveAttribute("aria-pressed", "true");
+    expect(within(guide).getByRole("columnheader", { name: "Chest" })).toBeInTheDocument();
     expect(go).toHaveBeenCalledTimes(2);
     expect(window.location.href).toBe(address);
     go.mockRestore();

@@ -58,3 +58,4 @@ Each feature is one file: `REQ-NNN-short-name.md`. The template is [`_template.m
 | [REQ-032](REQ-032-sticky-nav.md) | Sticky nav | done |
 | [REQ-033](REQ-033-customer-account.md) | Customer account | done |
 | [REQ-034](REQ-034-nav-links.md) | Nav links | done |
+| [REQ-035](REQ-035-size-chart.md) | Size chart | done |

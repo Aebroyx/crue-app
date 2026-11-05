@@ -7,6 +7,7 @@ import { useAnnouncement } from "@/components/announcement-context";
 import { Bag, useBag } from "@/components/bag/bag";
 import { MobileMenu } from "@/components/navbar/menu";
 import { SearchOverlay } from "@/components/search/search";
+import { useSizeCharts } from "@/components/size-chart-context";
 import { SizeGuide } from "@/components/size-guide/size-guide";
 import { Wordmark } from "@/components/wordmark";
 import { accountLink } from "@/lib/customer-account";
@@ -29,6 +30,7 @@ export function Navbar({
   overlay?: boolean;
   theme?: Theme;
 }) {
+  const charts = useSizeCharts();
   const bag = useBag();
   const accountUrl = useAccountUrl();
   const announcement = useAnnouncement();
@@ -129,12 +131,13 @@ export function Navbar({
         open={menuOpen}
         theme={theme}
         onClose={() => setMenuOpen(false)}
+        showSizeGuide={charts.length > 0}
         onSizeGuide={() => {
           setMenuOpen(false);
           setGuide(true);
         }}
       />
-      <SizeGuide open={guide} onClose={() => setGuide(false)} />
+      <SizeGuide open={guide} charts={charts} onClose={() => setGuide(false)} />
     </>
   );
 }

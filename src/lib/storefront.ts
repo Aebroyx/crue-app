@@ -41,6 +41,13 @@ const productQuery = `
             altText
           }
         }
+        sizeChart: metafield(namespace: "custom", key: "size_chart") {
+          reference {
+            ... on Metaobject {
+              id
+            }
+          }
+        }
       }
     }
   }
@@ -62,6 +69,7 @@ type StorefrontNode = {
     }[];
   };
   images?: { nodes?: { url?: string | null; altText?: string | null }[] };
+  sizeChart?: { reference?: { id?: string | null } | null } | null;
 };
 
 type ProductConnection = {
@@ -111,6 +119,7 @@ export function mapStorefrontProduct(node: StorefrontNode): CatalogProduct {
     category: node.productType ?? "",
     listingColours: colours,
     listingSizes: sizes,
+    sizeChartId: node.sizeChart?.reference?.id || undefined,
   };
 }
 

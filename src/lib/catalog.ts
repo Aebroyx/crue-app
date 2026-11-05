@@ -21,6 +21,7 @@ export type CatalogProduct = {
   category: string;
   listingColours: string[];
   listingSizes: string[];
+  sizeChartId?: string;
 };
 
 let products: CatalogProduct[] = [];

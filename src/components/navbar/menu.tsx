@@ -40,11 +40,13 @@ export function MobileMenu({
   theme = "light",
   onClose,
   onSizeGuide,
+  showSizeGuide = false,
 }: {
   open: boolean;
   theme?: Theme;
   onClose: () => void;
   onSizeGuide: () => void;
+  showSizeGuide?: boolean;
 }) {
   const accountUrl = useAccountUrl();
   const dialogRef = useRef<HTMLDivElement>(null);
@@ -187,13 +189,15 @@ export function MobileMenu({
           >
             {policyLinks[0].label}
           </a>
-          <button
-            type="button"
-            onClick={onSizeGuide}
-            className="flex h-10 items-center bg-transparent text-left text-[15px] text-text-2 hover:opacity-75"
-          >
-            Size guide
-          </button>
+          {showSizeGuide ? (
+            <button
+              type="button"
+              onClick={onSizeGuide}
+              className="flex h-10 items-center bg-transparent text-left text-[15px] text-text-2 hover:opacity-75"
+            >
+              Size guide
+            </button>
+          ) : null}
           <a
             href={policyLinks[1].href}
             onClick={(event) => follow(event, policyLinks[1].href)}

@@ -3,7 +3,9 @@ import { cookies } from "next/headers";
 import { AccountUrlProvider } from "@/components/account-url";
 import { AnnouncementProvider } from "@/components/announcement-context";
 import { CatalogProvider } from "@/components/catalog-context";
+import { SizeChartProvider } from "@/components/size-chart-context";
 import { storefrontAnnouncement } from "@/lib/announcement";
+import { storefrontSizeCharts } from "@/lib/size-chart";
 import { customerAccountUrl } from "@/lib/customer-account";
 import { benzin, geist, plex } from "@/lib/fonts";
 import { storefrontProducts } from "@/lib/storefront";
@@ -29,7 +31,11 @@ export default async function RootLayout({
 }>) {
   const jar = await cookies();
   const theme = themeFromCookie(jar.get(themeCookieName)?.value);
-  const [products, announcement] = await Promise.all([storefrontProducts(), storefrontAnnouncement()]);
+  const [products, announcement, charts] = await Promise.all([
+    storefrontProducts(),
+    storefrontAnnouncement(),
+    storefrontSizeCharts(),
+  ]);
 
   return (
     <html
@@ -40,7 +46,9 @@ export default async function RootLayout({
       <body className={`${geist.className} bg-bg text-text antialiased`}>
         <AccountUrlProvider url={customerAccountUrl()}>
           <AnnouncementProvider announcement={announcement}>
-            <CatalogProvider products={products}>{children}</CatalogProvider>
+            <SizeChartProvider charts={charts}>
+              <CatalogProvider products={products}>{children}</CatalogProvider>
+            </SizeChartProvider>
           </AnnouncementProvider>
         </AccountUrlProvider>
       </body>
