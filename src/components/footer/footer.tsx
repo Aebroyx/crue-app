@@ -17,8 +17,6 @@ export function Footer({ theme = "light" }: { theme?: Theme }) {
         <nav aria-label="Shop" className="flex flex-col gap-3 text-[14px] md:gap-3.5">
           <span className="text-[12px] font-bold tracking-[0.1em] text-muted">SHOP</span>
           <a href="#drop">New arrivals</a>
-          <a href="#drop">Run</a>
-          <a href="#drop">Train</a>
           <a href="#drop" className="hidden md:inline">Accessories</a>
         </nav>
         <nav aria-label="Help" className="flex flex-col gap-3 text-[14px] md:gap-3.5">

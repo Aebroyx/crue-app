@@ -4,7 +4,7 @@ import { Intro } from "@/components/intro/intro";
 import { storefrontBanners, type BannerSlide } from "@/lib/banners";
 import { storefrontManifesto, type Manifesto } from "@/lib/manifesto";
 import { catalogProducts, type CatalogProduct } from "@/lib/catalog";
-import { hasSeenIntro, introCookieName } from "@/lib/intro-cookie";
+import { introCookieName, showIntroForVisit } from "@/lib/intro-cookie";
 import { storefrontProducts } from "@/lib/storefront";
 import { themeFromCookie, themeCookieName, type Theme } from "@/lib/theme-cookie";
 
@@ -29,11 +29,17 @@ export function Storefront({
   );
 }
 
-export default async function HomePage() {
+export default async function HomePage(props?: {
+  searchParams?: Promise<{ intro?: string | string[] }>;
+}) {
   const jar = await cookies();
+  const params = props?.searchParams ? await props.searchParams : {};
   return (
     <Storefront
-      showIntro={!hasSeenIntro(jar.get(introCookieName)?.value)}
+      showIntro={showIntroForVisit(jar.get(introCookieName)?.value, {
+        intro: params.intro !== undefined,
+        development: process.env.NODE_ENV === "development",
+      })}
       theme={themeFromCookie(jar.get(themeCookieName)?.value)}
       products={await storefrontProducts()}
       banners={await storefrontBanners()}

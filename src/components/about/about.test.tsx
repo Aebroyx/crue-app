@@ -15,7 +15,6 @@ describe("REQ-012 about", () => {
 
     expect(within(nav).getByRole("link", { name: "About" })).toHaveAttribute("href", "/about");
     expect(within(nav).queryByRole("link", { name: "Journal" })).toBeNull();
-    expect(within(nav).getByRole("link", { name: "Run" })).toHaveAttribute("href", "#drop");
   });
 
   it("REQ-012 underlines About only on its page", () => {

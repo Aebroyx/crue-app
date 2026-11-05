@@ -9,9 +9,6 @@ import { chooseTheme, themeEvent, type Theme } from "@/lib/theme-cookie";
 
 const mainLinks = [
   { label: "Shop", href: "/catalog" },
-  { label: "Run", href: "/catalog" },
-  { label: "Train", href: "/catalog" },
-  { label: "Drops", href: "/" },
   { label: "About", href: "/about" },
 ] as const;
 

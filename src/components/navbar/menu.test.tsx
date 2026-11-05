@@ -38,7 +38,7 @@ describe("REQ-020 mobile menu", () => {
     expect(dialog.className).toContain("[&_a]:cursor-pointer");
     expect(dialog.querySelector("[data-scrim]")).toBeNull();
     expect(within(dialog).getByRole("navigation", { name: "Main" }).textContent?.replace(/\s+/g, "")).toBe(
-      "ShopRunTrainDropsAbout",
+      "ShopAbout",
     );
     expect(within(dialog).getByRole("navigation", { name: "Help" }).textContent?.replace(/\s+/g, "")).toBe(
       "AccountShipping&returnsSizeguideContact",
@@ -54,14 +54,11 @@ describe("REQ-020 mobile menu", () => {
     expect(within(dialog).getByRole("button", { name: "Close menu" })).toHaveFocus();
   });
 
-  it("REQ-020 navigates Shop, Run, Train, Drops, and About", () => {
+  it("REQ-020 navigates Shop and About", () => {
     render(<Storefront showIntro={false} />);
     const go = jest.spyOn(menuLink, "go").mockImplementation(() => undefined);
     const expected = [
       ["Shop", "/catalog"],
-      ["Run", "/catalog"],
-      ["Train", "/catalog"],
-      ["Drops", "/"],
       ["About", "/about"],
     ] as const;
 

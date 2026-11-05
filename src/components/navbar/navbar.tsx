@@ -10,12 +10,7 @@ import { SearchOverlay } from "@/components/search/search";
 import { SizeGuide } from "@/components/size-guide/size-guide";
 import { Wordmark } from "@/components/wordmark";
 import { accountLink } from "@/lib/customer-account";
-import { clearIntroCookie } from "@/lib/intro-cookie";
 import type { Theme } from "@/lib/theme-cookie";
-
-function replayIntro() {
-  document.cookie = clearIntroCookie();
-}
 
 function navSurface(overlay: boolean, stuck: boolean) {
   const place = "sticky top-0 z-30 text-text transition-[background-color,border-color,color] duration-300 ease-out";
@@ -73,9 +68,6 @@ export function Navbar({
           >
             Shop
           </a>
-          <a href="#drop">Run</a>
-          <a href="#drop">Train</a>
-          <a href="#drop">Drops</a>
           <a
             href="/about"
             aria-current={aboutCurrent ? "page" : undefined}
@@ -84,7 +76,7 @@ export function Navbar({
             About
           </a>
         </nav>
-        <a href="/" aria-label="CRUE home" className="justify-self-center" onClick={replayIntro}>
+        <a href="/" aria-label="CRUE home" className="justify-self-center">
           <Wordmark onDark={onPhoto} className="h-[22px] w-[104px]" />
         </a>
         <div className="flex items-center justify-end gap-2">
@@ -109,7 +101,7 @@ export function Navbar({
         <button type="button" aria-label="Menu" onClick={() => setMenuOpen(true)} className="flex size-11 items-center justify-center">
           <Menu className="size-[22px]" strokeWidth={1.5} aria-hidden />
         </button>
-        <a href="/" aria-label="CRUE home" onClick={replayIntro}>
+        <a href="/" aria-label="CRUE home">
           <Wordmark onDark={onPhoto} className="h-[18px] w-[86px]" />
         </a>
         <div className="flex">

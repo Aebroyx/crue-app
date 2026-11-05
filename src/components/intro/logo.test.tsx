@@ -43,7 +43,7 @@ describe("REQ-013 intro logo", () => {
 
     fireEvent.click(screen.getByRole("button", { name: "Enter" }));
 
-    expect(document.cookie).toContain("crue_intro=1");
+    expect(document.cookie).toMatch(/crue_intro=\d+/);
     expect(document.querySelector("[data-intro]")).not.toBeInTheDocument();
   });
 

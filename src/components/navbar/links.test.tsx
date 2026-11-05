@@ -9,15 +9,16 @@ describe("REQ-009 home and intro links", () => {
 
   it("REQ-009 does not clear the intro when Shop is used", () => {
     document.cookie = introCookie();
+    const seen = document.cookie;
     render(<Storefront showIntro={false} />);
 
     fireEvent.click(screen.getByRole("link", { name: "Shop" }));
 
     expect(screen.getByRole("link", { name: "Shop" })).toHaveAttribute("href", "/catalog");
-    expect(document.cookie).toContain(`${introCookieName}=1`);
+    expect(document.cookie).toBe(seen);
   });
 
-  it("REQ-009 sends the wordmark to the intro", () => {
+  it("REQ-009 sends the wordmark home", () => {
     document.cookie = introCookie();
     render(<Storefront showIntro={false} />);
 
@@ -28,7 +29,7 @@ describe("REQ-009 home and intro links", () => {
     }
 
     fireEvent.click(marks[0]);
-    expect(document.cookie).not.toContain(`${introCookieName}=1`);
+    expect(document.cookie).toContain(`${introCookieName}=`);
   });
 
   it("REQ-009 dismisses the replay with Enter", () => {
@@ -37,16 +38,13 @@ describe("REQ-009 home and intro links", () => {
     fireEvent.click(screen.getByRole("button", { name: "Enter" }));
 
     expect(document.querySelector("[data-intro]")).toBeNull();
-    expect(screen.getByRole("heading", { name: /Event\s+Horizon/ })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "The Drop" })).toBeInTheDocument();
   });
 
   it("REQ-009 leaves the other nav links and the footer wordmark unchanged", () => {
     render(<Storefront showIntro={false} />);
 
     const nav = screen.getByRole("navigation", { name: "Main" });
-    expect(within(nav).getByRole("link", { name: "Run" })).toHaveAttribute("href", "#drop");
-    expect(within(nav).getByRole("link", { name: "Train" })).toHaveAttribute("href", "#drop");
-    expect(within(nav).getByRole("link", { name: "Drops" })).toHaveAttribute("href", "#drop");
     expect(within(nav).getByRole("link", { name: "About" })).toHaveAttribute("href", "/about");
     expect(within(nav).queryByRole("link", { name: "Journal" })).toBeNull();
 

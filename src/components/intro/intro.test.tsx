@@ -43,6 +43,8 @@ describe("REQ-002 intro sequence", () => {
       "src",
       "/brand/crue-wordmark-white.png",
     );
+    expect(document.querySelector("[data-intro]")).toHaveClass("z-50");
+    expect(document.body.style.overflow).toBe("hidden");
   });
 
   it("REQ-002 uses the desktop and mobile intro copy", () => {
@@ -73,16 +75,18 @@ describe("REQ-002 intro sequence", () => {
 
     fireEvent.click(screen.getByRole("button", { name: "Enter" }));
 
-    expect(document.cookie).toContain(`${introCookieName}=1`);
+    const seenAt = document.cookie.match(new RegExp(`${introCookieName}=(\\d+)`))?.[1];
+    expect(seenAt).toEqual(expect.any(String));
     expect(screen.queryByRole("img", { name: "CRUE mark" })).not.toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: /Event\s+Horizon/ })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "The Drop" })).toBeInTheDocument();
+    expect(document.body.style.overflow).toBe("");
 
     cleanup();
-    cookieGet.mockReturnValue({ value: "1" });
-    expect(hasSeenIntro("1")).toBe(true);
+    cookieGet.mockReturnValue({ value: seenAt });
+    expect(hasSeenIntro(seenAt)).toBe(true);
     render(await HomePage());
     expect(screen.queryByRole("img", { name: "CRUE mark" })).not.toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: /Event\s+Horizon/ })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "The Drop" })).toBeInTheDocument();
   });
 
   it("REQ-002 shows the final still state when motion is reduced", () => {

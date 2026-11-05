@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { introCookie } from "@/lib/intro-cookie";
 
@@ -12,6 +12,20 @@ export function Intro() {
     setOpen(false);
   }
 
+  useEffect(() => {
+    if (!open) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    try {
+      window.scrollTo(0, 0);
+    } catch {
+      // jsdom does not implement scrollTo.
+    }
+    return () => {
+      document.body.style.overflow = previous;
+    };
+  }, [open]);
+
   if (!open) {
     return null;
   }
@@ -19,7 +33,7 @@ export function Intro() {
   return (
     <div
       data-intro
-      className="fixed inset-0 z-30 overflow-hidden bg-bg-intro font-[family-name:var(--font-benzin)] text-text"
+      className="fixed inset-0 z-50 overflow-hidden bg-bg-intro font-[family-name:var(--font-benzin)] text-text"
     >
       <div className="intro-stars-3 pointer-events-none absolute -inset-[20%] opacity-70" />
       <div className="intro-stars-2 pointer-events-none absolute -inset-[20%]" />
